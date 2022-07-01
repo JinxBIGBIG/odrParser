@@ -1,0 +1,121 @@
+<?xml version="1.0" standalone="yes"?>
+<OpenDRIVE>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Wed Sep  5 16:34:25 2018" north="0.0000000000000000e+00" south="0.0000000000000000e+00" east="0.0000000000000000e+00" west="0.0000000000000000e+00">
+    </header>
+    <road name="" length="9.9999999999999898e+02" id="1" junction="-1">
+        <link>
+        </link>
+        <planView>
+            <geometry s="0.0000000000000000e+00" x="-1.2502254280511215e+02" y="1.1925460544161872e+00" hdg="0.0000000000000000e+00" length="9.9999999999999898e+02">
+                <line/>
+            </geometry>
+        </planView>
+        <elevationProfile>
+            <elevation s="0.0000000000000000e+00" a="0.0000000000000000e+00" b="0.0000000000000000e+00" c="0.0000000000000000e+00" d="0.0000000000000000e+00"/>
+            <elevation s="2.7000000000000000e+02" a="0.0000000000000000e+00" b="0.0000000000000000e+00" c="-8.3333333333333339e-04" d="0.0000000000000000e+00"/>
+            <elevation s="3.3000000000000000e+02" a="-3.0000000000000000e+00" b="-1.0000000000000001e-01" c="0.0000000000000000e+00" d="0.0000000000000000e+00"/>
+            <elevation s="7.7000000000000000e+02" a="-4.7000000000000000e+01" b="-1.0000000000000001e-01" c="8.3333333333333339e-04" d="0.0000000000000000e+00"/>
+            <elevation s="8.3000000000000000e+02" a="-5.0000000000000000e+01" b="0.0000000000000000e+00" c="0.0000000000000000e+00" d="0.0000000000000000e+00"/>
+        </elevationProfile>
+        <lateralProfile>
+        </lateralProfile>
+        <lanes>
+            <laneSection s="0.0000000000000000e+00">
+                <left>
+                    <lane id="3" type="border" level="false">
+                        <link>
+                        </link>
+                        <width sOffset="0.0000000000000000e+00" a="2.0000000000000000e+01" b="0.0000000000000000e+00" c="0.0000000000000000e+00" d="0.0000000000000000e+00"/>
+                        <userData code="viStyleDef">
+                            <style sOffset="0.000000" laneStyle="opp_bo_3d_grass" mapping="right" />
+                            <fillet pos="none" style="none" id="0" />
+                        </userData>
+                    </lane>
+                    <lane id="2" type="border" level="false">
+                        <link>
+                        </link>
+                        <width sOffset="0.0000000000000000e+00" a="1.2000000000000000e+00" b="0.0000000000000000e+00" c="0.0000000000000000e+00" d="0.0000000000000000e+00"/>
+                        <userData code="viStyleDef">
+                            <style sOffset="0.000000" laneStyle="bo_std2drygrass" mapping="auto" />
+                            <fillet pos="none" style="none" id="0" />
+                        </userData>
+                    </lane>
+                    <lane id="1" type="driving" level="false">
+                        <link>
+                        </link>
+                        <width sOffset="0.0000000000000000e+00" a="3.7500000000000000e+00" b="0.0000000000000000e+00" c="0.0000000000000000e+00" d="0.0000000000000000e+00"/>
+                        <roadMark sOffset="0.0000000000000000e+00" type="solid" weight="standard" color="standard" width="1.3000000000000000e-01" laneChange="none" height="1.9999999552965164e-02">
+                            <type name="solid" width="1.3000000000000000e-01">
+                                <line length="9.9999999999999898e+02" space="0.0000000000000000e+00" tOffset="0.0000000000000000e+00" sOffset="0.0000000000000000e+00" rule="no passing" width="1.3000000000000000e-01"/>
+                            </type>
+                        </roadMark>
+                        <userData code="viStyleDef">
+                            <style sOffset="0.000000" laneStyle="standard" mapping="auto" />
+                            <fillet pos="none" style="none" id="0" />
+                        </userData>
+                    </lane>
+                </left>
+                <center>
+                    <lane id="0" type="none" level="false">
+                        <link>
+                        </link>
+                        <roadMark sOffset="0.0000000000000000e+00" type="solid" weight="standard" color="yellow" width="1.3000000000000000e-01" laneChange="none" height="1.9999999552965164e-02">
+                            <type name="solid" width="1.3000000000000000e-01">
+                                <line length="9.9999999999999898e+02" space="0.0000000000000000e+00" tOffset="0.0000000000000000e+00" sOffset="0.0000000000000000e+00" rule="no passing" width="1.3000000000000000e-01"/>
+                            </type>
+                        </roadMark>
+                        <userData code="viStyleDef">
+                            <fillet pos="none" style="none" id="0" />
+                        </userData>
+                    </lane>
+                </center>
+                <right>
+                    <lane id="-1" type="driving" level="false">
+                        <link>
+                        </link>
+                        <width sOffset="0.0000000000000000e+00" a="3.7500000000000000e+00" b="0.0000000000000000e+00" c="0.0000000000000000e+00" d="0.0000000000000000e+00"/>
+                        <roadMark sOffset="0.0000000000000000e+00" type="solid" weight="standard" color="standard" width="1.3000000000000000e-01" laneChange="none" height="1.9999999552965164e-02">
+                            <type name="solid" width="1.3000000000000000e-01">
+                                <line length="9.9999999999999898e+02" space="0.0000000000000000e+00" tOffset="0.0000000000000000e+00" sOffset="0.0000000000000000e+00" rule="no passing" width="1.3000000000000000e-01"/>
+                            </type>
+                        </roadMark>
+                        <userData code="viStyleDef">
+                            <style sOffset="0.000000" laneStyle="standard" mapping="auto" />
+                            <fillet pos="none" style="none" id="0" />
+                        </userData>
+                    </lane>
+                    <lane id="-2" type="border" level="false">
+                        <link>
+                        </link>
+                        <width sOffset="0.0000000000000000e+00" a="1.2000000000000000e+00" b="0.0000000000000000e+00" c="0.0000000000000000e+00" d="0.0000000000000000e+00"/>
+                        <userData code="viStyleDef">
+                            <style sOffset="0.000000" laneStyle="bo_std2drygrass" mapping="auto" />
+                            <fillet pos="none" style="none" id="0" />
+                        </userData>
+                    </lane>
+                    <lane id="-3" type="border" level="false">
+                        <link>
+                        </link>
+                        <width sOffset="0.0000000000000000e+00" a="2.0000000000000000e+01" b="0.0000000000000000e+00" c="0.0000000000000000e+00" d="0.0000000000000000e+00"/>
+                        <userData code="viStyleDef">
+                            <style sOffset="0.000000" laneStyle="opp_bo_3d_grass" mapping="left" />
+                            <fillet pos="none" style="none" id="0" />
+                        </userData>
+                    </lane>
+                </right>
+            </laneSection>
+        </lanes>
+        <objects>
+            <object type="tree" name="VegTreeParkway02NoGrass.flt" id="0" s="3.8906249999999956e+00" t="8.3283008330406147e+00" zOffset="-1.0079999999999996e+00" validLength="0.0000000000000000e+00" orientation="none" length="8.1300000000000008e+00" width="9.2820000000000000e+00" height="1.5529999999999999e+01" hdg="3.1415926535897931e+00" pitch="0.0000000000000000e+00" roll="0.0000000000000000e+00">
+                <repeat s="3.8906249999999956e+00" length="9.9632809999999893e+02" distance="1.5000000000000000e+01" tStart="8.3283008330406147e+00" tEnd="8.3283008330406147e+00" widthStart="9.2820000000000000e+00" widthEnd="9.2820000000000000e+00" heightStart="1.5529999999999999e+01" heightEnd="1.5529999999999999e+01" zOffsetStart="-1.0079999999999996e+00" zOffsetEnd="-1.0079999999999996e+00" />
+            </object>
+            <object type="tree" name="VegTreeParkway02NoGrass.flt" id="1" s="3.7695312499999956e+00" t="-7.6157000011309890e+00" zOffset="-1.0079999999999996e+00" validLength="0.0000000000000000e+00" orientation="none" length="8.1300000000000008e+00" width="9.2820000000000000e+00" height="1.5529999999999999e+01" hdg="0.0000000000000000e+00" pitch="0.0000000000000000e+00" roll="0.0000000000000000e+00">
+                <repeat s="3.7695312499999956e+00" length="9.9601559999999893e+02" distance="1.5000000000000000e+01" tStart="-7.6157000011309890e+00" tEnd="-7.6157000011309890e+00" widthStart="9.2820000000000000e+00" widthEnd="9.2820000000000000e+00" heightStart="1.5529999999999999e+01" heightEnd="1.5529999999999999e+01" zOffsetStart="-1.0079999999999996e+00" zOffsetEnd="-1.0079999999999996e+00" />
+            </object>
+        </objects>
+        <signals>
+        </signals>
+        <surface>
+        </surface>
+    </road>
+</OpenDRIVE>

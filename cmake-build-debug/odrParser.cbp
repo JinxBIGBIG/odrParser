@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="odrParser"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\test\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="D:/MCworkspace/odrParser/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="D:/MCworkspace/odrParser/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="D:/MCworkspace/odrParser/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="get_lane_info">
+				<Option output="D:/MCworkspace/odrParser/bin/get_lane_info.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/MCworkspace/odrParser/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/MCworkspace/odrParser/OdrManager"/>
+					<Add directory="D:/MCworkspace/odrParser/include"/>
+					<Add directory="D:/Program Files/mingw6481/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="D:/Program Files/mingw6481/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Program Files/mingw6481/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="D:/Program Files/mingw6481/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/Program Files/mingw6481/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/Program Files/mingw6481/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 get_lane_info"/>
+					<CompileFile command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="get_lane_info/fast">
+				<Option output="D:/MCworkspace/odrParser/bin/get_lane_info.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/MCworkspace/odrParser/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/MCworkspace/odrParser/OdrManager"/>
+					<Add directory="D:/MCworkspace/odrParser/include"/>
+					<Add directory="D:/Program Files/mingw6481/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="D:/Program Files/mingw6481/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Program Files/mingw6481/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="D:/Program Files/mingw6481/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/Program Files/mingw6481/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/Program Files/mingw6481/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 get_lane_info/fast"/>
+					<CompileFile command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="D:/MCworkspace/odrParser/src/dynamicMessage.cpp">
+			<Option target="get_lane_info"/>
+		</Unit>
+		<Unit filename="D:/MCworkspace/odrParser/src/jinx/DataOperation.cpp">
+			<Option target="get_lane_info"/>
+		</Unit>
+		<Unit filename="D:/MCworkspace/odrParser/src/positionInfo.cpp">
+			<Option target="get_lane_info"/>
+		</Unit>
+		<Unit filename="D:/MCworkspace/odrParser/src/staticMessage.cpp">
+			<Option target="get_lane_info"/>
+		</Unit>
+		<Unit filename="D:/MCworkspace/odrParser/test/getLaneinfo.cpp">
+			<Option target="get_lane_info"/>
+		</Unit>
+		<Unit filename="D:/MCworkspace/odrParser/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="D:/MCworkspace/odrParser/test/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\test\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

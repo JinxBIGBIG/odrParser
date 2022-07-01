@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/jinx/DataOperation.h
+vector
+-
+iostream
+-
+
+D:/MCworkspace/odrParser/src/jinx/DataOperation.cpp
+jinx/DataOperation.h
+D:/MCworkspace/odrParser/src/jinx/jinx/DataOperation.h
+
