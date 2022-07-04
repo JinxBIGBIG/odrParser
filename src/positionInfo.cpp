@@ -1322,7 +1322,15 @@ CaColor GetPositionInfo::RoadMarkColorMapping(const int odrColor){
     else
         return kUnknown;
 }
-
+CaRoadType GetPositionInfo::RoadTypeMapping(const int &roadType){
+    if(ODR_LANE_TYPE_DRIVING == roadType)
+        return kRoadTHighway;
+    else if(ODR_LANE_TYPE_ENTRY == roadType || ODR_LANE_TYPE_EXIT == roadType
+            || ODR_LANE_TYPE_ON_RAMP == roadType|| ODR_LANE_TYPE_OFF_RAMP == roadType)
+        return kRoadTRamp;
+    else
+        return kRoadTInvalid;
+}
 
 CALaneWidthCurvature GetPositionInfo::CurvatureReparse(GeoHeader* geoHeader, CALaneWidthCurvature &curvature){
     if(geoHeader->mCurv == geoHeader->mCurvEnd)

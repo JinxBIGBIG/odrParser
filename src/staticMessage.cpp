@@ -29,6 +29,7 @@ static void Print(const Curvatures &curvatures)
         //cout << "curvatures.valueEnd: " << curvatures.at(i).valueEnd << endl;
     }
 }
+
 vector<CALink> StaticMap::GetCALink(GetPositionInfo &getPosInfo, GuidePaths &guidePaths) {
 
     cout << "GetCALink begins..." << endl;
@@ -77,7 +78,6 @@ vector<CALink> StaticMap::GetCALink(GetPositionInfo &getPosInfo, GuidePaths &gui
         //Print(curvaturesRoad);
         cout << "GetCurvatureInRoad rotation " << iterRoad << " over..." << endl;
 
-
         while(length <= totalLength)
         {
             //2.2.2、laneSection层级，车道连接关系中linkID可在此处获取(注意获取结束后，对其实laneSection的前驱进行单独处理)
@@ -85,14 +85,8 @@ vector<CALink> StaticMap::GetCALink(GetPositionInfo &getPosInfo, GuidePaths &gui
             link.linkLength = abs(tempLaneSection->mSEnd -tempLaneSection->mS);
 
             //roadType获取
-            roadType = getPosInfo.TraversalLane(tempLaneSection->getLaneFromId(0), roadType);
-            if(ODR_LANE_TYPE_DRIVING == roadType)
-                link.type = kRoadTHighway;
-            else if(ODR_LANE_TYPE_ENTRY == roadType || ODR_LANE_TYPE_EXIT == roadType
-                    || ODR_LANE_TYPE_ON_RAMP == roadType|| ODR_LANE_TYPE_OFF_RAMP == roadType)
-                link.type = kRoadTRamp;
-            else
-                link.type = kRoadTInvalid;
+            getPosInfo.TraversalLane(tempLaneSection->getLaneFromId(0), roadType);
+            roadType = getPosInfo.RoadTypeMapping(roadType);
 
             //获取laneSection层级的点集合，后期可优化为lane层级
             vector<vector<Gnss>> cLinePointsList;

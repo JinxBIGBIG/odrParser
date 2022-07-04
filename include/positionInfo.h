@@ -198,6 +198,8 @@ public:
 
     CaColor RoadMarkColorMapping(const int odrColor);
 
+    CaRoadType RoadTypeMapping(const int &roadType);
+
     double GetForwardCurvature(double viewRange);
 
     CALaneWidthCurvature CurvatureReparse(OpenDrive::GeoHeader *geoHeader, CALaneWidthCurvature &curvature);
