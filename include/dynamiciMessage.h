@@ -29,17 +29,18 @@ public:
 
 
     //int GetRampLaneId(int odrLaneId);
-    CARampInfoOut GetCARampInfoOut(GetPositionInfo &getPosInfo, GuidePaths &guidePaths);
+    CARampInfoOut GetCARampInfoOut(GetPositionInfo &getPosInfo, GuidePaths &guidePaths,GuidePaths &guidePathsAdded);
 
     std::vector<CARoutingPath>* GetCARoutingPath(GetPositionInfo &getPosInfo, GuidePaths &guidePaths,
                                                  std::vector<CARoutingPath>* routingPaths);
 
-    CAPathPlanningOut GetCAPathPlanningOut(GetPositionInfo &getPosInfo, GuidePaths &guidePaths);
+    CAPathPlanningOut GetCAPathPlanningOut(GetPositionInfo &getPosInfo, GuidePaths &guidePaths, GuidePaths &guidePathsAdded);
 
     CADynamicAddition GetCADynamicAddition(GetPositionInfo &getPositionInfo, GuidePaths &guidePaths);
 
 
-    CADynamicHDMapErc GetCADynamicHDMapErc(GetPositionInfo &getPosInfo, GuidePaths &guidePathsRange, GuidePaths &guidePathsEndPoint);
+    CADynamicHDMapErc GetCADynamicHDMapErc(GetPositionInfo &getPosInfo, GuidePaths &guidePathsRange, GuidePaths &guidePathsRangeAdded,
+                                           GuidePaths &guidePathsEndPoint, GuidePaths &guidePathsEndPointAdd);
 
 
     void GetLaneChangeInfo(GetPositionInfo &getPosInfo, GuidePaths &guidePaths);

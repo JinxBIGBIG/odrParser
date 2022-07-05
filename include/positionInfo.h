@@ -167,7 +167,13 @@ public:
     std::vector<std::pair<int, OpenDrive::RoadHeader* >> GetLastPaths(const Point &startPoint, std::vector<std::pair<int, int>> &inputPaths,
                                                                   std::vector<std::pair<int, OpenDrive::RoadHeader *>> &lastPaths);
 
+    OpenDrive::RoadHeader *GetShortestRoadInJunction(OpenDrive::RoadHeader* currentRoad, OpenDrive::RoadHeader *juncRoad);
+
+    std::pair<int, OpenDrive::RoadHeader*> AddNextRoad(int &dir, OpenDrive::RoadHeader* currentRoad, std::pair<int, OpenDrive::RoadHeader*> &nextRoadMessage);
+
     //待给了导航路径后采用此方法进行验证
+
+    std::vector<std::pair<int, OpenDrive::RoadHeader* >> AddJuncRoad2GuidePathsWithTwoRoads(GuidePaths guidePaths);
     std::vector<std::pair<int, OpenDrive::RoadHeader* >> AddJuncRoad2GuidePaths(std::vector<std::pair<int, int>> &inputPaths, GuidePaths &guidePaths);
     //用此替代验证
     std::vector<std::pair<int, OpenDrive::RoadHeader* >> GetGuidePaths(const int range);
@@ -226,6 +232,7 @@ public:
     void ReaderXMLTest();
 
     void Test();
+
 
 
 };

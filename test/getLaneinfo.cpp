@@ -50,18 +50,24 @@ int main(int argc, char** argv) {
     //posInfoManager.GetGuidePaths(rangeRamp);
 
     //posInfoManager.Test();
-    vector<pair<int, RoadHeader* >> guidePaths;
+    vector<pair<int, RoadHeader* >> guidePathsRange;
+    vector<pair<int, RoadHeader* >> guidePathsEndPoint;
+    vector<pair<int, RoadHeader* >> guidePathsRangeAdded;
+    vector<pair<int, RoadHeader* >> guidePathsEndPointAdded;
     //vector<pair<int, int>> inputPaths = {{1, 54}, {-1, 63}, {-1, 53}, {-1, 135}, {-1, 91}};
     //vector<pair<int, int>> inputPaths = {{-1, 110}, {-1, 102}, {-1, 94}, {-1, 15}, {-1, 3}};
-    vector<pair<int, int>> inputPaths = {{-1, 40}, {-1, 20}, {-1, 11}, {-1, 22}};
-    guidePaths = posInfoManager.AddJuncRoad2GuidePaths(inputPaths, guidePaths);
-    for(int i = 0; i< guidePaths.size(); i++)
+    vector<pair<int, int>> inputPathsEndPoint = {{-1, 40}, {-1, 20}, {-1, 11}, {-1, 22}};
+    vector<pair<int, int>> inputPathsRange = {{-1, 40}, {-1, 20}, {-1, 11}, {-1, 22}};
+    guidePathsEndPoint = posInfoManager.AddJuncRoad2GuidePaths(inputPathsEndPoint, guidePathsEndPoint);
+    guidePathsRange = posInfoManager.AddJuncRoad2GuidePaths(inputPathsRange, guidePathsRange);
+    guidePathsRangeAdded = posInfoManager.AddJuncRoad2GuidePathsWithTwoRoads(guidePathsRange);
+    guidePathsEndPointAdded = posInfoManager.AddJuncRoad2GuidePathsWithTwoRoads(guidePathsEndPoint);
+
+    for(int i = 0; i< guidePathsRangeAdded.size(); i++)
     {
-        cout << "laneId: " << guidePaths.at(i).first;
-        cout << " ;roadId: " << guidePaths.at(i).second->getId() << endl;
+        cout << "laneId: " << guidePathsRangeAdded.at(i).first;
+        cout << " ;roadId: " << guidePathsRangeAdded.at(i).second->getId() << endl;
     }
-
-
     //posInfoManager.GetRoadLinkInfos(manager, point, posInfo);
     //cout << "getRoadLinkInfos over." << endl;
     //posInfoManager.GetGeoHeader(manager, point, posInfo);
@@ -87,26 +93,26 @@ int main(int argc, char** argv) {
 //    laneSections = posInfoManager.GetLaneSectionsByEndPoint(endPoint, laneSections);
 //
 
-//    CAAnchorPosRelatedInfo anchorPosRelatedInfo;
-//    anchorPosRelatedInfo = dynamicMap.GetCAAnchorPosRelatedInfo(posInfoManager);
+    /*CAAnchorPosRelatedInfo anchorPosRelatedInfo;
+    anchorPosRelatedInfo = dynamicMap.GetCAAnchorPosRelatedInfo(posInfoManager);
 
-//    vector<CASpecialArea> specialAreas;
-//    specialAreas = dynamicMap.GetCASpecialArea( posInfoManager, guidePathsRange);
+    vector<CASpecialArea> specialAreas;
+    specialAreas = dynamicMap.GetCASpecialArea( posInfoManager, guidePathsEndPoint);
 
-//    CARampInfoOut rampInfoOut;
-//    dynamicMap.GetCARampInfoOut(posInfoManager, guidePathsRange);
+    CARampInfoOut rampInfoOut;
+    dynamicMap.GetCARampInfoOut(posInfoManager, guidePathsRange,guidePathsRangeAdded);
 
-//    vector<CARoutingPath> *routingPath = new vector<CARoutingPath>;
-//    routingPath = dynamicMap.GetCARoutingPath(posInfoManager, guidePathsRange, routingPath);
+    vector<CARoutingPath> *routingPath = new vector<CARoutingPath>;
+    routingPath = dynamicMap.GetCARoutingPath(posInfoManager, guidePathsEndPoint, routingPath);
 
-//    CADynamicAddition dynamicAddition;
-//    dynamicAddition = dynamicMap.GetCADynamicAddition(posInfoManager, guidePathsRange);
+    CADynamicAddition dynamicAddition;
+    dynamicAddition = dynamicMap.GetCADynamicAddition(posInfoManager, guidePathsEndPoint);
 
-//    CAPathPlanningOut pathPlanningOut;
-//    dynamicMap.GetCAPathPlanningOut(posInfoManager, guidePathsEndPoint);
+    CAPathPlanningOut pathPlanningOut;
+    dynamicMap.GetCAPathPlanningOut(posInfoManager, guidePathsEndPoint, guidePathsEndPointAdded);*/
 
     CADynamicHDMapErc dynamicHdMapErc;
-    dynamicHdMapErc = dynamicMap.GetCADynamicHDMapErc(posInfoManager, guidePaths, guidePaths);
+    dynamicHdMapErc = dynamicMap.GetCADynamicHDMapErc(posInfoManager, guidePathsRange, guidePathsRangeAdded, guidePathsEndPoint, guidePathsEndPointAdded);
     cout << " GetCADynamicHDMapErc over ... " << endl;
 
 
@@ -116,7 +122,7 @@ int main(int argc, char** argv) {
     //静态信息获取
     StaticMap staticMap;
     vector<CALink> caLinks;
-    caLinks = staticMap.GetCALink(posInfoManager, guidePaths);
+    caLinks = staticMap.GetCALink(posInfoManager, guidePathsEndPoint);
 
 
 //
@@ -124,8 +130,6 @@ int main(int argc, char** argv) {
     //vector<int>* roadDirs = posInfoManager.GetRoadDirs(2000);
     //vector<RoadHeader*> roads;
    // roads = posInfoManager.GetRoads(2000, roads);
-    /*vector<pair<int, RoadHeader* >> paths;
-    paths = posInfoManager.GetOptimalPathByTwoPoint(point, endPoint, paths);*/
 
 
     return 0;

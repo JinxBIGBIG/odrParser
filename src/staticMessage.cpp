@@ -68,7 +68,9 @@ vector<CALink> StaticMap::GetCALink(GetPositionInfo &getPosInfo, GuidePaths &gui
         roadHeader = getPosInfo.myManager.getRoadHeader();
         //cout << "guidePaths.at(iterRoad).second->mId: " << guidePaths.at(iterRoad).second->mId << endl;
         cout << "RoadHeader->getId: " << roadHeader->getId() << endl;
+
         speed = getPosInfo.myManager.getLaneSpeed();
+
         //默认同向，曲率获取，每次都是新的曲率集合
         Curvatures curvaturesRoad;
         curvaturesRoad = getPosInfo.GetCurvatureInRoad(originalDir, iterRoad, roadHeader, curvaturesRoad);
@@ -78,7 +80,7 @@ vector<CALink> StaticMap::GetCALink(GetPositionInfo &getPosInfo, GuidePaths &gui
         //Print(curvaturesRoad);
         cout << "GetCurvatureInRoad rotation " << iterRoad << " over..." << endl;
 
-        while(length <= totalLength)
+        while(tempLaneSection != NULL && length <= totalLength)
         {
             //2.2.2、laneSection层级，车道连接关系中linkID可在此处获取(注意获取结束后，对其实laneSection的前驱进行单独处理)
             link.linkId = iterLaneSection;
@@ -92,7 +94,6 @@ vector<CALink> StaticMap::GetCALink(GetPositionInfo &getPosInfo, GuidePaths &gui
             vector<vector<Gnss>> cLinePointsList;
             vector<vector<Gnss>> linePointsList;
             cout << "GetLaneLinePoints rotation " << iterRoad << " begins..." << endl;
-
             getPosInfo.GetLaneLinePoints(guidePaths.at(iterRoad).second, tempLaneSection, linePointsList, cLinePointsList);
             cout << "GetLaneLinePoints rotation " << iterRoad << " over..." << endl;
             //cout << "cLinePointsList.size()" << cLinePointsList.size() << endl;
@@ -129,8 +130,6 @@ vector<CALink> StaticMap::GetCALink(GetPositionInfo &getPosInfo, GuidePaths &gui
             iterLaneSection ++;
             length += link.linkLength;
             //后续无laneSection直接返回
-            if(tempLaneSection->getRight() == NULL)
-                break;
             tempLaneSection = dynamic_cast<LaneSection *>(tempLaneSection->getRight());
         }
         //更新
@@ -200,8 +199,6 @@ vector<CALine> StaticMap::GetCALine(GetPositionInfo &getPosInfo, vector<vector<G
 
 }
 
-
-
 vector<CALaneConnectivityInfo> StaticMap::GetCALaneConnectivityInfo(int dir, Lane *lane, const int linkID){
     mLaneConnectivityInfo.clear();
     CALaneConnectivityInfo laneConnectivityInfo;
@@ -239,6 +236,7 @@ static void Print(vector<CALaneWidthCurvature> &curvatureList){
         cout << curvatureList.at(i).dis << "; " << curvatureList.at(i).value << endl;
     }
 }
+
 vector<CALaneAttribute> StaticMap::GetCALaneAttribute(GetPositionInfo &getPosInfo, double speed, int linkId,
                                                       Curvatures &curvaturesRoad, vector<vector<Gnss>> &cLinePointsList,
                                                       pair<int, OpenDrive::RoadHeader*> &road, LaneSection* laneSection) {

@@ -720,7 +720,57 @@ vector<pair<int, RoadHeader*>> &GetPositionInfo::GetRoads(vector<pair<int, RoadH
 }
 //待给了导航路径再用此方法替代上边的方法
 
+RoadHeader* GetPositionInfo::GetShortestRoadInJunction(RoadHeader* currentRoad, RoadHeader* juncRoad){
+    JuncHeader *juncHeader;
+    JuncLink *juncLink;
+    int juncRoadLength;
+    juncHeader = dynamic_cast<JuncHeader *>(juncRoad->getJunction());
+    juncLink = juncHeader->getFirstLink();
+    juncRoadLength = juncLink->mConnectingRoad->mLength;
+    while (juncLink->getRight() != NULL){
+        juncLink = dynamic_cast<JuncLink *>(juncLink->getRight());
+        if(juncLink->mIncomingRoad->getId() == currentRoad->getId() && juncRoadLength < juncLink->mConnectingRoad->mLength)
+        {
+            juncRoadLength = juncLink->mConnectingRoad->mLength;
+            juncRoad = juncLink->mConnectingRoad;
+        }
+    }
+    return juncRoad;
+}
 
+pair<int, RoadHeader*> GetPositionInfo::AddNextRoad(int &dir, RoadHeader* currentRoad, pair<int, RoadHeader*> &nextRoadMessage){
+    OpenDrive::RoadHeader* nextRoad;
+    if(dir > 0){
+        if(currentRoad->getPredecessor() != NULL){
+            nextRoadMessage = {currentRoad->getPredecessorDir(), currentRoad->getPredecessor()};
+        }else if((!currentRoad->getPredecessor()) && currentRoad->getPredecessor(1)){
+            nextRoad = currentRoad->getPredecessor(1);
+            nextRoad = GetShortestRoadInJunction(currentRoad, nextRoad);
+            nextRoadMessage = {-1, nextRoad};
+        }
+    }
+    else{
+        if(currentRoad->getSuccessor() != NULL){
+            nextRoadMessage = {currentRoad->getSuccessorDir(), currentRoad->getSuccessor()};
+        }else if((!currentRoad->getSuccessor()) && currentRoad->getSuccessor(1)){
+            nextRoad = currentRoad->getSuccessor(1);
+            nextRoad = GetShortestRoadInJunction(currentRoad, nextRoad);
+            nextRoadMessage = {-1, nextRoad};
+        }
+    }
+    return nextRoadMessage;
+}
+
+GuidePaths GetPositionInfo::AddJuncRoad2GuidePathsWithTwoRoads(GuidePaths guidePaths) {
+    RoadHeader *lastRoad = guidePaths.at(guidePaths.size() - 1).second;
+    std::pair<int, OpenDrive::RoadHeader*> nextRoadMessage;
+    int dir = guidePaths.at(guidePaths.size() - 1).first;
+    nextRoadMessage = AddNextRoad(dir, lastRoad, nextRoadMessage);
+    guidePaths.push_back(nextRoadMessage);
+    nextRoadMessage = AddNextRoad(nextRoadMessage.first, nextRoadMessage.second, nextRoadMessage);
+    guidePaths.push_back(nextRoadMessage);
+    return guidePaths;
+}
 
 vector<pair<int, RoadHeader* >> GetPositionInfo::AddJuncRoad2GuidePaths(vector<pair<int, int>> &inputPaths, GuidePaths &guidePaths)
 {
@@ -751,7 +801,7 @@ vector<pair<int, RoadHeader* >> GetPositionInfo::AddJuncRoad2GuidePaths(vector<p
                 {
                     juncRoadNext = juncLink->mConnectingRoad->getSuccessor();
                     nextDir = juncLink->mConnectingRoad->getSuccessorDir();
-                    if(inputPaths.at( i+1 ).second == juncRoadNext->getId())
+                    if(juncLink->mIncomingRoad->getId() == inputPaths.at(i).second && inputPaths.at( i+1 ).second == juncRoadNext->getId())
                     {
                         guidePaths.push_back({-1, juncLink->mConnectingRoad});
                         break;
@@ -772,7 +822,7 @@ vector<pair<int, RoadHeader* >> GetPositionInfo::AddJuncRoad2GuidePaths(vector<p
                 {
                     juncRoadNext = juncLink->mConnectingRoad->getSuccessor();
                     nextDir = juncLink->mConnectingRoad->getSuccessorDir();
-                    if(inputPaths.at( i+1 ).second == juncRoadNext->getId())
+                    if(juncLink->mIncomingRoad->getId() == inputPaths.at(i).second && inputPaths.at( i+1 ).second == juncRoadNext->getId())
                     {
                         guidePaths.push_back({-1, juncLink->mConnectingRoad});
                         break;
