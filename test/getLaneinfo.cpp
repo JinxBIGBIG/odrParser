@@ -100,7 +100,7 @@ int main(int argc, char** argv) {
     specialAreas = dynamicMap.GetCASpecialArea( posInfoManager, guidePathsEndPoint);
 
     CARampInfoOut rampInfoOut;
-    dynamicMap.GetCARampInfoOut(posInfoManager, guidePathsRange,guidePathsRangeAdded);
+    dynamicMap.GetCARampInfoOut(posInfoManager, guidePathsRangeAdded);
 
     vector<CARoutingPath> *routingPath = new vector<CARoutingPath>;
     routingPath = dynamicMap.GetCARoutingPath(posInfoManager, guidePathsEndPoint, routingPath);
@@ -112,7 +112,8 @@ int main(int argc, char** argv) {
     dynamicMap.GetCAPathPlanningOut(posInfoManager, guidePathsEndPoint, guidePathsEndPointAdded);*/
 
     CADynamicHDMapErc dynamicHdMapErc;
-    dynamicHdMapErc = dynamicMap.GetCADynamicHDMapErc(posInfoManager, guidePathsRange, guidePathsRangeAdded, guidePathsEndPoint, guidePathsEndPointAdded);
+    dynamicHdMapErc = dynamicMap.GetCADynamicHDMapErc(posInfoManager, guidePathsRange, guidePathsRangeAdded,
+                                                      guidePathsEndPoint, guidePathsEndPointAdded);
     cout << " GetCADynamicHDMapErc over ... " << endl;
 
 

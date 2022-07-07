@@ -29,7 +29,7 @@ public:
 
 
     //int GetRampLaneId(int odrLaneId);
-    CARampInfoOut GetCARampInfoOut(GetPositionInfo &getPosInfo, GuidePaths &guidePaths,GuidePaths &guidePathsAdded);
+    CARampInfoOut GetCARampInfoOut(GetPositionInfo &getPosInfo, GuidePaths &guidePathsAdded);
 
     std::vector<CARoutingPath>* GetCARoutingPath(GetPositionInfo &getPosInfo, GuidePaths &guidePaths,
                                                  std::vector<CARoutingPath>* routingPaths);
@@ -44,5 +44,8 @@ public:
 
 
     void GetLaneChangeInfo(GetPositionInfo &getPosInfo, GuidePaths &guidePaths);
+
+    CARampInfoOut GetRampCase(GetPositionInfo &getPosInfo, GuidePaths &guidePaths, OpenDrive::RoadHeader *currentRoad,
+                              OpenDrive::RoadHeader *nextRoad, double currentLength, int id, int rampStatus);
 };
 #endif //ODRPARSER_DYNAMICIMESSAGE_H

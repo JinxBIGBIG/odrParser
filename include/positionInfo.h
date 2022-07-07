@@ -228,13 +228,16 @@ public:
 
     void GetCustomMessage(const Point point);
 
+    std::vector<std::pair<int, int >> ConvertPoints2Paths(std::vector<Point> &inputPoints, std::vector<std::pair<int, int >>&paths);
 
     void ReaderXMLTest();
 
     void Test();
 
 
-
+    std::tuple<int, int, double, OpenDrive::LaneSection *>
+    TraversalRoad(OpenDrive::RoadHeader *tempRoad, double currentLength, std::pair<int, int> &traversalResult,
+                  std::tuple<int, int, double, OpenDrive::LaneSection *> &traversalRoadResult);
 };
 
 #endif //ODRPARSER_POSITIONINFO_H

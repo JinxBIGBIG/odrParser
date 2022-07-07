@@ -149,7 +149,137 @@ static void Print(CARampInfoOut& rampInfoOut){
          << "mergeLaneId = " << rampInfoOut.mergeLaneId << endl;
 }
 
-CARampInfoOut DynamicMap::GetCARampInfoOut(GetPositionInfo &getPosInfo, GuidePaths &guidePaths, GuidePaths &guidePathsAdded)
+CARampInfoOut DynamicMap::GetRampCase(GetPositionInfo &getPosInfo, GuidePaths &guidePaths,RoadHeader *currentRoad,RoadHeader *nextRoad,double currentLength,int id,int rampStatus){
+    LaneSection *nextRoadLaneSection = nextRoad->getFirstLaneSection();
+    RoadHeader *nextNextRoad;
+    LaneSection *nextNextRoadLaneSection;
+    switch (getPosInfo.myPosInfo.laneType) {
+        case ODR_LANE_TYPE_ON_RAMP:
+            rampStatus = getPosInfo.TraversalLane(nextRoadLaneSection->getLaneFromId(0)).first;   //默认road方向和行驶方向一致
+//                    id = getPosInfo.TraversalLane(nextRoadLaneSection->getLaneFromId(0)).second;
+            if (ODR_LANE_TYPE_ENTRY == rampStatus) {
+                mRampInfoOut.mergeStartDis = currentLength;
+                mRampInfoOut.mergeEndDis =mRampInfoOut.mergeStartDis + (nextRoadLaneSection->mSEnd - nextRoadLaneSection->mS);
+                mRampInfoOut.mergeLaneId = pow(2, 17 - abs(id));
+
+            } else {
+                nextNextRoad = guidePaths.at(2).second;
+                nextNextRoadLaneSection = nextNextRoad->getFirstLaneSection(); //默认是entry
+                mRampInfoOut.mergeStartDis = currentLength + nextRoad->mLength;
+                mRampInfoOut.mergeEndDis = mRampInfoOut.mergeStartDis +(nextNextRoadLaneSection->mSEnd - nextNextRoadLaneSection->mS);
+                mRampInfoOut.mergeLaneId = pow(2, 17 - abs(id));
+                break;
+            }
+            break;
+        case ODR_LANE_TYPE_OFF_RAMP:
+            currentLength += nextRoad->mLength;
+            for (int i = 1; i < guidePaths.size()-2; i++) {
+                currentRoad = guidePaths.at(i).second;
+                //判断当前road是否属于junction
+                if (currentRoad->mJuncNo > 0)      //offramp-junction
+                {
+                    mRampInfoOut.splitStartDis = 0;
+                    mRampInfoOut.splitEndDis = currentLength - nextRoad->mLength;
+                    mRampInfoOut.splitRampLaneId = pow(2, 17 - abs(id));
+                    break;
+                }
+                //offramp-onramp
+                rampStatus = getPosInfo.TraversalLane((currentRoad->getFirstLaneSection())->getLaneFromId(0)).first;
+//                        id = getPosInfo.TraversalLane((currentRoad->getFirstLaneSection())->getLaneFromId(0)).second;
+                if (ODR_LANE_TYPE_ON_RAMP == rampStatus) // 等同onramp
+                {
+                    nextRoad = guidePaths.at(i + 1).second;
+                    nextRoadLaneSection = nextRoad->getFirstLaneSection();
+//                        getPosInfo.TraversalLane(nextRoadLaneSection->getLaneFromId(0), rampStatus);
+                    rampStatus = getPosInfo.TraversalLane(nextRoadLaneSection->getLaneFromId(0)).first;  //默认road方向和行驶方向一致
+//                            id = getPosInfo.TraversalLane(nextRoadLaneSection->getLaneFromId(0)).second;
+                    if (ODR_LANE_TYPE_ENTRY == rampStatus) {
+                        mRampInfoOut.mergeStartDis = currentLength;
+                        mRampInfoOut.mergeEndDis = mRampInfoOut.mergeStartDis +(nextRoadLaneSection->mSEnd - nextRoadLaneSection->mS);
+                        mRampInfoOut.mergeLaneId = pow(2, 17 - abs(id));
+                    } else {
+                        nextNextRoad = guidePaths.at(i + 2).second;
+                        nextNextRoadLaneSection = nextNextRoad->getFirstLaneSection(); //默认是entry
+                        mRampInfoOut.mergeStartDis = currentLength + nextRoad->mLength;
+                        mRampInfoOut.mergeEndDis = mRampInfoOut.mergeStartDis +
+                                                   (nextNextRoadLaneSection->mSEnd -
+                                                    nextNextRoadLaneSection->mS);
+                        mRampInfoOut.mergeLaneId = pow(2, 17 - abs(id));
+                        break;
+                    }
+                }
+                currentLength += nextRoad->mLength;
+            }
+            break;
+        case ODR_LANE_TYPE_CONNECTING_RAMP:
+            currentLength += nextRoad->mLength;
+            for (int i = 1; i < guidePaths.size()-2; i++) {
+                currentRoad = nextRoad;
+                //判断当前road是否属于junction
+                if (currentRoad->mJuncNo > 0) {
+                    //判断junction属于哪种（34or长安）
+                    nextRoad = guidePaths.at(i + 1).second;
+                    nextRoadLaneSection = nextRoad->getFirstLaneSection();
+                    rampStatus = getPosInfo.TraversalLane(nextRoadLaneSection->getLaneFromId(0)).first;
+//                            id = getPosInfo.TraversalLane(nextRoadLaneSection->getLaneFromId(0)).second;
+                    if (ODR_LANE_TYPE_ENTRY == rampStatus)    //属于3.4，计算汇流
+                    {
+                        mRampInfoOut.mergeStartDis = currentLength;
+                        mRampInfoOut.mergeEndDis = mRampInfoOut.mergeStartDis +
+                                                   (nextRoadLaneSection->mSEnd - nextRoadLaneSection->mS);
+                        mRampInfoOut.mergeLaneId = pow(2, 17 - abs(id));
+                    } else  //计算分流
+                    {
+                        mRampInfoOut.splitStartDis = 0;
+                        mRampInfoOut.splitEndDis = currentLength - currentRoad->mLength;
+                        mRampInfoOut.splitRampLaneId = pow(2, 17 - abs(id));
+                    }
+                    break;
+                }
+                nextRoad = guidePaths.at(i + 1).second;
+                currentLength += nextRoad->mLength;
+            }
+            break;
+        case ODR_LANE_TYPE_ENTRY:
+            mRampInfoOut.mergeStartDis = 0;
+            mRampInfoOut.mergeEndDis = getPosInfo.myPosInfo.section->mSEnd - getPosInfo.myPosInfo.trackS;
+//                rampInfoOut.mergeEndDis = (getPosInfo.myManager.getLaneSection()->mSEnd-getPosInfo.myPosInfo.trackS);
+            mRampInfoOut.mergeLaneId = pow(2, 17 - abs(id));
+            break;
+        case ODR_LANE_TYPE_EXIT:
+            mRampInfoOut.splitStartDis = 0;
+            mRampInfoOut.splitEndDis = getPosInfo.myPosInfo.section->mSEnd - getPosInfo.myPosInfo.trackS;
+//                rampInfoOut.splitEndDis = (getPosInfo.myManager.getLaneSection()->mSEnd-getPosInfo.myPosInfo.trackS);
+            mRampInfoOut.splitRampLaneId = pow(2, 17 - abs(id));
+            break;
+    }
+
+}
+tuple<int,int,double,LaneSection*> GetPositionInfo::TraversalRoad(RoadHeader *tempRoad, double currentLength, pair<int,int> &traversalResult,tuple<int,int,double,LaneSection*> &traversalRoadResult ){
+//    int rampStatus = 0,id;
+
+    LaneSection* currentLaneSection;
+    LaneSection* tempLaneSection = tempRoad->getFirstLaneSection();
+    traversalResult = TraversalLane(tempLaneSection->getLaneFromId(0));
+    currentLength +=tempLaneSection->mSEnd-tempLaneSection->mS;
+    if(0!=traversalResult.first||currentLength>myRange)
+        return make_tuple(traversalResult.first,traversalResult.second,currentLength,tempLaneSection);
+    while(tempLaneSection->getRight()!=NULL){
+        tempLaneSection = (LaneSection*)(tempLaneSection->getRight());
+        cout<<"iii"<<tempLaneSection->mS<<endl;
+        currentLaneSection = tempLaneSection;
+        traversalResult = TraversalLane(currentLaneSection->getLaneFromId(0));
+        currentLength +=currentLaneSection->mSEnd-currentLaneSection->mS;
+//        rampStatus = TraversalLane(currentLaneSection->getLaneFromId(0)).first;
+//        id = TraversalLane(currentLaneSection->getLaneFromId(0)).second;
+        if(0!=traversalResult.first||currentLength>myRange) break;
+
+    }
+    return make_tuple(traversalResult.first,traversalResult.second,currentLength,currentLaneSection);
+}
+
+//输入给定范围内路径信息，为避免程序索引问题，要求输入路径在2km范围基础上多输出2条road
+CARampInfoOut DynamicMap::GetCARampInfoOut(GetPositionInfo &getPosInfo, GuidePaths &guidePathsAdded)
 {
     int rampStatus = 0;
     int id =0;
@@ -157,216 +287,98 @@ CARampInfoOut DynamicMap::GetCARampInfoOut(GetPositionInfo &getPosInfo, GuidePat
         mRampInfoOut.rampInfoStatus = 2; //输入点没有激活，未知
         return mRampInfoOut;
     }
-
-    RoadHeader *nextRoad = guidePathsAdded.at(1).second;
+    RoadHeader *nextRoad;
+    nextRoad = guidePathsAdded.at(1).second;
+    cout << "nextRoad:" << nextRoad->mId << endl;
     double currentLength = getPosInfo.myPosInfo.roadlength - getPosInfo.myPosInfo.trackS;
-    RoadHeader* currentRoad;
-    pair<int, int> rampStatusAndId;
+    RoadHeader *currentRoad;
     //1、当前lane就在ramp中
     if (ODR_LANE_TYPE_ON_RAMP == getPosInfo.myPosInfo.laneType || ODR_LANE_TYPE_OFF_RAMP == getPosInfo.myPosInfo.laneType
-        || ODR_LANE_TYPE_CONNECTING_RAMP == getPosInfo.myPosInfo.laneType|| ODR_LANE_TYPE_ENTRY == getPosInfo.myPosInfo.laneType
-        || ODR_LANE_TYPE_EXIT == getPosInfo.myPosInfo.laneType)
-    {
+        || ODR_LANE_TYPE_CONNECTING_RAMP == getPosInfo.myPosInfo.laneType || ODR_LANE_TYPE_ENTRY == getPosInfo.myPosInfo.laneType
+        || ODR_LANE_TYPE_EXIT == getPosInfo.myPosInfo.laneType) {
         cout << "Ramp existed in given lane. " << endl;
         //都存在匝道，且在匝道中，当前位置到匝道距离为0
         rampStatus = 1;
         mRampInfoOut.rampInfoStatus = rampStatus;
         mRampInfoOut.enterRampInfo = 2;
         mRampInfoOut.toDis = 0;
-        id =  getPosInfo.myPosInfo.laneId;
-        LaneSection *nextRoadLaneSection = nextRoad->getFirstLaneSection();
-        RoadHeader *nextNextRoad;
-        LaneSection *nextNextRoadLaneSection;
+        id = getPosInfo.myPosInfo.laneId;
+//            LaneSection *nextRoadLaneSection = nextRoad->getFirstLaneSection();
+//            RoadHeader *nextNextRoad;
+//            LaneSection *nextNextRoadLaneSection;
         //汇流起点/终点距离
-        switch (getPosInfo.myPosInfo.laneType)
-        {
-            case ODR_LANE_TYPE_ON_RAMP:
-//                getPosInfo.TraversalLane(nextRoadLaneSection->getLaneFromId(0), rampStatus);
-                rampStatus=getPosInfo.TraversalLane(nextRoadLaneSection->getLaneFromId(0)).first;
-                id=getPosInfo.TraversalLane(nextRoadLaneSection->getLaneFromId(0)).second;
-                if(ODR_LANE_TYPE_ENTRY == rampStatus)
-                {
-                    mRampInfoOut.mergeStartDis = currentLength;
-                    mRampInfoOut.mergeEndDis = mRampInfoOut.mergeStartDis + (nextRoadLaneSection->mSEnd-nextRoadLaneSection->mS);
-                    mRampInfoOut.mergeLaneId = pow(2, 17-abs(id));
-
-                } else{
-                    nextNextRoad = guidePathsAdded.at(2).second;
-                    nextNextRoadLaneSection = nextNextRoad->getFirstLaneSection(); //默认是entry
-                    mRampInfoOut.mergeStartDis = currentLength + nextRoad->mLength;
-                    mRampInfoOut.mergeEndDis = mRampInfoOut.mergeStartDis + (nextNextRoadLaneSection->mSEnd-nextNextRoadLaneSection->mS);
-                    mRampInfoOut.mergeLaneId = pow(2, 17-abs(id));
-                    break;
-                }
-                break;
-            case ODR_LANE_TYPE_OFF_RAMP:
-                currentLength += nextRoad->mLength;
-                for(int i = 1; i < guidePaths.size(); i++) {
-                    currentRoad = guidePaths.at(i).second;
-//                    currentLength += nextRoad->mLength;
-//                    //判断当前road是否属于junction
-                    if (currentRoad->mJuncNo > 0)      //offramp-junction
-                    {
-                        mRampInfoOut.splitStartDis = 0;
-                        mRampInfoOut.splitEndDis = currentLength-nextRoad->mLength;
-                        mRampInfoOut.splitRampLaneId = pow(2, 17-abs(id));
-                        break;
-                    }
-                    //offramp-onramp
-//                    getPosInfo.TraversalLane((currentRoad->getFirstLaneSection())->getLaneFromId(0), rampStatus);
-                    rampStatus = getPosInfo.TraversalLane((currentRoad->getFirstLaneSection())->getLaneFromId(0)).first;
-                    id = getPosInfo.TraversalLane((currentRoad->getFirstLaneSection())->getLaneFromId(0)).second;
-                    if (ODR_LANE_TYPE_ON_RAMP == rampStatus) // 等同onramp
-                    {
-                        // 方向>0, 找后继；否则，找前驱(参考ordMGR中的Dir逻辑)
-                        /*if (roadDirs->at(i) == 0)
-                            nextRoad = currentRoad->getSuccessor();
-                        else
-                            nextRoad = currentRoad->getPredecessor();*/
-
-                        nextRoad = guidePathsAdded.at(i+1).second;
-                        nextRoadLaneSection = nextRoad->getFirstLaneSection();
-                        //getPosInfo.TraversalLane(nextRoadLaneSection->getLaneFromId(0), rampStatus);
-                        rampStatusAndId =getPosInfo.TraversalLane(nextRoadLaneSection->getLaneFromId(0));
-
-                        if(ODR_LANE_TYPE_ENTRY == rampStatusAndId.first)
-                        {
-                            mRampInfoOut.mergeStartDis = currentLength;
-                            mRampInfoOut.mergeEndDis = mRampInfoOut.mergeStartDis + (nextRoadLaneSection->mSEnd-nextRoadLaneSection->mS);
-                            mRampInfoOut.mergeLaneId = pow(2, 17-abs(rampStatusAndId.second));
-                        } else{
-                            /*if (roadDirs->at(i+1) == 0)
-                                nextNextRoad = nextRoad->getSuccessor(1);
-                            else
-                                nextNextRoad = nextRoad->getPredecessor(1);*/
-                            nextNextRoad = guidePathsAdded.at(i+1).second;
-                            nextNextRoadLaneSection = nextNextRoad->getFirstLaneSection(); //默认是entry
-                            mRampInfoOut.mergeStartDis = currentLength + nextRoad->mLength;
-                            mRampInfoOut.mergeEndDis = mRampInfoOut.mergeStartDis + (nextNextRoadLaneSection->mSEnd-nextNextRoadLaneSection->mS);
-                            mRampInfoOut.mergeLaneId = pow(2, 17-abs(rampStatusAndId.second));
-                            break;
-                        }
-                    }
-                    // 方向>0, 找后继；否则，找前驱(参考ordMGR中的Dir逻辑)
-                    /*if (roadDirs->at(i) == 0)
-                        nextRoad = currentRoad->getSuccessor();
-                    else
-                        nextRoad = currentRoad->getPredecessor();*/
-                    currentLength += nextRoad->mLength;
-                }
-                break;
-            case ODR_LANE_TYPE_CONNECTING_RAMP:
-                currentLength += nextRoad->mLength;
-                for(int i = 1; i < guidePaths.size(); i++)
-                {
-                    currentRoad = guidePaths.at(i).second;
-                    //判断当前road是否属于junction
-                    if (currentRoad->mJuncNo > 0)
-                    {
-                        //判断junction属于哪种（34or长安）
-                        nextRoad = guidePathsAdded.at(i+1).second;
-//                        currentLength += nextRoad->mLength;
-                        nextRoadLaneSection = nextRoad->getFirstLaneSection();
-//                        getPosInfo.TraversalLane(nextRoadLaneSection->getLaneFromId(0), rampStatus);
-                        rampStatusAndId =getPosInfo.TraversalLane(nextRoadLaneSection->getLaneFromId(0));
-                        if(ODR_LANE_TYPE_ENTRY == rampStatusAndId.first)    //属于3.4，计算汇流
-                        {
-                            mRampInfoOut.mergeStartDis = currentLength;
-                            mRampInfoOut.mergeEndDis = mRampInfoOut.mergeStartDis + (nextRoadLaneSection->mSEnd-nextRoadLaneSection->mS);
-                            mRampInfoOut.mergeLaneId = pow(2, 17-abs(rampStatusAndId.second));
-                        }else  //计算分流
-                        {
-                            mRampInfoOut.splitStartDis = 0;
-                            mRampInfoOut.splitEndDis = currentLength-currentRoad->mLength;
-                            mRampInfoOut.splitRampLaneId = pow(2, 17-abs(rampStatusAndId.second));
-                        }
-                        break;
-                    }
-                    // 方向>0, 找后继；否则，找前驱(参考ordMGR中的Dir逻辑)
-                    /*if (roadDirs->at(i) == 0)
-                        nextRoad = currentRoad->getSuccessor();
-                    else
-                        nextRoad = currentRoad->getPredecessor();*/
-                    currentLength += nextRoad->mLength;
-                }
-                break;
-            case ODR_LANE_TYPE_ENTRY:
-                mRampInfoOut.mergeStartDis = 0;
-                mRampInfoOut.mergeEndDis = getPosInfo.myPosInfo.section->mSEnd - getPosInfo.myPosInfo.trackS;
-//                rampInfoOut.mergeEndDis = (getPosInfo.myManager.getLaneSection()->mSEnd-getPosInfo.myPosInfo.trackS);
-                mRampInfoOut.mergeLaneId = pow(2, 17-abs(id));
-
-                break;
-            case ODR_LANE_TYPE_EXIT:
-                mRampInfoOut.splitStartDis = 0;
-                mRampInfoOut.splitEndDis = getPosInfo.myPosInfo.section->mSEnd - getPosInfo.myPosInfo.trackS;
-//                rampInfoOut.splitEndDis = (getPosInfo.myManager.getLaneSection()->mSEnd-getPosInfo.myPosInfo.trackS);
-                mRampInfoOut.splitRampLaneId = pow(2, 17-abs(id));
-
-                break;
-        }
-        /*rampInfoOut.mergeStartDis = myPosInfo.roadlength - myPosInfo.trackS;
-        double nextRoadLength = (myPosInfo.road->getSuccessor())->mLength;
-        rampInfoOut.mergeEndDis = rampInfoOut.mergeStartDis + nextRoadLength;*/
+        GetRampCase(getPosInfo, guidePathsAdded,currentRoad,nextRoad, currentLength,id, rampStatus);
         return mRampInfoOut;
     }
     //2、当前位置不在ramp中，遍历当前road的后继是否存在entry/exit
     //2.1、定位当前road
-//    nextRoad = getPosInfo.myPosInfo.road;
-    //记录当前位置到entry（exit）出现的road终点的距离
-//    double roadLength = getPosInfo.myPosInfo.trackS;
-//    cout << "Ramp judging in other roads begins....." << endl;
-//    cout << "roadDirs.size : " << roadDirs->size() << endl;
-
-    for(int i = 1; i < guidePaths.size(); i++)
-    {
-        //cout << i << "st circle..." << endl;
-        /*currentRoad = nextRoad;
-        // 方向>0, 找后继；否则，找前驱(参考ordMGR中的Dir逻辑)。先更新，再判断匝道情况。
-        if (roadDirs->at(i) == 0)
-            nextRoad = currentRoad->getSuccessor();
-        else
-            nextRoad = currentRoad->getPredecessor();*/
-        currentRoad = guidePaths.at(i).second;
-//        getPosInfo.TraversalLane((currentRoad->getFirstLaneSection())->getLaneFromId(0), rampStatus);
-        rampStatusAndId = getPosInfo.TraversalLane((currentRoad->getFirstLaneSection())->getLaneFromId(0));
-
-
-        currentLength += currentRoad->mLength;
-//        cout<<"rampstatus"<<rampStatus<<endl;
-        if(0 != rampStatusAndId.first){
-            cout << "Ramp existed in roadId = " << currentRoad->getId() <<endl;
-            break;
-        }
-        cout << "Traversal roadId = " << currentRoad->getId() << " ends"<< endl;
-        //判断匝道结束，在此处结束。
+    currentLength = getPosInfo.myPosInfo.section->mSEnd-getPosInfo.myPosInfo.trackS;
+    LaneSection *tempLaneSection =getPosInfo.myPosInfo.section ;
+    LaneSection *currentLaneSection;
+    pair<int,int> rampStatusId;
+    tuple<int,int,double,LaneSection*> rampStatusIdCurLength;
+    //遍历当前road所在laneSection 后是否存在entry/exit
+    while(tempLaneSection->getRight()!=NULL){
+        tempLaneSection = (LaneSection*)(tempLaneSection->getRight());
+        currentLaneSection = tempLaneSection;
+        rampStatusId =getPosInfo.TraversalLane(currentLaneSection->getLaneFromId(0));
+        rampStatus = rampStatusId.first;
+        id=rampStatusId.second;
+        currentLength += currentLaneSection->mSEnd-currentLaneSection->mS;
+        if(0!=rampStatus || currentLength>getPosInfo.myRange) break;
     }
-    // 分流汇流各种距离详细代码
+    //当前不存在entry/exit
+    if(0==rampStatus){
+        for (int i = 1; i < guidePathsAdded.size()-2; i++) {
+            //cout << i << "st circle..." << endl;
+            currentRoad = guidePathsAdded.at(i).second;
+            rampStatusIdCurLength = getPosInfo.TraversalRoad(currentRoad,currentLength,rampStatusId,rampStatusIdCurLength);  //遍历road中所有laneSection
+//                currentLength += currentRoad->mLength;
+            rampStatus = get<0>(rampStatusIdCurLength);
+            id=get<1>(rampStatusIdCurLength);
+            currentLength = get<2>(rampStatusIdCurLength);
+//        cout<<"rampstatus"<<rampStatus<<endl;
+            if (0 != rampStatus ||currentLength>getPosInfo.myRange) {
+                cout << "Ramp existed in roadId = " << currentRoad->getId() << endl;
+                break;
+            }
+            cout << "Traversal roadId = " << currentRoad->getId() << " ends" << endl;
+            //判断匝道结束，在此处结束。
+        }
+
+    }
+    // 计算分流汇流距离
 //    cout << "Finally rampStatus: " << rampStatus << endl;
 //    cout<<"is exit"<<currentRoad->mLength<<endl;
     //2.2.1、给定范围内不存在ramp，直接返回
-    switch (rampStatusAndId.first)
-    {
-        case 0: return mRampInfoOut;
+    switch (rampStatus) {
+        case 0:
+            return mRampInfoOut;
         case ODR_LANE_TYPE_ENTRY:
             mRampInfoOut.rampInfoStatus = 1;
             mRampInfoOut.enterRampInfo = 0;  //存疑
             mRampInfoOut.toDis = -1;       //存疑
-            mRampInfoOut.mergeStartDis = currentLength - currentRoad->mLength;
-            mRampInfoOut.mergeEndDis = mRampInfoOut.mergeStartDis + (currentRoad->getFirstLaneSection()->mSEnd-currentRoad->getFirstLaneSection()->mS);
-            mRampInfoOut.mergeLaneId = pow(2, 17-abs(id));
+//                mRampInfoOut.mergeStartDis = currentLength - currentRoad->mLength;
+            mRampInfoOut.mergeStartDis = currentLength -(get<3>(rampStatusIdCurLength)->mSEnd-get<3>(rampStatusIdCurLength)->mS);
+//                mRampInfoOut.mergeEndDis = mRampInfoOut.mergeStartDis + (currentRoad->getFirstLaneSection()->mSEnd -
+//                                                                         currentRoad->getFirstLaneSection()->mS);
+            mRampInfoOut.mergeEndDis = currentLength;
+            mRampInfoOut.mergeLaneId = pow(2, 17 - abs(id));
             return mRampInfoOut;
         case ODR_LANE_TYPE_EXIT:
             mRampInfoOut.rampInfoStatus = 1;
             mRampInfoOut.enterRampInfo = 1;//存疑
-            mRampInfoOut.toDis = currentLength- currentRoad->mLength; //存疑
-            mRampInfoOut.splitStartDis = currentLength - currentRoad->mLength;
+//                mRampInfoOut.toDis = currentLength - currentRoad->mLength; //存疑
+            mRampInfoOut.toDis = currentLength -(get<3>(rampStatusIdCurLength)->mSEnd-get<3>(rampStatusIdCurLength)->mS); //存疑
+            mRampInfoOut.splitStartDis =currentLength -(get<3>(rampStatusIdCurLength)->mSEnd-get<3>(rampStatusIdCurLength)->mS);
             mRampInfoOut.splitEndDis = currentLength;  //默认整条road都是exit
-            mRampInfoOut.splitRampLaneId=pow(2, 17-abs(id));
+            mRampInfoOut.splitRampLaneId = pow(2, 17 - abs(id));
             return mRampInfoOut;
     }
+    return mRampInfoOut;
 
 }
+
 
 static void Print(const vector<CARoutingPath> *routingPaths){
     for(int i = 0; i<routingPaths->size(); i++)
@@ -704,7 +716,7 @@ CADynamicHDMapErc DynamicMap::GetCADynamicHDMapErc(GetPositionInfo &getPosInfo, 
     GetCASpecialArea(getPosInfo, guidePathsRange);
     cout << " GetCASpecialArea over ... " << endl;
     cout << " GetCARampInfoOut begins ... " << endl;
-    GetCARampInfoOut(getPosInfo, guidePathsRange, guidePathsRangeAdded);
+    GetCARampInfoOut(getPosInfo,guidePathsRangeAdded);
     cout << " GetCARampInfoOut over ... " << endl;
     GetCAPathPlanningOut(getPosInfo,guidePathsEndPoint, guidePathsEndPointAdd);
     GetCADynamicAddition(getPosInfo, guidePathsEndPoint);

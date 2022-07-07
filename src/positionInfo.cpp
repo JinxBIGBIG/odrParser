@@ -2040,6 +2040,24 @@ double GetPositionInfo::GetLaneWidth(OpenDrive::Lane *lane,  double ds){
 }
 
 
+vector<pair<int, int >> GetPositionInfo::ConvertPoints2Paths(vector<Point> &inputPoints, vector<pair<int, int >>&paths){
+    int laneId,roadId;
+//    cout << "inputPoints: " << inputPoints.size() << endl;
+    Position* pos = myManager.createPosition();
+    myManager.activatePosition(pos);
+    for(int i=0;i<inputPoints.size();i++){
+        myManager.setInertialPos(inputPoints.at(i).x,inputPoints.at(i).y,inputPoints.at(i).z);
+        bool result = myManager.inertial2lane();
+        if (result){
+            laneId = myManager.getLane()->mId;
+            roadId = myManager.getRoadHeader()->mId;
+            paths.push_back(make_pair(laneId,roadId));
+        }
+    }
+    return paths;
+
+}
+
 void GetPositionInfo::ReaderXMLTest(){
     ReaderXML *l = new ReaderXML();
 
