@@ -63,6 +63,7 @@ public:
     CAStaticHDMapErc GetCAStaticHDMapErc(GetPositionInfo &getPosInfo, std::vector<std::pair<int, OpenDrive::RoadHeader* >> &guidePaths);
 
 
+    void SupplyLink();
 };
 
 #endif //ODRPARSER_STATICMESSAGE_H

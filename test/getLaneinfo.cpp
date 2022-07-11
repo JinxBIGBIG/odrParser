@@ -122,8 +122,10 @@ int main(int argc, char** argv) {
 
     //静态信息获取
     StaticMap staticMap;
-    vector<CALink> caLinks;
-    caLinks = staticMap.GetCALink(posInfoManager, guidePathsEndPoint);
+    //vector<CALink> caLinks;
+    CAStaticHDMapErc caStaticHdMapErc;
+    //caLinks = staticMap.GetCALink(posInfoManager, guidePathsEndPoint);
+    caStaticHdMapErc = staticMap.GetCAStaticHDMapErc(posInfoManager, guidePathsEndPoint);
 
 
 //

@@ -99,6 +99,7 @@ public:
     OpenDrive::OdrManager myManager;
     std::string myXodrPath;
     Point myPoint;
+    Point myEndPoint;
     double myRange;
     std::vector<std::string> myKeyWords;
     PositionInfo myPosInfo;
@@ -159,9 +160,6 @@ public:
     std::vector<int>* GetRoadDirs(const Point &endPoint);
     std::vector<OpenDrive::RoadHeader*>& GetRoads(std::vector<OpenDrive::RoadHeader*> &roads);
     std::vector<std::pair<int, OpenDrive::RoadHeader*>> &GetRoads(std::vector<std::pair<int, OpenDrive::RoadHeader*>> &roads);
-
-
-
 
 
     std::vector<std::pair<int, OpenDrive::RoadHeader* >> GetLastPaths(const Point &startPoint, std::vector<std::pair<int, int>> &inputPaths,
@@ -238,6 +236,10 @@ public:
     std::tuple<int, int, double, OpenDrive::LaneSection *>
     TraversalRoad(OpenDrive::RoadHeader *tempRoad, double currentLength, std::pair<int, int> &traversalResult,
                   std::tuple<int, int, double, OpenDrive::LaneSection *> &traversalRoadResult);
+
+    double GetEndPointLength(GuidePaths &guidePathsEndPoint, Point &endPoint);
+
+    double GetSpiralCurvature(OpenDrive::GeoHeader *geoHeader, double s);
 };
 
 #endif //ODRPARSER_POSITIONINFO_H

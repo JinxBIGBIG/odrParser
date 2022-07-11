@@ -28,8 +28,9 @@ public:
     std::vector<CASpecialArea> GetCASpecialArea(GetPositionInfo &getPosInfo, GuidePaths &guidePaths);
 
 
-    //int GetRampLaneId(int odrLaneId);
-    CARampInfoOut GetCARampInfoOut(GetPositionInfo &getPosInfo, GuidePaths &guidePathsAdded);
+    //输入给定范围内路径信息，为计算ramp存在时需计算后续road的相关信息（而路径范围内不包含后续road的情况）要求输入路径在2km范围基础上多输出2条road
+    CARampInfoOut GetCARampInfoOut(GetPositionInfo &getPosInfo, GuidePaths &guidePathsRange,GuidePaths &guidePathsRangeAdded);
+
 
     std::vector<CARoutingPath>* GetCARoutingPath(GetPositionInfo &getPosInfo, GuidePaths &guidePaths,
                                                  std::vector<CARoutingPath>* routingPaths);
@@ -42,10 +43,12 @@ public:
     CADynamicHDMapErc GetCADynamicHDMapErc(GetPositionInfo &getPosInfo, GuidePaths &guidePathsRange, GuidePaths &guidePathsRangeAdded,
                                            GuidePaths &guidePathsEndPoint, GuidePaths &guidePathsEndPointAdd);
 
+    CARampInfoOut GetRampCase(GetPositionInfo &getPosInfo, GuidePaths &guidePathsRange,GuidePaths &guidePathsRangeAdded,
+                              OpenDrive::RoadHeader *currentRoad,OpenDrive::RoadHeader *nextRoad,double currentLength,int id,int rampStatus);
 
     void GetLaneChangeInfo(GetPositionInfo &getPosInfo, GuidePaths &guidePaths);
 
-    CARampInfoOut GetRampCase(GetPositionInfo &getPosInfo, GuidePaths &guidePaths, OpenDrive::RoadHeader *currentRoad,
-                              OpenDrive::RoadHeader *nextRoad, double currentLength, int id, int rampStatus);
+
+
 };
 #endif //ODRPARSER_DYNAMICIMESSAGE_H

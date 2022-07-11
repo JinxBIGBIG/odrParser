@@ -54,6 +54,7 @@ GetPositionInfo::GetPositionInfo(OpenDrive::OdrManager &manager, std::string &xo
     myManager = manager;
     myXodrPath = xodrPath;
     myPoint = point;
+    myEndPoint = endPoint;
     myRange = range;
     myKeyWords = {"tunnel","toll" ,"construction"};
 
@@ -331,41 +332,53 @@ int GetPositionInfo::TraversalLane(Lane *tempLane,int &laneStatus)
     return laneStatus;
 }
 
+
 pair<int,int> GetPositionInfo::TraversalLane(Lane *tempLane)
 {
-    int laneStatus,laneId;
+    Lane *currentLane;
+    int laneStatus=0,laneId=tempLane->mId;
     while(tempLane->getRight() != NULL)
     {
         tempLane = (Lane *)(tempLane->getRight());
-        laneStatus = 0;
-
-        if(ODR_LANE_TYPE_ENTRY == tempLane->getType() || ODR_LANE_TYPE_EXIT == tempLane->getType()
-           || ODR_LANE_TYPE_ON_RAMP == tempLane->getType()|| ODR_LANE_TYPE_OFF_RAMP == tempLane->getType()
-           || ODR_LANE_TYPE_CONNECTING_RAMP== tempLane->getType())
+        currentLane = tempLane;
+        cout<<"currentLaneid"<<currentLane->mId<<endl;
+        cout<<"currentLanetype"<<currentLane->getType()<<endl;
+        if(ODR_LANE_TYPE_ENTRY == currentLane->getType() || ODR_LANE_TYPE_EXIT == currentLane->getType()
+           || ODR_LANE_TYPE_ON_RAMP == currentLane->getType()|| ODR_LANE_TYPE_OFF_RAMP == currentLane->getType()
+           || ODR_LANE_TYPE_CONNECTING_RAMP== currentLane->getType())
         {
-            cout<<"ramp is here"<<tempLane->mId<<endl;
+            cout<<"ramp is here"<<currentLane->mId<<endl;
             //待写详细代码
-            laneStatus = tempLane->getType();
-            laneId = tempLane->mId;
+            laneStatus = currentLane->getType();
+            laneId = currentLane->mId;
             break;
         }
+        else{
+            laneId = currentLane->mId;
+        }
     }
-    /* //左边遍历结束，如果已经存在ramp则不进行右遍历
-     if(rampStatus == 0)
-     {
-         while(tempLane->getLeft() != NULL)
-         {
-             currentLane = tempLane;
-             tempLane = (Lane *)(tempLane->getLeft());
-             if(ODR_LANE_TYPE_ON_RAMP == currentLane->getType() || ODR_LANE_TYPE_OFF_RAMP == currentLane->getType()
-                || ODR_LANE_TYPE_CONNECTING_RAMP == currentLane->getType()){
-                 rampStatus = RampStatus(currentLane->getType());
-                 break;
-             }
-             else
-                 rampStatus = 0;
-         }
-     }*/
+    //左边遍历结束，如果已经存在ramp则不进行右遍历
+    if(laneStatus == 0)
+    {
+        while(tempLane->getLeft() != NULL)
+        {
+            tempLane = (Lane *)(tempLane->getLeft());
+            currentLane = tempLane;
+            if(ODR_LANE_TYPE_ENTRY == currentLane->getType() || ODR_LANE_TYPE_EXIT == currentLane->getType()
+               || ODR_LANE_TYPE_ON_RAMP == currentLane->getType()|| ODR_LANE_TYPE_OFF_RAMP == currentLane->getType()
+               || ODR_LANE_TYPE_CONNECTING_RAMP== currentLane->getType())
+            {
+                cout<<"ramp is here"<<currentLane->mId<<endl;
+                //待写详细代码
+                laneStatus = currentLane->getType();
+                laneId = currentLane->mId;
+                break;
+            }
+            else{
+                laneId = currentLane->mId;
+            }
+        }
+    }
     return make_pair(laneStatus,laneId);
 }
 
@@ -1277,7 +1290,7 @@ vector<LaneSection *> &GetPositionInfo::GetLaneSectionsByEndPoint(GuidePaths &gu
     for(int i = 1; i < guidePaths.size(); i++)
     {
        // cout << "rotateNum begin: " << i << endl;
-
+       tempRoad = guidePaths.at(i).second;
         laneSection = tempRoad->getFirstLaneSection();
         laneSections.push_back(laneSection);
         //第一个road和最后road需要特殊处理
@@ -1310,12 +1323,6 @@ vector<LaneSection *> &GetPositionInfo::GetLaneSectionsByEndPoint(GuidePaths &gu
             laneSection= (LaneSection *)laneSection->getRight();
             laneSections.push_back(laneSection);
         }
-
-        if (i == (guidePaths.size() - 1))
-            break;
-        tempRoad = guidePaths.at(i+1).second;
-        /*if(guidePaths.at(i).first > 0)
-            tempRoad = tempRoad->getPredecessor();*/
 
        // cout << "rotateNum end: " << i << endl;
     }
@@ -1795,9 +1802,7 @@ void GetPositionInfo::GetLaneLinePoints(OpenDrive::RoadHeader* road, OpenDrive::
     double targetS = s;
     double ds = 0;
     double ref;
-//    sSet.push_back(targetS);
-//    dsSet.push_back(ds);
-//    refSet.push_back(GetLaneOffset(road,targetS));
+
     while(targetS<laneSection->mSEnd)
     {
         ds = targetS-laneSection->mS;
@@ -1869,7 +1874,6 @@ void GetPositionInfo::GetLaneLinePoints(OpenDrive::RoadHeader* road, OpenDrive::
             bool result2 = myManager.track2curvature();
             double curve1 = myManager.getCurvature();
             linePoints.push_back(caPoint);
-            //cout << "curve1" << curve1 << ",m" << m << endl;
             myManager.setTrackPos(road->getId(), sSet.at(m), tClineSetList[n][m]);
             bool result3 = myManager.track2inertial();
             geoCoord = {myManager.getInertialPos().getX(), myManager.getInertialPos().getY(), myManager.getInertialPos().getZ(), 0};
@@ -2084,6 +2088,24 @@ void GetPositionInfo::ReaderXMLTest(){
     geoCoord.print();
 }
 
+double GetPositionInfo::GetEndPointLength(GuidePaths &guidePathsEndPoint, Point &endPoint){
+    double length = 0;
+    if(guidePathsEndPoint.at(0).first > 0) length = myPosInfo.trackS;
+    else length = myPosInfo.roadlength - myPosInfo.trackS;
+    for(int i = 1; i < guidePathsEndPoint.size() - 1; i++ ){
+        length += guidePathsEndPoint.at(i).second->mLength;
+    }
+    if(guidePathsEndPoint.at(guidePathsEndPoint.size() - 1).first > 0) length = myEndPosInfo.trackS;
+    else length = myEndPosInfo.roadlength - myEndPosInfo.trackS;
+    return length;
+}
+
+//计算s处螺旋线曲率,默认输入的geoHeader就是螺旋线
+double GetPositionInfo::GetSpiralCurvature(GeoHeader* geoHeader,double s){
+    double curvatureS = geoHeader->mCurv + ((geoHeader->mCurvEnd-geoHeader->mCurv)/(geoHeader->mSEnd-geoHeader->mS))*(s - geoHeader->mS);
+    return curvatureS;
+}
+
 void GetPositionInfo::GetCustomMessage(const Point point) {
 
 
@@ -2109,6 +2131,29 @@ void GetPositionInfo::Test() {
     cout << "Ll coord2: " << geoCoord.xy.x << " ; " << geoCoord.xy.y << endl;
 
 
+}
+
+tuple<int,int,double,LaneSection*> GetPositionInfo::TraversalRoad(RoadHeader *tempRoad, double currentLength,pair<int,int> &rampStatusId,
+                                                                  tuple<int,int,double,LaneSection*> &rampStatusIdCurLength ){
+//    int rampStatus = 0,id;
+    LaneSection* currentLaneSection;
+    LaneSection* tempLaneSection = tempRoad->getFirstLaneSection();
+    rampStatusId = TraversalLane(tempLaneSection->getLaneFromId(0));
+    currentLength +=tempLaneSection->mSEnd-tempLaneSection->mS;
+    if(0!=rampStatusId.first||currentLength>myRange)
+        return make_tuple(rampStatusId.first,rampStatusId.second,currentLength,tempLaneSection);
+    while(tempLaneSection->getRight()!=NULL){
+        tempLaneSection = (LaneSection*)(tempLaneSection->getRight());
+        //cout<<"iii"<<tempLaneSection->mS<<endl;
+        currentLaneSection = tempLaneSection;
+        rampStatusId = TraversalLane(currentLaneSection->getLaneFromId(0));
+        currentLength +=currentLaneSection->mSEnd-currentLaneSection->mS;
+//        rampStatus = TraversalLane(currentLaneSection->getLaneFromId(0)).first;
+//        id = TraversalLane(currentLaneSection->getLaneFromId(0)).second;
+        if(0!=rampStatusId.first||currentLength>myRange) break;
+
+    }
+    return make_tuple(rampStatusId.first,rampStatusId.second,currentLength,currentLaneSection);
 }
 
 

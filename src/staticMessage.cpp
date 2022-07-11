@@ -10,7 +10,6 @@
 #include <iostream>
 #include <vector>
 
-
 using namespace std;
 using namespace OpenDrive;
 using namespace tinyxml2;
@@ -36,12 +35,13 @@ vector<CALink> StaticMap::GetCALink(GetPositionInfo &getPosInfo, GuidePaths &gui
     vector<LaneSection *> originalLaneSections;
     getPosInfo.GetLaneSectionsByEndPoint(guidePaths,originalLaneSections);
     //1.默认同向,第一个road的laneSection则进行右遍历
-    double length = getPosInfo.myPosInfo.roadlength - getPosInfo.myPosInfo.trackS;
+    /*double length = getPosInfo.myPosInfo.roadlength - getPosInfo.myPosInfo.trackS;
     if(getPosInfo.myPosInfo.laneId > 0)
-        length = getPosInfo.myPosInfo.trackS;
+        length = getPosInfo.myPosInfo.trackS;*/
     //1.1、计算给定起始点之间的距离
-    double totalLength = length;
-    for(int i = 0; i < originalLaneSections.size() -1; i++)
+    double length = 0;
+    double totalLength = 0;
+    for(int i = 0; i < originalLaneSections.size(); i++)
         totalLength += abs(originalLaneSections.at(i)->mS - originalLaneSections.at(i)->mSEnd);
     cout << "Rotation begins..." << endl;
 
@@ -55,7 +55,7 @@ vector<CALink> StaticMap::GetCALink(GetPositionInfo &getPosInfo, GuidePaths &gui
     int originalDir = guidePaths.at(0).first;
     //2.设定循环条件，linkNum<=6(针对给定导航终点范围内包含laneSection数大于6的情况，且始终计算当前已计算距离是否已超过终点距离)，
     // 且在给定road里边进行计算(防止不足6个再进行计算出错)
-    double curveLength;
+    //double curveLength;
     RoadHeader *roadHeader;
     Curvatures curvaturesLaneSection;
     //iterRoad < guidePaths.size()
@@ -134,15 +134,20 @@ vector<CALink> StaticMap::GetCALink(GetPositionInfo &getPosInfo, GuidePaths &gui
         }
         //更新
         //默认同向，若是反向要获取lastLaneSection
-        if((guidePaths.size() - 1) == iterRoad)
+        if((guidePaths.size() - 1) == iterRoad)  //见iterRoad++，若长度为5，此处若为4，则iterRoad++会遍历5位置的guidePaths
             break;
-        curveLength += roadHeader->mLength;
+        //curveLength += roadHeader->mLength;
         iterRoad ++;
         tempLaneSection = guidePaths.at(iterRoad).second->getFirstLaneSection();
         cout << "iterLaneSection " << iterLaneSection << " ; iterRoad "<< iterRoad << "over..." << endl;
     }
 
     //3、不足6段填默认值补充
+    SupplyLink();
+    return mLink;
+}
+
+void StaticMap::SupplyLink(){
     if (mLink.size() < linkNum){
         for(int i = mLink.size() - 1; i < linkNum - 1; i++)
         {
@@ -150,9 +155,7 @@ vector<CALink> StaticMap::GetCALink(GetPositionInfo &getPosInfo, GuidePaths &gui
             mLink.push_back(nullLink);
         }
     }
-    return mLink;
 }
-
 vector<CALineMarking> &StaticMap::GetCALineMarking(GetPositionInfo &getPosInfo, Lane *lane, LaneSection* laneSection){
     CALineMarking lineMarking;
     RoadMark *roadMark = lane->getFirstRoadMark();
@@ -176,7 +179,6 @@ vector<CALine> StaticMap::GetCALine(GetPositionInfo &getPosInfo, vector<vector<G
     int iter = 2;
     mLine.clear();
     int iterLine = 0;
-    int kLine = 0;
     while(tempLane->getRight() != NULL && iter <= lineNum*2)
     {
         tempLane = dynamic_cast<Lane *>(tempLane->getRight());
@@ -189,8 +191,8 @@ vector<CALine> StaticMap::GetCALine(GetPositionInfo &getPosInfo, vector<vector<G
         line.markings = GetCALineMarking(getPosInfo, tempLane, laneSection);
 
         //line.linePoints;
-        //line.linePoints = &linePointsList.at(iter + 1);
-        //line.linePointsNum = line.linePoints->size();
+        line.linePoints = &linePointsList.at(iter + 1);
+        line.linePointsNum = line.linePoints->size();
 
         iterLine ++;
         mLine.push_back(line);
@@ -245,9 +247,9 @@ vector<CALaneAttribute> StaticMap::GetCALaneAttribute(GetPositionInfo &getPosInf
     Lane *tempLane = laneSection->getLaneFromId(0);
     CASpeedLimit speedLimit;
     //1、长安只有同向的lane
-    int laneID = 2;
+    int laneID = 0;
     //1.1
-    int iter =0;
+    int iter = 0;
 
     //曲率是laneSection层级的，计算一次即可
     Curvatures curLaneSection;
@@ -264,7 +266,7 @@ vector<CALaneAttribute> StaticMap::GetCALaneAttribute(GetPositionInfo &getPosInf
         laneAttribute.rightIndex = laneID + 2;
 
         //laneAttribute.laneClinePoints;
-        //laneAttribute.laneClinePoints = &cLinePointsList.at(iter + 1);
+        laneAttribute.laneClinePoints = &cLinePointsList.at(iter + 1);
 
         //laneAttribute.laneCurvatureList;
         laneAttribute.laneCurvatureList = curLaneSection;
@@ -281,10 +283,11 @@ vector<CALaneAttribute> StaticMap::GetCALaneAttribute(GetPositionInfo &getPosInf
         laneAttribute.laneWidth = tempLane->getFirstWidth()->mA;
 
         //laneAttribute.clinePointsNum
-        //laneAttribute.clinePointsNum = laneAttribute.laneClinePoints->size();
+        laneAttribute.clinePointsNum = laneAttribute.laneClinePoints->size();
 
         mLaneAttribute.push_back(laneAttribute);
         iter ++;
+        laneID = laneID + 2;
     }
 
     return mLaneAttribute;
