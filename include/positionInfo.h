@@ -12,6 +12,7 @@
 #include "BaseNodes/OdrNode.hh"
 #include "BaseNodes/OdrRoadHeader.hh"
 #include "BaseNodes/OdrObject.hh"
+#include "BaseNodes/OdrSignal.hh"
 #include "BaseNodes/OdrJuncHeader.hh"
 #include "BaseNodes/OdrBridge.hh"
 #include "BaseNodes/OdrElevation.hh"

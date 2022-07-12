@@ -75,19 +75,19 @@ include test/CMakeFiles/get_odr_info.dir/progress.make
 # Include the compile flags for this target's objects.
 include test/CMakeFiles/get_odr_info.dir/flags.make
 
-test/CMakeFiles/get_odr_info.dir/getLaneinfo.cpp.obj: test/CMakeFiles/get_odr_info.dir/flags.make
-test/CMakeFiles/get_odr_info.dir/getLaneinfo.cpp.obj: test/CMakeFiles/get_odr_info.dir/includes_CXX.rsp
-test/CMakeFiles/get_odr_info.dir/getLaneinfo.cpp.obj: ../test/getLaneinfo.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\MCworkspace\odrParser\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object test/CMakeFiles/get_odr_info.dir/getLaneinfo.cpp.obj"
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\get_odr_info.dir\getLaneinfo.cpp.obj -c D:\MCworkspace\odrParser\test\getLaneinfo.cpp
+test/CMakeFiles/get_odr_info.dir/IEvalTest.cpp.obj: test/CMakeFiles/get_odr_info.dir/flags.make
+test/CMakeFiles/get_odr_info.dir/IEvalTest.cpp.obj: test/CMakeFiles/get_odr_info.dir/includes_CXX.rsp
+test/CMakeFiles/get_odr_info.dir/IEvalTest.cpp.obj: ../test/IEvalTest.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\MCworkspace\odrParser\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object test/CMakeFiles/get_odr_info.dir/IEvalTest.cpp.obj"
+	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\get_odr_info.dir\IEvalTest.cpp.obj -c D:\MCworkspace\odrParser\test\IEvalTest.cpp
 
-test/CMakeFiles/get_odr_info.dir/getLaneinfo.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/get_odr_info.dir/getLaneinfo.cpp.i"
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\MCworkspace\odrParser\test\getLaneinfo.cpp > CMakeFiles\get_odr_info.dir\getLaneinfo.cpp.i
+test/CMakeFiles/get_odr_info.dir/IEvalTest.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/get_odr_info.dir/IEvalTest.cpp.i"
+	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\MCworkspace\odrParser\test\IEvalTest.cpp > CMakeFiles\get_odr_info.dir\IEvalTest.cpp.i
 
-test/CMakeFiles/get_odr_info.dir/getLaneinfo.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/get_odr_info.dir/getLaneinfo.cpp.s"
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\MCworkspace\odrParser\test\getLaneinfo.cpp -o CMakeFiles\get_odr_info.dir\getLaneinfo.cpp.s
+test/CMakeFiles/get_odr_info.dir/IEvalTest.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/get_odr_info.dir/IEvalTest.cpp.s"
+	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\MCworkspace\odrParser\test\IEvalTest.cpp -o CMakeFiles\get_odr_info.dir\IEvalTest.cpp.s
 
 test/CMakeFiles/get_odr_info.dir/__/src/positionInfo.cpp.obj: test/CMakeFiles/get_odr_info.dir/flags.make
 test/CMakeFiles/get_odr_info.dir/__/src/positionInfo.cpp.obj: test/CMakeFiles/get_odr_info.dir/includes_CXX.rsp
@@ -103,24 +103,10 @@ test/CMakeFiles/get_odr_info.dir/__/src/positionInfo.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/get_odr_info.dir/__/src/positionInfo.cpp.s"
 	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\MCworkspace\odrParser\src\positionInfo.cpp -o CMakeFiles\get_odr_info.dir\__\src\positionInfo.cpp.s
 
-test/CMakeFiles/get_odr_info.dir/__/src/tinyxml2.cpp.obj: test/CMakeFiles/get_odr_info.dir/flags.make
-test/CMakeFiles/get_odr_info.dir/__/src/tinyxml2.cpp.obj: test/CMakeFiles/get_odr_info.dir/includes_CXX.rsp
-test/CMakeFiles/get_odr_info.dir/__/src/tinyxml2.cpp.obj: ../src/tinyxml2.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\MCworkspace\odrParser\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object test/CMakeFiles/get_odr_info.dir/__/src/tinyxml2.cpp.obj"
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\get_odr_info.dir\__\src\tinyxml2.cpp.obj -c D:\MCworkspace\odrParser\src\tinyxml2.cpp
-
-test/CMakeFiles/get_odr_info.dir/__/src/tinyxml2.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/get_odr_info.dir/__/src/tinyxml2.cpp.i"
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\MCworkspace\odrParser\src\tinyxml2.cpp > CMakeFiles\get_odr_info.dir\__\src\tinyxml2.cpp.i
-
-test/CMakeFiles/get_odr_info.dir/__/src/tinyxml2.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/get_odr_info.dir/__/src/tinyxml2.cpp.s"
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\MCworkspace\odrParser\src\tinyxml2.cpp -o CMakeFiles\get_odr_info.dir\__\src\tinyxml2.cpp.s
-
 test/CMakeFiles/get_odr_info.dir/__/src/customParse/ShareMessage.cpp.obj: test/CMakeFiles/get_odr_info.dir/flags.make
 test/CMakeFiles/get_odr_info.dir/__/src/customParse/ShareMessage.cpp.obj: test/CMakeFiles/get_odr_info.dir/includes_CXX.rsp
 test/CMakeFiles/get_odr_info.dir/__/src/customParse/ShareMessage.cpp.obj: ../src/customParse/ShareMessage.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\MCworkspace\odrParser\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object test/CMakeFiles/get_odr_info.dir/__/src/customParse/ShareMessage.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\MCworkspace\odrParser\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object test/CMakeFiles/get_odr_info.dir/__/src/customParse/ShareMessage.cpp.obj"
 	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\get_odr_info.dir\__\src\customParse\ShareMessage.cpp.obj -c D:\MCworkspace\odrParser\src\customParse\ShareMessage.cpp
 
 test/CMakeFiles/get_odr_info.dir/__/src/customParse/ShareMessage.cpp.i: cmake_force
@@ -131,43 +117,25 @@ test/CMakeFiles/get_odr_info.dir/__/src/customParse/ShareMessage.cpp.s: cmake_fo
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/get_odr_info.dir/__/src/customParse/ShareMessage.cpp.s"
 	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\MCworkspace\odrParser\src\customParse\ShareMessage.cpp -o CMakeFiles\get_odr_info.dir\__\src\customParse\ShareMessage.cpp.s
 
-test/CMakeFiles/get_odr_info.dir/__/src/DataOperation.cpp.obj: test/CMakeFiles/get_odr_info.dir/flags.make
-test/CMakeFiles/get_odr_info.dir/__/src/DataOperation.cpp.obj: test/CMakeFiles/get_odr_info.dir/includes_CXX.rsp
-test/CMakeFiles/get_odr_info.dir/__/src/DataOperation.cpp.obj: ../src/DataOperation.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\MCworkspace\odrParser\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object test/CMakeFiles/get_odr_info.dir/__/src/DataOperation.cpp.obj"
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\get_odr_info.dir\__\src\DataOperation.cpp.obj -c D:\MCworkspace\odrParser\src\DataOperation.cpp
-
-test/CMakeFiles/get_odr_info.dir/__/src/DataOperation.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/get_odr_info.dir/__/src/DataOperation.cpp.i"
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\MCworkspace\odrParser\src\DataOperation.cpp > CMakeFiles\get_odr_info.dir\__\src\DataOperation.cpp.i
-
-test/CMakeFiles/get_odr_info.dir/__/src/DataOperation.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/get_odr_info.dir/__/src/DataOperation.cpp.s"
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\MCworkspace\odrParser\src\DataOperation.cpp -o CMakeFiles\get_odr_info.dir\__\src\DataOperation.cpp.s
-
 # Object files for target get_odr_info
 get_odr_info_OBJECTS = \
-"CMakeFiles/get_odr_info.dir/getLaneinfo.cpp.obj" \
+"CMakeFiles/get_odr_info.dir/IEvalTest.cpp.obj" \
 "CMakeFiles/get_odr_info.dir/__/src/positionInfo.cpp.obj" \
-"CMakeFiles/get_odr_info.dir/__/src/tinyxml2.cpp.obj" \
-"CMakeFiles/get_odr_info.dir/__/src/customParse/ShareMessage.cpp.obj" \
-"CMakeFiles/get_odr_info.dir/__/src/DataOperation.cpp.obj"
+"CMakeFiles/get_odr_info.dir/__/src/customParse/ShareMessage.cpp.obj"
 
 # External object files for target get_odr_info
 get_odr_info_EXTERNAL_OBJECTS =
 
-../bin/get_odr_info.exe: test/CMakeFiles/get_odr_info.dir/getLaneinfo.cpp.obj
+../bin/get_odr_info.exe: test/CMakeFiles/get_odr_info.dir/IEvalTest.cpp.obj
 ../bin/get_odr_info.exe: test/CMakeFiles/get_odr_info.dir/__/src/positionInfo.cpp.obj
-../bin/get_odr_info.exe: test/CMakeFiles/get_odr_info.dir/__/src/tinyxml2.cpp.obj
 ../bin/get_odr_info.exe: test/CMakeFiles/get_odr_info.dir/__/src/customParse/ShareMessage.cpp.obj
-../bin/get_odr_info.exe: test/CMakeFiles/get_odr_info.dir/__/src/DataOperation.cpp.obj
 ../bin/get_odr_info.exe: test/CMakeFiles/get_odr_info.dir/build.make
 ../bin/get_odr_info.exe: ../lib/libProj/libproj_9_1.dll
 ../bin/get_odr_info.exe: ../lib/libProj/libODrive.1.5.5.a
 ../bin/get_odr_info.exe: test/CMakeFiles/get_odr_info.dir/linklibs.rsp
 ../bin/get_odr_info.exe: test/CMakeFiles/get_odr_info.dir/objects1.rsp
 ../bin/get_odr_info.exe: test/CMakeFiles/get_odr_info.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\MCworkspace\odrParser\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable ..\..\bin\get_odr_info.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\MCworkspace\odrParser\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable ..\..\bin\get_odr_info.exe"
 	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\get_odr_info.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

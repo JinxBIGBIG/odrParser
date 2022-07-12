@@ -1788,8 +1788,6 @@ void GetPositionInfo::GetLaneLinePoints(OpenDrive::RoadHeader* road, OpenDrive::
 void GetPositionInfo::GetLaneLinePoints(OpenDrive::RoadHeader* road, OpenDrive::LaneSection *laneSection, vector<vector<Gnss>>& linePointsList,
                                         vector<vector<Gnss>>& cLinePointsList){
     //获取laneSection 中lane的车道线轨迹点集，车道中心线轨迹点集
-//    vector<vector<Point>> linePointsList;
-//    vector<vector<Point>> cLinePointsList;
     vector<Gnss> linePoints;
     vector<Gnss> cLinePoints;
     vector<double> sSet;

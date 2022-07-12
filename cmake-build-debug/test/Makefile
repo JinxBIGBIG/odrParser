@@ -129,73 +129,73 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-test/CMakeFiles/get_lane_info.dir/rule:
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 test/CMakeFiles/get_lane_info.dir/rule
-.PHONY : test/CMakeFiles/get_lane_info.dir/rule
+test/CMakeFiles/get_odr_info.dir/rule:
+	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 test/CMakeFiles/get_odr_info.dir/rule
+.PHONY : test/CMakeFiles/get_odr_info.dir/rule
 
 # Convenience name for target.
-get_lane_info: test/CMakeFiles/get_lane_info.dir/rule
+get_odr_info: test/CMakeFiles/get_odr_info.dir/rule
 
-.PHONY : get_lane_info
+.PHONY : get_odr_info
 
 # fast build rule for target.
-get_lane_info/fast:
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_lane_info.dir\build.make test/CMakeFiles/get_lane_info.dir/build
-.PHONY : get_lane_info/fast
+get_odr_info/fast:
+	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_odr_info.dir\build.make test/CMakeFiles/get_odr_info.dir/build
+.PHONY : get_odr_info/fast
 
-__/src/dynamicMessage.obj: __/src/dynamicMessage.cpp.obj
+IEvalTest.obj: IEvalTest.cpp.obj
 
-.PHONY : __/src/dynamicMessage.obj
-
-# target to build an object file
-__/src/dynamicMessage.cpp.obj:
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_lane_info.dir\build.make test/CMakeFiles/get_lane_info.dir/__/src/dynamicMessage.cpp.obj
-.PHONY : __/src/dynamicMessage.cpp.obj
-
-__/src/dynamicMessage.i: __/src/dynamicMessage.cpp.i
-
-.PHONY : __/src/dynamicMessage.i
-
-# target to preprocess a source file
-__/src/dynamicMessage.cpp.i:
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_lane_info.dir\build.make test/CMakeFiles/get_lane_info.dir/__/src/dynamicMessage.cpp.i
-.PHONY : __/src/dynamicMessage.cpp.i
-
-__/src/dynamicMessage.s: __/src/dynamicMessage.cpp.s
-
-.PHONY : __/src/dynamicMessage.s
-
-# target to generate assembly for a file
-__/src/dynamicMessage.cpp.s:
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_lane_info.dir\build.make test/CMakeFiles/get_lane_info.dir/__/src/dynamicMessage.cpp.s
-.PHONY : __/src/dynamicMessage.cpp.s
-
-__/src/jinx/DataOperation.obj: __/src/jinx/DataOperation.cpp.obj
-
-.PHONY : __/src/jinx/DataOperation.obj
+.PHONY : IEvalTest.obj
 
 # target to build an object file
-__/src/jinx/DataOperation.cpp.obj:
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_lane_info.dir\build.make test/CMakeFiles/get_lane_info.dir/__/src/jinx/DataOperation.cpp.obj
-.PHONY : __/src/jinx/DataOperation.cpp.obj
+IEvalTest.cpp.obj:
+	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_odr_info.dir\build.make test/CMakeFiles/get_odr_info.dir/IEvalTest.cpp.obj
+.PHONY : IEvalTest.cpp.obj
 
-__/src/jinx/DataOperation.i: __/src/jinx/DataOperation.cpp.i
+IEvalTest.i: IEvalTest.cpp.i
 
-.PHONY : __/src/jinx/DataOperation.i
+.PHONY : IEvalTest.i
 
 # target to preprocess a source file
-__/src/jinx/DataOperation.cpp.i:
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_lane_info.dir\build.make test/CMakeFiles/get_lane_info.dir/__/src/jinx/DataOperation.cpp.i
-.PHONY : __/src/jinx/DataOperation.cpp.i
+IEvalTest.cpp.i:
+	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_odr_info.dir\build.make test/CMakeFiles/get_odr_info.dir/IEvalTest.cpp.i
+.PHONY : IEvalTest.cpp.i
 
-__/src/jinx/DataOperation.s: __/src/jinx/DataOperation.cpp.s
+IEvalTest.s: IEvalTest.cpp.s
 
-.PHONY : __/src/jinx/DataOperation.s
+.PHONY : IEvalTest.s
 
 # target to generate assembly for a file
-__/src/jinx/DataOperation.cpp.s:
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_lane_info.dir\build.make test/CMakeFiles/get_lane_info.dir/__/src/jinx/DataOperation.cpp.s
-.PHONY : __/src/jinx/DataOperation.cpp.s
+IEvalTest.cpp.s:
+	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_odr_info.dir\build.make test/CMakeFiles/get_odr_info.dir/IEvalTest.cpp.s
+.PHONY : IEvalTest.cpp.s
+
+__/src/customParse/ShareMessage.obj: __/src/customParse/ShareMessage.cpp.obj
+
+.PHONY : __/src/customParse/ShareMessage.obj
+
+# target to build an object file
+__/src/customParse/ShareMessage.cpp.obj:
+	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_odr_info.dir\build.make test/CMakeFiles/get_odr_info.dir/__/src/customParse/ShareMessage.cpp.obj
+.PHONY : __/src/customParse/ShareMessage.cpp.obj
+
+__/src/customParse/ShareMessage.i: __/src/customParse/ShareMessage.cpp.i
+
+.PHONY : __/src/customParse/ShareMessage.i
+
+# target to preprocess a source file
+__/src/customParse/ShareMessage.cpp.i:
+	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_odr_info.dir\build.make test/CMakeFiles/get_odr_info.dir/__/src/customParse/ShareMessage.cpp.i
+.PHONY : __/src/customParse/ShareMessage.cpp.i
+
+__/src/customParse/ShareMessage.s: __/src/customParse/ShareMessage.cpp.s
+
+.PHONY : __/src/customParse/ShareMessage.s
+
+# target to generate assembly for a file
+__/src/customParse/ShareMessage.cpp.s:
+	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_odr_info.dir\build.make test/CMakeFiles/get_odr_info.dir/__/src/customParse/ShareMessage.cpp.s
+.PHONY : __/src/customParse/ShareMessage.cpp.s
 
 __/src/positionInfo.obj: __/src/positionInfo.cpp.obj
 
@@ -203,7 +203,7 @@ __/src/positionInfo.obj: __/src/positionInfo.cpp.obj
 
 # target to build an object file
 __/src/positionInfo.cpp.obj:
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_lane_info.dir\build.make test/CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.obj
+	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_odr_info.dir\build.make test/CMakeFiles/get_odr_info.dir/__/src/positionInfo.cpp.obj
 .PHONY : __/src/positionInfo.cpp.obj
 
 __/src/positionInfo.i: __/src/positionInfo.cpp.i
@@ -212,7 +212,7 @@ __/src/positionInfo.i: __/src/positionInfo.cpp.i
 
 # target to preprocess a source file
 __/src/positionInfo.cpp.i:
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_lane_info.dir\build.make test/CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.i
+	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_odr_info.dir\build.make test/CMakeFiles/get_odr_info.dir/__/src/positionInfo.cpp.i
 .PHONY : __/src/positionInfo.cpp.i
 
 __/src/positionInfo.s: __/src/positionInfo.cpp.s
@@ -221,62 +221,8 @@ __/src/positionInfo.s: __/src/positionInfo.cpp.s
 
 # target to generate assembly for a file
 __/src/positionInfo.cpp.s:
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_lane_info.dir\build.make test/CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.s
+	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_odr_info.dir\build.make test/CMakeFiles/get_odr_info.dir/__/src/positionInfo.cpp.s
 .PHONY : __/src/positionInfo.cpp.s
-
-__/src/staticMessage.obj: __/src/staticMessage.cpp.obj
-
-.PHONY : __/src/staticMessage.obj
-
-# target to build an object file
-__/src/staticMessage.cpp.obj:
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_lane_info.dir\build.make test/CMakeFiles/get_lane_info.dir/__/src/staticMessage.cpp.obj
-.PHONY : __/src/staticMessage.cpp.obj
-
-__/src/staticMessage.i: __/src/staticMessage.cpp.i
-
-.PHONY : __/src/staticMessage.i
-
-# target to preprocess a source file
-__/src/staticMessage.cpp.i:
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_lane_info.dir\build.make test/CMakeFiles/get_lane_info.dir/__/src/staticMessage.cpp.i
-.PHONY : __/src/staticMessage.cpp.i
-
-__/src/staticMessage.s: __/src/staticMessage.cpp.s
-
-.PHONY : __/src/staticMessage.s
-
-# target to generate assembly for a file
-__/src/staticMessage.cpp.s:
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_lane_info.dir\build.make test/CMakeFiles/get_lane_info.dir/__/src/staticMessage.cpp.s
-.PHONY : __/src/staticMessage.cpp.s
-
-getLaneinfo.obj: getLaneinfo.cpp.obj
-
-.PHONY : getLaneinfo.obj
-
-# target to build an object file
-getLaneinfo.cpp.obj:
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_lane_info.dir\build.make test/CMakeFiles/get_lane_info.dir/getLaneinfo.cpp.obj
-.PHONY : getLaneinfo.cpp.obj
-
-getLaneinfo.i: getLaneinfo.cpp.i
-
-.PHONY : getLaneinfo.i
-
-# target to preprocess a source file
-getLaneinfo.cpp.i:
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_lane_info.dir\build.make test/CMakeFiles/get_lane_info.dir/getLaneinfo.cpp.i
-.PHONY : getLaneinfo.cpp.i
-
-getLaneinfo.s: getLaneinfo.cpp.s
-
-.PHONY : getLaneinfo.s
-
-# target to generate assembly for a file
-getLaneinfo.cpp.s:
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug && $(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_lane_info.dir\build.make test/CMakeFiles/get_lane_info.dir/getLaneinfo.cpp.s
-.PHONY : getLaneinfo.cpp.s
 
 # Help Target
 help:
@@ -286,22 +232,16 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... get_lane_info
-	@echo ... __/src/dynamicMessage.obj
-	@echo ... __/src/dynamicMessage.i
-	@echo ... __/src/dynamicMessage.s
-	@echo ... __/src/jinx/DataOperation.obj
-	@echo ... __/src/jinx/DataOperation.i
-	@echo ... __/src/jinx/DataOperation.s
+	@echo ... get_odr_info
+	@echo ... IEvalTest.obj
+	@echo ... IEvalTest.i
+	@echo ... IEvalTest.s
+	@echo ... __/src/customParse/ShareMessage.obj
+	@echo ... __/src/customParse/ShareMessage.i
+	@echo ... __/src/customParse/ShareMessage.s
 	@echo ... __/src/positionInfo.obj
 	@echo ... __/src/positionInfo.i
 	@echo ... __/src/positionInfo.s
-	@echo ... __/src/staticMessage.obj
-	@echo ... __/src/staticMessage.i
-	@echo ... __/src/staticMessage.s
-	@echo ... getLaneinfo.obj
-	@echo ... getLaneinfo.i
-	@echo ... getLaneinfo.s
 .PHONY : help
 
 

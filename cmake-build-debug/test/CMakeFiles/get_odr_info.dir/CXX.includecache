@@ -6,46 +6,6 @@
 
 #IncludeRegexTransform: 
 
-../OdrManager/AdditionNodes/OdrHierCoord.hh
-vector
--
-
-../OdrManager/AdditionNodes/OdrReader.hh
-BaseNodes/OdrNode.hh
-../OdrManager/AdditionNodes/BaseNodes/OdrNode.hh
-OdrParserCallback.hh
-../OdrManager/AdditionNodes/OdrParserCallback.hh
-
-../OdrManager/AdditionNodes/OdrReaderXML.hh
-AdditionNodes/OdrReader.hh
-../OdrManager/AdditionNodes/AdditionNodes/OdrReader.hh
-
-../OdrManager/AdditionNodes/OdrRoadQuery.hh
-map
--
-BaseNodes/OdrRoadData.hh
-../OdrManager/AdditionNodes/BaseNodes/OdrRoadData.hh
-BaseNodes/OdrNode.hh
-../OdrManager/AdditionNodes/BaseNodes/OdrNode.hh
-BaseNodes/OdrRoadHeader.hh
-../OdrManager/AdditionNodes/BaseNodes/OdrRoadHeader.hh
-BaseNodes/OdrGeoNode.hh
-../OdrManager/AdditionNodes/BaseNodes/OdrGeoNode.hh
-BaseNodes/OdrJuncHeader.hh
-../OdrManager/AdditionNodes/BaseNodes/OdrJuncHeader.hh
-BaseNodes/OdrLane.hh
-../OdrManager/AdditionNodes/BaseNodes/OdrLane.hh
-OdrCoord.hh
-../OdrManager/AdditionNodes/OdrCoord.hh
-OdrHierCoord.hh
-../OdrManager/AdditionNodes/OdrHierCoord.hh
-OdrLaneCoord.hh
-../OdrManager/AdditionNodes/OdrLaneCoord.hh
-OdrGeoCoord.hh
-../OdrManager/AdditionNodes/OdrGeoCoord.hh
-vector
--
-
 ../OdrManager/BaseNodes/OdrBridge.hh
 OdrNode.hh
 ../OdrManager/BaseNodes/OdrNode.hh
@@ -55,18 +15,6 @@ OdrNode.hh
 ../OdrManager/BaseNodes/OdrNode.hh
 
 ../OdrManager/BaseNodes/OdrGeoHeader.hh
-OdrNode.hh
-../OdrManager/BaseNodes/OdrNode.hh
-
-../OdrManager/BaseNodes/OdrGeoNode.hh
-OdrNode.hh
-../OdrManager/BaseNodes/OdrNode.hh
-
-../OdrManager/BaseNodes/OdrGeoReference.hh
-OdrNode.hh
-../OdrManager/BaseNodes/OdrNode.hh
-
-../OdrManager/BaseNodes/OdrHeader.hh
 OdrNode.hh
 ../OdrManager/BaseNodes/OdrNode.hh
 
@@ -88,11 +36,11 @@ OdrNode.hh
 OdrNode.hh
 ../OdrManager/BaseNodes/OdrNode.hh
 
-../OdrManager/BaseNodes/OdrLaneSection.hh
+../OdrManager/BaseNodes/OdrLaneOffset.hh
 OdrNode.hh
 ../OdrManager/BaseNodes/OdrNode.hh
 
-../OdrManager/BaseNodes/OdrLaneWidth.hh
+../OdrManager/BaseNodes/OdrLaneSection.hh
 OdrNode.hh
 ../OdrManager/BaseNodes/OdrNode.hh
 
@@ -107,14 +55,6 @@ OpenDRIVE.hh
 ../OdrManager/BaseNodes/OdrObject.hh
 OdrNode.hh
 ../OdrManager/BaseNodes/OdrNode.hh
-
-../OdrManager/BaseNodes/OdrRoadData.hh
-map
--
-OdrNode.hh
-../OdrManager/BaseNodes/OdrNode.hh
-OdrParserCallback.hh
-../OdrManager/BaseNodes/OdrParserCallback.hh
 
 ../OdrManager/BaseNodes/OdrRoadHeader.hh
 vector
@@ -135,10 +75,6 @@ OdrNode.hh
 ../OdrManager/BaseNodes/OdrNode.hh
 
 ../OdrManager/BaseNodes/OdrSignal.hh
-OdrNode.hh
-../OdrManager/BaseNodes/OdrNode.hh
-
-../OdrManager/BaseNodes/OdrTunnel.hh
 OdrNode.hh
 ../OdrManager/BaseNodes/OdrNode.hh
 
@@ -168,14 +104,6 @@ OdrCoord.hh
 OdrLaneCoord.hh
 ../OdrManager/OdrLaneCoord.hh
 
-../OdrManager/OdrParserCallback.hh
-
-../OdrManager/OdrProjection.hh
-OdrGeoCoord.hh
-../OdrManager/OdrGeoCoord.hh
-OdrCoord.hh
-../OdrManager/OdrCoord.hh
-
 ../OdrManager/OdrTrackCoord.hh
 string
 -
@@ -194,21 +122,11 @@ proj_symbol_rename.h
 vector
 -
 
-../include/DataOperation.h
-vector
--
-iostream
--
-
 ../include/ShareMessage.h
 positionInfo.h
 ../include/positionInfo.h
-
-../include/dynamiciMessage.h
-vector
+iostream
 -
-positionInfo.h
-../include/positionInfo.h
 
 ../include/positionInfo.h
 tinyxml2.h
@@ -227,6 +145,8 @@ BaseNodes/OdrRoadHeader.hh
 ../include/BaseNodes/OdrRoadHeader.hh
 BaseNodes/OdrObject.hh
 ../include/BaseNodes/OdrObject.hh
+BaseNodes/OdrSignal.hh
+../include/BaseNodes/OdrSignal.hh
 BaseNodes/OdrJuncHeader.hh
 ../include/BaseNodes/OdrJuncHeader.hh
 BaseNodes/OdrBridge.hh
@@ -253,6 +173,8 @@ BaseNodes/OdrRoadType.hh
 ../include/BaseNodes/OdrRoadType.hh
 BaseNodes/OdrGeoHeader.hh
 ../include/BaseNodes/OdrGeoHeader.hh
+BaseNodes/OdrLaneOffset.hh
+../include/BaseNodes/OdrLaneOffset.hh
 OdrTrackCoord.hh
 ../include/OdrTrackCoord.hh
 OdrLaneCoord.hh
@@ -269,28 +191,6 @@ math.h
 -
 algorithm
 -
-
-../include/staticMessage.h
-vector
--
-tinyxml2.h
-../include/tinyxml2.h
-OpenDRIVE.hh
-../include/OpenDRIVE.hh
-OdrManager.hh
-../include/OdrManager.hh
-OdrGeoCoord.hh
-../include/OdrGeoCoord.hh
-OdrManagerLite.hh
-../include/OdrManagerLite.hh
-BaseNodes/OdrNode.hh
-../include/BaseNodes/OdrNode.hh
-OdrTrackCoord.hh
-../include/OdrTrackCoord.hh
-OdrLaneCoord.hh
-../include/OdrLaneCoord.hh
-positionInfo.h
-../include/positionInfo.h
 
 ../include/tinyxml2.h
 ctype.h
@@ -322,83 +222,7 @@ android/log.h
 assert.h
 -
 
-D:/MCworkspace/odrParser/src/DataOperation.cpp
-DataOperation.h
-D:/MCworkspace/odrParser/src/DataOperation.h
-
 D:/MCworkspace/odrParser/src/customParse/ShareMessage.cpp
 ShareMessage.h
 D:/MCworkspace/odrParser/src/customParse/ShareMessage.h
-
-D:/MCworkspace/odrParser/src/positionInfo.cpp
-positionInfo.h
-D:/MCworkspace/odrParser/src/positionInfo.h
-OpenDRIVE.hh
-D:/MCworkspace/odrParser/src/OpenDRIVE.hh
-OdrManager.hh
-D:/MCworkspace/odrParser/src/OdrManager.hh
-OdrManagerLite.hh
-D:/MCworkspace/odrParser/src/OdrManagerLite.hh
-OdrProjection.hh
-D:/MCworkspace/odrParser/src/OdrProjection.hh
-BaseNodes/OdrNode.hh
-D:/MCworkspace/odrParser/src/BaseNodes/OdrNode.hh
-BaseNodes/OdrRoadHeader.hh
-D:/MCworkspace/odrParser/src/BaseNodes/OdrRoadHeader.hh
-BaseNodes/OdrLane.hh
-D:/MCworkspace/odrParser/src/BaseNodes/OdrLane.hh
-BaseNodes/OdrLaneSection.hh
-D:/MCworkspace/odrParser/src/BaseNodes/OdrLaneSection.hh
-BaseNodes/OdrGeoHeader.hh
-D:/MCworkspace/odrParser/src/BaseNodes/OdrGeoHeader.hh
-BaseNodes/OdrTunnel.hh
-D:/MCworkspace/odrParser/src/BaseNodes/OdrTunnel.hh
-BaseNodes/OdrLaneWidth.hh
-D:/MCworkspace/odrParser/src/BaseNodes/OdrLaneWidth.hh
-BaseNodes/OdrHeader.hh
-D:/MCworkspace/odrParser/src/BaseNodes/OdrHeader.hh
-AdditionNodes/OdrReaderXML.hh
-D:/MCworkspace/odrParser/src/AdditionNodes/OdrReaderXML.hh
-BaseNodes/OdrGeoReference.hh
-D:/MCworkspace/odrParser/src/BaseNodes/OdrGeoReference.hh
-BaseNodes/OdrRoadData.hh
-D:/MCworkspace/odrParser/src/BaseNodes/OdrRoadData.hh
-OdrCoord.hh
-D:/MCworkspace/odrParser/src/OdrCoord.hh
-tinyxml2.h
-D:/MCworkspace/odrParser/src/tinyxml2.h
-iostream
--
-vector
--
-numeric
--
-AdditionNodes/OdrRoadQuery.hh
-D:/MCworkspace/odrParser/src/AdditionNodes/OdrRoadQuery.hh
-
-D:/MCworkspace/odrParser/src/tinyxml2.cpp
-tinyxml2.h
-D:/MCworkspace/odrParser/src/tinyxml2.h
-new
--
-stddef.h
--
-stdarg.h
--
-cstddef
--
-cstdarg
--
-
-D:/MCworkspace/odrParser/test/getLaneinfo.cpp
-OdrManager.hh
-D:/MCworkspace/odrParser/test/OdrManager.hh
-positionInfo.h
-D:/MCworkspace/odrParser/test/positionInfo.h
-staticMessage.h
-D:/MCworkspace/odrParser/test/staticMessage.h
-dynamiciMessage.h
-D:/MCworkspace/odrParser/test/dynamiciMessage.h
-iostream
--
 
