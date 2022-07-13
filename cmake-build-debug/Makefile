@@ -129,17 +129,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named get_lane_info
+# Target rules for targets named get_ISim
 
 # Build rule for target.
-get_lane_info: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 get_lane_info
-.PHONY : get_lane_info
+get_ISim: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 get_ISim
+.PHONY : get_ISim
 
 # fast build rule for target.
-get_lane_info/fast:
-	$(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_lane_info.dir\build.make test/CMakeFiles/get_lane_info.dir/build
-.PHONY : get_lane_info/fast
+get_ISim/fast:
+	$(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_ISim.dir\build.make test/CMakeFiles/get_ISim.dir/build
+.PHONY : get_ISim/fast
 
 # Help Target
 help:
@@ -149,7 +149,7 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... get_lane_info
+	@echo ... get_ISim
 .PHONY : help
 
 

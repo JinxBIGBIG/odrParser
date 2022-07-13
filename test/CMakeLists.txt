@@ -5,13 +5,16 @@
 #find_package(PROJ REQUIRED CONFIG)
 #target_link_libraries(MyApp PRIVATE PROJ::proj)
 
-add_executable(get_lane_info getLaneInfo.cpp ../src/positionInfo.cpp ../src/dynamicMessage.cpp ../src/staticMessage.cpp
-        ../src/jinx/DataOperation.cpp)
+#[[add_executable(get_lane_info getLaneInfo.cpp ../src/positionInfo.cpp ../src/dynamicMessage.cpp ../src/staticMessage.cpp)
 target_link_libraries(get_lane_info ${ODRMANGER_LIB}/libproj_9_1.dll
-         ${ODRMANGER_LIB}/libODrive.1.5.5.a)
+         ${ODRMANGER_LIB}/libODrive.1.5.5.a)]]
 
-#[[add_executable(get_odr_info IEvalTest.cpp ../src/positionInfo.cpp ../src/customParse/ShareMessage.cpp)
-target_link_libraries(get_odr_info ${ODRMANGER_LIB}/libproj_9_1.dll
+add_executable(get_ISim ISimTest.cpp ../src/positionInfo.cpp ../src/customParse/ShareMessage.cpp)
+target_link_libraries(get_ISim ${ODRMANGER_LIB}/libproj_9_1.dll
+        ${ODRMANGER_LIB}/libODrive.1.5.5.a)
+
+#[[add_executable(get_IEval IEvalTest.cpp ../src/positionInfo.cpp ../src/customParse/ShareMessage.cpp)
+target_link_libraries(get_IEval ${ODRMANGER_LIB}/libproj_9_1.dll
         ${ODRMANGER_LIB}/libODrive.1.5.5.a)]]
 
 

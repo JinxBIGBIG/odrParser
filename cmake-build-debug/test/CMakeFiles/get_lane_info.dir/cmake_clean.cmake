@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "../../bin/get_lane_info.exe"
   "../../bin/get_lane_info.exe.manifest"
   "../../bin/get_lane_info.pdb"
+  "CMakeFiles/get_lane_info.dir/ISimuTest.cpp.obj"
   "CMakeFiles/get_lane_info.dir/__/src/dynamicMessage.cpp.obj"
   "CMakeFiles/get_lane_info.dir/__/src/jinx/DataOperation.cpp.obj"
   "CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.obj"

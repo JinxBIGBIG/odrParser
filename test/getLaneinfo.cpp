@@ -112,9 +112,8 @@ int main(int argc, char** argv) {
     dynamicMap.GetCAPathPlanningOut(posInfoManager, guidePathsEndPoint, guidePathsEndPointAdded);*/
 
     CADynamicHDMapErc dynamicHdMapErc;
-    dynamicHdMapErc = dynamicMap.GetCADynamicHDMapErc(posInfoManager, guidePathsRange, guidePathsRangeAdded,
-                                                      guidePathsEndPoint, guidePathsEndPointAdded);
-    cout << " GetCADynamicHDMapErc over ... " << endl;
+    //dynamicHdMapErc = dynamicMap.GetCADynamicHDMapErc(posInfoManager, guidePathsRange, guidePathsRangeAdded, guidePathsEndPoint, guidePathsEndPointAdded);
+    // cout << " GetCADynamicHDMapErc over ... " << endl;
 
 
 
@@ -125,7 +124,7 @@ int main(int argc, char** argv) {
     //vector<CALink> caLinks;
     CAStaticHDMapErc caStaticHdMapErc;
     //caLinks = staticMap.GetCALink(posInfoManager, guidePathsEndPoint);
-    caStaticHdMapErc = staticMap.GetCAStaticHDMapErc(posInfoManager, guidePathsEndPoint);
+    //caStaticHdMapErc = staticMap.GetCAStaticHDMapErc(posInfoManager, guidePathsEndPoint);
 
 
 //

@@ -174,6 +174,8 @@ public:
 
     std::vector<std::pair<int, OpenDrive::RoadHeader* >> AddJuncRoad2GuidePathsWithTwoRoads(GuidePaths guidePaths);
     std::vector<std::pair<int, OpenDrive::RoadHeader* >> AddJuncRoad2GuidePaths(std::vector<std::pair<int, int>> &inputPaths, GuidePaths &guidePaths);
+    std::vector<std::pair<int, int >> AddJuncLane2GuidePaths(std::vector<std::pair<int, int>> &inputPaths, std::vector<std::pair<int, int>> &guidePaths);
+
     //用此替代验证
     std::vector<std::pair<int, OpenDrive::RoadHeader* >> GetGuidePaths(const int range);
 
@@ -255,6 +257,8 @@ public:
 
 
     Point GetLanePointList(OpenDrive::RoadHeader *road, double s, double t, Point &point, bool InertialGeo);
+
+    std::vector<int> GetNextRoadLaneIDs(int laneID, OpenDrive::RoadHeader *nextRoad, std::vector<int> &nextRoadLaneId);
 };
 
 #endif //ODRPARSER_POSITIONINFO_H
