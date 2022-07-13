@@ -25,6 +25,7 @@ private:
     const int linkNum = 6;
     const int laneNum = 7;
     const int lineNum = 8;
+    const int step = 5;
 
     std::vector<CALink> mLink;
     std::vector<CALaneAttribute> mLaneAttribute;

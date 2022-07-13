@@ -1666,137 +1666,11 @@ bool GetPositionInfo::GetGeographicCoordinate(PJ_COORD &coord, char *targetProj)
     return true;
 }
 
-void GetPositionInfo::GetLaneLinePoints(OpenDrive::RoadHeader* road, OpenDrive::LaneSection *laneSection, vector<vector<Point>>& linePointsList,
-                                        vector<vector<Point>>& cLinePointsList){
-    //获取laneSection 中lane的车道线轨迹点集，车道中心线轨迹点集
-//    vector<vector<Point>> linePointsList;
-//    vector<vector<Point>> cLinePointsList;
-    vector<Point> linePoints;
-    vector<Point> cLinePoints;
-    vector<double> sSet;
-    vector<double>dsSet;
-    vector<double>refSet;
 
-    Lane* lane = laneSection->getLaneFromId(0);
-    double s = laneSection->mS;
-    double step =5;
-    double targetS = s;
-    double ds=0;
-    double ref;
-//    sSet.push_back(targetS);
-//    dsSet.push_back(ds);
-//    refSet.push_back(GetLaneOffset(road,targetS));
-    while(targetS<laneSection->mSEnd)
-    {
-        ds = targetS-laneSection->mS;
-        ref=GetLaneOffset(road,targetS);
-        sSet.push_back(targetS);
-        dsSet.push_back(ds);
-        refSet.push_back(ref);
-        cout<<"ref"<<ref<<endl;
-        cout<<"targetS"<<targetS<<endl;
-        targetS += step;
-    }
-//    Lane *currentLane;
-//只获取了右侧车道
-    Lane* tempLane = lane;
-    vector<double>v1(dsSet.size(),0);
-    vector<double>widthSet;
-    vector<vector<double>>widthSetList;
-    widthSetList.push_back(v1);
-    double laneWidth;
-    while(tempLane->getRight() != NULL)
-    {
-        tempLane = (Lane *)(tempLane->getRight());
-        cout<<"dsSet.size()"<<dsSet.size()<<endl;
-        for(int i =0;i<dsSet.size();i++){
-            cout<<"i="<<i<<"laneid"<<tempLane->mId<<endl;
-
-            laneWidth = GetLaneWidth(tempLane,dsSet.at(i));
-            widthSet.push_back(laneWidth);
-        }
-        widthSetList.push_back(widthSet);
-        widthSet.clear();
-    }
-    cout<<"widthSetList.size()"<<widthSetList.size()<<endl;
-//    vector<double>t1(dsSet.size(),0);
-    double t;
-    vector<double>tSet;
-    vector<vector<double>>tSetList;
-    tSetList.push_back(refSet);
-    double tCline;
-    vector<double>tClineSet;
-    vector<vector<double>>tClineSetList;
-    tClineSetList.push_back(refSet);
-    int j,k,n,m;
-    for( j=1;j<widthSetList.size();j++){
-//        cout<<"j="<<j<<endl;
-        for(k=0;k<sSet.size();k++){
-//            cout<<"k="<<k<<endl;
-            t=tSetList[j-1][k]-widthSetList[j][k];
-            tSet.push_back(t);
-            tCline = tSetList[j-1][k]-(1.0/2)*widthSetList[j][k];
-            tClineSet.push_back(tCline);
-        }
-        tSetList.push_back(tSet);
-        tSet.clear();
-        tClineSetList.push_back(tClineSet);
-        tClineSet.clear();
-    }
-    for( n=0;n<tSetList.size();n++) {
-        for (m = 0; m < sSet.size(); m++) {
-//            cout<<"m="<<m<<",n="<<n;
-            myManager.setTrackPos(road->getId(), sSet.at(m), tSetList[n][m]);
-            bool result1 = myManager.track2inertial();
-            double p1x = myManager.getInertialPos().getX();
-            double p1y = myManager.getInertialPos().getY();
-            double p1z = myManager.getInertialPos().getZ();
-//            cout << "p1:" << "(" << p1x << "," << p1y << "," << p1z << ")" << std::endl;
-            Point p1;
-            p1.x = p1x;
-            p1.y = p1y;
-            p1.z = p1z;
-            bool result2 = myManager.track2curvature();
-            double curve1 = myManager.getCurvature();
-            linePoints.push_back(p1);
-            //cout << "curve1" << curve1 << ",m" << m << endl;
-            myManager.setTrackPos(road->getId(), sSet.at(m), tClineSetList[n][m]);
-            bool result3 = myManager.track2inertial();
-            double p2x = myManager.getInertialPos().getX();
-            double p2y = myManager.getInertialPos().getY();
-            double p2z = myManager.getInertialPos().getZ();
-
-//            cout << "p2:" << "(" << p2x << "," << p2y << "," << p2z << ")" << std::endl;
-            Point p2;
-            p2.x = p2x;
-            p2.y = p2y;
-            p2.z = p2z;
-            cLinePoints.push_back(p2);
-            if (curve1 == 0) {
-                m = m + 1;
-            }
-        }
-        cout<<"linePoints"<<linePoints.size()<<endl;
-        linePointsList.push_back(linePoints);
-        linePoints.clear();
-        cLinePointsList.push_back(cLinePoints);
-        cLinePoints.clear();
-    }
-//    return linePointsList;
-}
-
-void GetPositionInfo::GetLaneLinePoints(OpenDrive::RoadHeader* road, OpenDrive::LaneSection *laneSection, vector<vector<Gnss>>& linePointsList,
-                                        vector<vector<Gnss>>& cLinePointsList){
-    //获取laneSection 中lane的车道线轨迹点集，车道中心线轨迹点集
-    vector<Gnss> linePoints;
-    vector<Gnss> cLinePoints;
-    vector<double> sSet;
-    vector<double> dsSet;
-    vector<double> refSet;
-
+void GetPositionInfo::GetSDsOffsetSet(OpenDrive::RoadHeader* road, OpenDrive::LaneSection *laneSection, double step, vector<double> &sSectionSet,
+                                      vector<double> &sToSectionDisSet, vector<double> &refSSet){
     Lane* tempLane = laneSection->getLaneFromId(0);
     double s = laneSection->mS;
-    double step = 5;
     double targetS = s;
     double ds = 0;
     double ref;
@@ -1805,47 +1679,49 @@ void GetPositionInfo::GetLaneLinePoints(OpenDrive::RoadHeader* road, OpenDrive::
     {
         ds = targetS-laneSection->mS;
         ref = GetLaneOffset(road,targetS);
-        sSet.push_back(targetS);
-        dsSet.push_back(ds);
-        refSet.push_back(ref);
-        //cout<<"ref"<<ref<<endl;
-        //cout<<"targetS"<<targetS<<endl;
+        sSectionSet.push_back(targetS);
+        sToSectionDisSet.push_back(ds);
+        refSSet.push_back(ref);
         targetS += step;
     }
+}
+
+void GetPositionInfo::GetWidthSSetList(OpenDrive::RoadHeader* road, OpenDrive::LaneSection *laneSection, double step,
+                                       vector<double> &sSectionSet, vector<vector<double>> &widthSetList){
+    Lane* tempLane = laneSection->getLaneFromId(0);
 //    Lane *currentLane;
 //只获取了右侧车道
-    vector<double> v1(dsSet.size(),0);
+
+    vector<double> v1(sSectionSet.size(),0);
     vector<double> widthSet;
-    vector<vector<double>> widthSetList;
     widthSetList.push_back(v1);
     double laneWidth;
     while(tempLane->getRight() != NULL)
     {
         tempLane = (Lane *)(tempLane->getRight());
-        //cout<<"dsSet.size()"<<dsSet.size()<<endl;
-        for(int i =0;i<dsSet.size();i++){
-            //cout<<"i="<<i<<"laneid"<<tempLane->mId<<endl;
-
-            laneWidth = GetLaneWidth(tempLane,dsSet.at(i));
+        for(int i =0;i<sSectionSet.size();i++){
+            laneWidth = GetLaneWidth(tempLane,sSectionSet.at(i));
             widthSet.push_back(laneWidth);
         }
         widthSetList.push_back(widthSet);
         widthSet.clear();
     }
+}
+
+void GetPositionInfo::GetSTSetList(vector<double> &sSectionSet, vector<double> &refSSet, vector<vector<double>> &widthSetList, vector<vector<double>> &tSetList,
+                                   vector<vector<double>> &tClineSetList){
     //cout<<"widthSetList.size()"<<widthSetList.size()<<endl;
 //    vector<double>t1(dsSet.size(),0);
     double t;
     vector<double> tSet;
-    vector<vector<double>> tSetList;
-    tSetList.push_back(refSet);
+    tSetList.push_back(refSSet);
     double tCline;
     vector<double>tClineSet;
-    vector<vector<double>> tClineSetList;
-    tClineSetList.push_back(refSet);
-    int j,k,n,m;
+    tClineSetList.push_back(refSSet);
+    int j,k;
     for( j=1;j<widthSetList.size();j++){
 //        cout<<"j="<<j<<endl;
-        for(k=0;k<sSet.size();k++){
+        for(k=0;k<sSectionSet.size();k++){
 //            cout<<"k="<<k<<endl;
             t=tSetList[j-1][k]-widthSetList[j][k];
             tSet.push_back(t);
@@ -1857,33 +1733,54 @@ void GetPositionInfo::GetLaneLinePoints(OpenDrive::RoadHeader* road, OpenDrive::
         tClineSetList.push_back(tClineSet);
         tClineSet.clear();
     }
+}
+
+Point GetPositionInfo::GetLanePointList(OpenDrive::RoadHeader* road, double s, double t, Point &point, bool InertialGeo = false){
     PJ_COORD geoCoord;
-    for( n=0;n<tSetList.size();n++) {
-        for (m = 0; m < sSet.size(); m++) {
+    myManager.setTrackPos(road->getId(), s, t);
+    bool result = myManager.track2inertial();
+    point = {myManager.getInertialPos().getX(), myManager.getInertialPos().getY(),myManager.getInertialPos().getZ()};
+    if(InertialGeo) {
+        //cout << "Original coord line: " << geoCoord.xy.x << " ; " << geoCoord.xy.y << endl;
+        GetGeographicCoordinate(geoCoord);
+        //cout << "Ll coord line: " << geoCoord.lp.lam << " ; " <<geoCoord.lp.phi << endl;
+        point = {geoCoord.lp.lam, geoCoord.lp.phi, 0};
+    }
+    return point;
+}
+
+void GetPositionInfo::GetLaneLinePoints(OpenDrive::RoadHeader* road, OpenDrive::LaneSection *laneSection, double step, vector<vector<Gnss>>& linePointsList,
+                                        vector<vector<Gnss>>& cLinePointsList){
+    //获取laneSection 中lane的车道线轨迹点集，车道中心线轨迹点集
+    vector<Gnss> linePoints;
+    vector<Gnss> cLinePoints;
+    vector<double> sSectionSet;
+    vector<double> sToSectionDisSet;
+    vector<double> refSSet;
+    vector<vector<double>> widthSetList;
+    vector<vector<double>> tSetList;
+    vector<vector<double>> tClineSetList;
+
+    GetSDsOffsetSet(road, laneSection, step, sSectionSet, sToSectionDisSet, refSSet);
+    GetWidthSSetList(road, laneSection, step, sSectionSet, widthSetList);
+    GetSTSetList(sSectionSet, refSSet, widthSetList, tSetList, tClineSetList);
+
+    Point point;
+    for( int n =0;n<tSetList.size();n++) {
+        for (int m = 0; m < sSectionSet.size(); m++) {
 //            cout<<"m="<<m<<",n="<<n;
-            myManager.setTrackPos(road->getId(), sSet.at(m), tSetList[n][m]);
-            bool result1 = myManager.track2inertial();
-            geoCoord = {myManager.getInertialPos().getX(), myManager.getInertialPos().getY(),
-                                 myManager.getInertialPos().getZ(), 0};
-            //cout << "Original coord line: " << geoCoord.xy.x << " ; " << geoCoord.xy.y << endl;
-            GetGeographicCoordinate(geoCoord);
-            //cout << "Ll coord line: " << geoCoord.lp.lam << " ; " <<geoCoord.lp.phi << endl;
-            Gnss caPoint(geoCoord.lp.lam, geoCoord.lp.phi);
-            bool result2 = myManager.track2curvature();
-            double curve1 = myManager.getCurvature();
+            point = GetLanePointList(road, sSectionSet.at(m), tSetList[n][m], point, false);
+            Gnss caPoint(point.x, point.y);
             linePoints.push_back(caPoint);
-            myManager.setTrackPos(road->getId(), sSet.at(m), tClineSetList[n][m]);
-            bool result3 = myManager.track2inertial();
-            geoCoord = {myManager.getInertialPos().getX(), myManager.getInertialPos().getY(), myManager.getInertialPos().getZ(), 0};
-            //cout << "Original coord cline: " << geoCoord.xy.x << " ; " << geoCoord.xy.y << endl;
-            GetGeographicCoordinate(geoCoord);
-            //cout << "Ll coord cline: " << geoCoord.xy.x << " ; " << geoCoord.xy.y << endl;
-            caPoint.lng = geoCoord.lp.lam;
-            caPoint.lat = geoCoord.lp.phi;
+
+            double curve = myManager.getCurvature();
+            bool result = myManager.track2curvature();
+
+            point = GetLanePointList(road, sSectionSet.at(m), tClineSetList[n][m], point, false);
+            caPoint = {point.x, point.y};
             cLinePoints.push_back(caPoint);
-            if (curve1 == 0) {
+            if (curve == 0)
                 m = m + 1;
-            }
         }
         //cout<<"linePoints"<<linePoints.size()<<endl;
         linePointsList.push_back(linePoints);
@@ -2028,15 +1925,17 @@ double GetPositionInfo::GetLaneOffset(OpenDrive::RoadHeader* road,  double s){
 
 double GetPositionInfo::GetLaneWidth(OpenDrive::Lane *lane,  double ds){
     LaneWidth *curLaneWidth = lane->getFirstWidth();
+    LaneWidth *tempLaneWidth;
     double width;
     //后期需要计算的时候再添加，
     /*width = laneWidth->mA - laneWidth->mB * laneWidth->mOffset + laneWidth->mC* (pow(laneWidth->mOffset, 2))
             - laneWidth->mD * pow(-laneWidth->mOffset, 3);*/
 //    width = laneWidth->mA;
     while(curLaneWidth != NULL && ds > curLaneWidth->mOffsetEnd){
+        tempLaneWidth = curLaneWidth;
         curLaneWidth = (LaneWidth*)curLaneWidth->getRight();
     }
-    width = curLaneWidth->ds2width(ds);
+    width = tempLaneWidth->ds2width(ds);
 //    cout<<"width"<<width<<endl;
     return width;
 }
@@ -2153,6 +2052,8 @@ tuple<int,int,double,LaneSection*> GetPositionInfo::TraversalRoad(RoadHeader *te
     }
     return make_tuple(rampStatusId.first,rampStatusId.second,currentLength,currentLaneSection);
 }
+
+
 
 
 static int RangeStatus(const string currentRamp){

@@ -218,9 +218,9 @@ public:
     bool GetGeographicCoordinate(PJ_COORD &coord);
     bool GetGeographicCoordinate(PJ_COORD &coord, char *targetProj);
 
-    void GetLaneLinePoints(OpenDrive::RoadHeader* road, OpenDrive::LaneSection *laneSection,
+    void GetLaneLinePoints(OpenDrive::RoadHeader* road, OpenDrive::LaneSection *laneSection, double step,
                            std::vector<std::vector<Gnss>>& linePointsList, std::vector<std::vector<Gnss>>& cLinePointsList);
-    void GetLaneLinePoints(OpenDrive::RoadHeader* road, OpenDrive::LaneSection *laneSection,
+    void GetLaneLinePoints(OpenDrive::RoadHeader* road, OpenDrive::LaneSection *laneSection, double step,
                            std::vector<std::vector<Point>>& linePointsList, std::vector<std::vector<Point>>& cLinePointsList);
     bool ProjTest();
 
@@ -241,6 +241,20 @@ public:
     double GetEndPointLength(GuidePaths &guidePathsEndPoint, Point &endPoint);
 
     double GetSpiralCurvature(OpenDrive::GeoHeader *geoHeader, double s);
+
+
+    void GetSDsOffsetSet(OpenDrive::RoadHeader *road, OpenDrive::LaneSection *laneSection, double step,
+                         std::vector<double> &sSectionSet, std::vector<double> &sToSectionDisSet,
+                         std::vector<double> &refSSet);
+
+    void GetWidthSSetList(OpenDrive::RoadHeader *road, OpenDrive::LaneSection *laneSection, double step,
+                          std::vector<double> &sSectionSet, std::vector<std::vector<double>> &widthSetList);
+
+    void GetSTSetList(std::vector<double> &sSectionSet, std::vector<double> &refSSet, std::vector<std::vector<double>> &widthSetList,
+                      std::vector<std::vector<double>> &tSetList,std::vector<std::vector<double>> &tClineSetList);
+
+
+    Point GetLanePointList(OpenDrive::RoadHeader *road, double s, double t, Point &point, bool InertialGeo);
 };
 
 #endif //ODRPARSER_POSITIONINFO_H

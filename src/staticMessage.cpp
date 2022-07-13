@@ -94,7 +94,7 @@ vector<CALink> StaticMap::GetCALink(GetPositionInfo &getPosInfo, GuidePaths &gui
             vector<vector<Gnss>> cLinePointsList;
             vector<vector<Gnss>> linePointsList;
             cout << "GetLaneLinePoints rotation " << iterRoad << " begins..." << endl;
-            getPosInfo.GetLaneLinePoints(guidePaths.at(iterRoad).second, tempLaneSection, linePointsList, cLinePointsList);
+            getPosInfo.GetLaneLinePoints(guidePaths.at(iterRoad).second, tempLaneSection, step,linePointsList, cLinePointsList);
             cout << "GetLaneLinePoints rotation " << iterRoad << " over..." << endl;
             //cout << "cLinePointsList.size()" << cLinePointsList.size() << endl;
 
