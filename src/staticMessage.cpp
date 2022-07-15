@@ -2,7 +2,6 @@
 // Created by JinxBIGBIG on 2022/5/30.
 //
 #include "staticMessage.h"
-#include "OpenDRIVE.hh"
 #include "BaseNodes/OdrTunnel.hh"
 #include "BaseNodes/OdrLaneWidth.hh"
 #include "AdditionNodes/OdrReaderXML.hh"

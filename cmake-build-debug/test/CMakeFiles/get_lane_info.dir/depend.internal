@@ -37,19 +37,12 @@ test/CMakeFiles/get_lane_info.dir/__/src/dynamicMessage.cpp.obj
  ../include/positionInfo.h
  ../include/tinyxml2.h
  D:/MCworkspace/odrParser/src/dynamicMessage.cpp
-test/CMakeFiles/get_lane_info.dir/__/src/jinx/DataOperation.cpp.obj
- ../include/jinx/DataOperation.h
- D:/MCworkspace/odrParser/src/jinx/DataOperation.cpp
 test/CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.obj
- ../OdrManager/AdditionNodes/OdrHierCoord.hh
  ../OdrManager/AdditionNodes/OdrReader.hh
  ../OdrManager/AdditionNodes/OdrReaderXML.hh
- ../OdrManager/AdditionNodes/OdrRoadQuery.hh
  ../OdrManager/BaseNodes/OdrBridge.hh
  ../OdrManager/BaseNodes/OdrElevation.hh
  ../OdrManager/BaseNodes/OdrGeoHeader.hh
- ../OdrManager/BaseNodes/OdrGeoNode.hh
- ../OdrManager/BaseNodes/OdrGeoReference.hh
  ../OdrManager/BaseNodes/OdrHeader.hh
  ../OdrManager/BaseNodes/OdrJuncHeader.hh
  ../OdrManager/BaseNodes/OdrJuncLaneLink.hh
@@ -149,7 +142,6 @@ test/CMakeFiles/get_lane_info.dir/getLaneinfo.cpp.obj
  ../include/CaEnum.h
  ../include/CaStruct.h
  ../include/dynamiciMessage.h
- ../include/jinx/DataOperation.h
  ../include/positionInfo.h
  ../include/staticMessage.h
  ../include/tinyxml2.h

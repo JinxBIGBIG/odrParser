@@ -249,7 +249,7 @@ CARampInfoOut DynamicMap::GetRampCase(GetPositionInfo &getPosInfo, GuidePaths &g
             mRampInfoOut.splitRampLaneId = pow(2, 17 - abs(id));
             break;
     }
-
+    return mRampInfoOut;
 }
 
 CARampInfoOut DynamicMap::GetCARampInfoOut(GetPositionInfo &getPosInfo, GuidePaths &guidePathsRange,GuidePaths &guidePathsRangeAdded)
@@ -264,9 +264,8 @@ CARampInfoOut DynamicMap::GetCARampInfoOut(GetPositionInfo &getPosInfo, GuidePat
     if(1 == guidePathsRange.size()) rotationTimes = 1;
     else rotationTimes = guidePathsRange.size() - 1;
     RoadHeader *nextRoad;
-//    if(guidePaths.size()>=3) {
     nextRoad = guidePathsRangeAdded.at(1).second;
-    cout << "nextRoad:" << nextRoad->mId << endl;
+    //cout << "nextRoad:" << nextRoad->mId << endl;
     double currentLength = getPosInfo.myPosInfo.roadlength - getPosInfo.myPosInfo.trackS;
     RoadHeader *currentRoad;
     //1、当前lane就在ramp中
@@ -645,6 +644,7 @@ void DynamicMap::GetLaneChangeInfo(GetPositionInfo &getPosInfo, GuidePaths &guid
 
 CADynamicAddition DynamicMap::GetCADynamicAddition(GetPositionInfo &getPosInfo, GuidePaths &guidePaths)
 {
+    if(getPosInfo.myPosInfo.road) mDynamicAddition.isInMap = 1;
     cout << " GetCADynamicAddition begins..." << endl;
      mDynamicAddition.laneCurvature100 = getPosInfo.GetForwardCurvature(100);
     mDynamicAddition.laneCurvature200 = getPosInfo.GetForwardCurvature(200);

@@ -36,9 +36,6 @@
 #include <math.h>
 #include <algorithm>
 
-
-
-
 struct PositionInfo {
     int laneId;
     int roadId;
@@ -92,8 +89,6 @@ struct Point{
 typedef std::vector<std::pair<int, OpenDrive::RoadHeader* >> GuidePaths;
 typedef std::vector<CALaneWidthCurvature> Curvatures;
 
-const double EPS = 1e-8;
-
 class GetPositionInfo {
 
 public:
@@ -105,7 +100,6 @@ public:
     std::vector<std::string> myKeyWords;
     PositionInfo myPosInfo;
     PositionInfo myEndPosInfo;
-
 
 public:
 
@@ -132,10 +126,7 @@ public:
     void GetEndPosInfo(Point &point, Point &endPoint, OpenDrive::OdrManager& manager);
 
     int DrivingDirRelToRoad(bool isRHT);
-    // bool activatePosition(OpenDrive::OdrManager& manager,Point point);
-    /*parse messages about roadLink
-     * input: manager，point
-     * return: predecessor and successor of roadLink（if existed）*/
+
 
     void GetGeoHeader(Point point);
 
@@ -180,9 +171,9 @@ public:
     std::vector<std::pair<int, OpenDrive::RoadHeader* >> GetGuidePaths(const int range);
 
 
-    CASpecialArea &TraversalSpecialAreaInCurrentRoad(const std::string keyWord, CASpecialArea &specialArea);
+    CASpecialArea TraversalSpecialAreaInCurrentRoad(const std::string keyWord, CASpecialArea &specialArea);
 
-    CASpecialArea &TraversalSpecialAreaInRoad(OpenDrive::RoadHeader *tempRoad, OpenDrive::Object* tempObject,
+    CASpecialArea TraversalSpecialAreaInRoad(OpenDrive::RoadHeader *tempRoad, OpenDrive::Object* tempObject,
                                               const std::string keyWord, const int dir,CASpecialArea &specialArea);
     //void FindRampInRoad(OpenDrive::RoadHeader* road, int& rampStatus);
 

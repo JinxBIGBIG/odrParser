@@ -37,18 +37,11 @@ test/CMakeFiles/get_lane_info.dir/__/src/dynamicMessage.cpp.obj: ../include/posi
 test/CMakeFiles/get_lane_info.dir/__/src/dynamicMessage.cpp.obj: ../include/tinyxml2.h
 test/CMakeFiles/get_lane_info.dir/__/src/dynamicMessage.cpp.obj: ../src/dynamicMessage.cpp
 
-test/CMakeFiles/get_lane_info.dir/__/src/jinx/DataOperation.cpp.obj: ../include/jinx/DataOperation.h
-test/CMakeFiles/get_lane_info.dir/__/src/jinx/DataOperation.cpp.obj: ../src/jinx/DataOperation.cpp
-
-test/CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.obj: ../OdrManager/AdditionNodes/OdrHierCoord.hh
 test/CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.obj: ../OdrManager/AdditionNodes/OdrReader.hh
 test/CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.obj: ../OdrManager/AdditionNodes/OdrReaderXML.hh
-test/CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.obj: ../OdrManager/AdditionNodes/OdrRoadQuery.hh
 test/CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.obj: ../OdrManager/BaseNodes/OdrBridge.hh
 test/CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.obj: ../OdrManager/BaseNodes/OdrElevation.hh
 test/CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.obj: ../OdrManager/BaseNodes/OdrGeoHeader.hh
-test/CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.obj: ../OdrManager/BaseNodes/OdrGeoNode.hh
-test/CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.obj: ../OdrManager/BaseNodes/OdrGeoReference.hh
 test/CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.obj: ../OdrManager/BaseNodes/OdrHeader.hh
 test/CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.obj: ../OdrManager/BaseNodes/OdrJuncHeader.hh
 test/CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.obj: ../OdrManager/BaseNodes/OdrJuncLaneLink.hh
@@ -148,7 +141,6 @@ test/CMakeFiles/get_lane_info.dir/getLaneinfo.cpp.obj: ../OdrManager/proj.h
 test/CMakeFiles/get_lane_info.dir/getLaneinfo.cpp.obj: ../include/CaEnum.h
 test/CMakeFiles/get_lane_info.dir/getLaneinfo.cpp.obj: ../include/CaStruct.h
 test/CMakeFiles/get_lane_info.dir/getLaneinfo.cpp.obj: ../include/dynamiciMessage.h
-test/CMakeFiles/get_lane_info.dir/getLaneinfo.cpp.obj: ../include/jinx/DataOperation.h
 test/CMakeFiles/get_lane_info.dir/getLaneinfo.cpp.obj: ../include/positionInfo.h
 test/CMakeFiles/get_lane_info.dir/getLaneinfo.cpp.obj: ../include/staticMessage.h
 test/CMakeFiles/get_lane_info.dir/getLaneinfo.cpp.obj: ../include/tinyxml2.h

@@ -18,7 +18,6 @@ int main(int argc, char** argv) {
     OpenDrive::OdrManager manager;
     ShareMessage shareMessage;
 
-
 //    string xodrPath = "..\\data\\Crossing8Course.xodr";
     string xodrPath = "..\\data\\Germany_2018.xodr";
     Point startPoint(5915.00, -2937.76, 0); //roadId:40,laneId:-1
@@ -26,9 +25,9 @@ int main(int argc, char** argv) {
 //    Point startPoint(2996.44, -3023.28, 0);
 //    Point endPoint(3111.44, -3003.28, 0);
 
-    /* string xodrPath = "..\\data\\Crossing8Course.xodr";
-     Point startPoint(21.86, -26.1, 0);
-     Point endPoint(68.03, 77.12, 0);*/
+//     string xodrPath = "..\\data\\Crossing8Course.xodr";
+//     Point startPoint(21.86, -26.1, 0);
+//     Point endPoint(68.03, 77.12, 0);
 
 //    string xodrPath = "..\\data\\CAexample.xodr";
 //    Point startPoint(634.46, 594.85, 0);
@@ -39,12 +38,11 @@ int main(int argc, char** argv) {
 
     PositionInfo posInfo;
 
-    GetPositionInfo posInfoManager(manager, xodrPath, startPoint, endPoint, range, posInfo);
+    GetPositionInfo posInfoManager(manager, xodrPath, startPoint, range, posInfo);
 
     shareMessage.GetSignals(posInfoManager);
     IEvalSignal signalInfo;
     cout << shareMessage;
-
 
     return 0;
 }

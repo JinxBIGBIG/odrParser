@@ -5,7 +5,6 @@
 #include "positionInfo.h"
 #include "staticMessage.h"
 #include "dynamiciMessage.h"
-#include "jinx/DataOperation.h"
 #include <iostream>
 
 using namespace std;
@@ -14,8 +13,6 @@ using namespace OpenDrive;
 
 int main(int argc, char** argv) {
     OpenDrive::OdrManager manager;
-    DataOperation dataOperation;
-
 //    string xodrPath = "..\\data\\Crossing8Course.xodr";
     string xodrPath = "..\\data\\Germany_2018.xodr";
     Point startPoint(5915.00, -2937.76, 0); //roadId:40,laneId:-1
@@ -23,9 +20,9 @@ int main(int argc, char** argv) {
 //    Point startPoint(2996.44, -3023.28, 0);
 //    Point endPoint(3111.44, -3003.28, 0);
 
-   /* string xodrPath = "..\\data\\Crossing8Course.xodr";
-    Point startPoint(21.86, -26.1, 0);
-    Point endPoint(68.03, 77.12, 0);*/
+//    string xodrPath = "..\\data\\Crossing8Course.xodr";
+//    Point startPoint(21.86, -26.1, 0);
+//    Point endPoint(68.03, 77.12, 0);
 
 //    string xodrPath = "..\\data\\CAexample.xodr";
 //    Point startPoint(634.46, 594.85, 0);
@@ -43,8 +40,8 @@ int main(int argc, char** argv) {
 
 
     //经纬度获取测试
-   /* posInfoManager.GetGeographicCoordinate();
-    cout << "Longitude and latitude over..." << endl;*/
+//    posInfoManager.GetGeographicCoordinate();
+//    cout << "Longitude and latitude over..." << endl;
     //posInfoManager.ProjTest();
 
     //posInfoManager.GetGuidePaths(rangeRamp);
@@ -80,11 +77,7 @@ int main(int argc, char** argv) {
 
 //    //长安相关测试
 
-    /*GuidePaths guidePathsRange;
-    GuidePaths guidePathsEndPoint;
-    guidePathsRange = posInfoManager.GetRoads(range,guidePathsRange);
-    guidePathsEndPoint = posInfoManager.GetRoads(guidePathsEndPoint);
-*/
+
       //动态信息获取
     DynamicMap dynamicMap;
 
@@ -112,8 +105,8 @@ int main(int argc, char** argv) {
     dynamicMap.GetCAPathPlanningOut(posInfoManager, guidePathsEndPoint, guidePathsEndPointAdded);*/
 
     CADynamicHDMapErc dynamicHdMapErc;
-    //dynamicHdMapErc = dynamicMap.GetCADynamicHDMapErc(posInfoManager, guidePathsRange, guidePathsRangeAdded, guidePathsEndPoint, guidePathsEndPointAdded);
-    // cout << " GetCADynamicHDMapErc over ... " << endl;
+    dynamicHdMapErc = dynamicMap.GetCADynamicHDMapErc(posInfoManager, guidePathsRange, guidePathsRangeAdded, guidePathsEndPoint, guidePathsEndPointAdded);
+     cout << " GetCADynamicHDMapErc over ... " << endl;
 
 
 
@@ -124,7 +117,7 @@ int main(int argc, char** argv) {
     //vector<CALink> caLinks;
     CAStaticHDMapErc caStaticHdMapErc;
     //caLinks = staticMap.GetCALink(posInfoManager, guidePathsEndPoint);
-    //caStaticHdMapErc = staticMap.GetCAStaticHDMapErc(posInfoManager, guidePathsEndPoint);
+    caStaticHdMapErc = staticMap.GetCAStaticHDMapErc(posInfoManager, guidePathsEndPoint);
 
 
 //

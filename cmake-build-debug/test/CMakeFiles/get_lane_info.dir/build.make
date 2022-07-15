@@ -131,42 +131,12 @@ test/CMakeFiles/get_lane_info.dir/__/src/staticMessage.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/get_lane_info.dir/__/src/staticMessage.cpp.s"
 	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\MCworkspace\odrParser\src\staticMessage.cpp -o CMakeFiles\get_lane_info.dir\__\src\staticMessage.cpp.s
 
-test/CMakeFiles/get_lane_info.dir/__/src/jinx/DataOperation.cpp.obj: test/CMakeFiles/get_lane_info.dir/flags.make
-test/CMakeFiles/get_lane_info.dir/__/src/jinx/DataOperation.cpp.obj: test/CMakeFiles/get_lane_info.dir/includes_CXX.rsp
-test/CMakeFiles/get_lane_info.dir/__/src/jinx/DataOperation.cpp.obj: ../src/jinx/DataOperation.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\MCworkspace\odrParser\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object test/CMakeFiles/get_lane_info.dir/__/src/jinx/DataOperation.cpp.obj"
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\get_lane_info.dir\__\src\jinx\DataOperation.cpp.obj -c D:\MCworkspace\odrParser\src\jinx\DataOperation.cpp
-
-test/CMakeFiles/get_lane_info.dir/__/src/jinx/DataOperation.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/get_lane_info.dir/__/src/jinx/DataOperation.cpp.i"
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\MCworkspace\odrParser\src\jinx\DataOperation.cpp > CMakeFiles\get_lane_info.dir\__\src\jinx\DataOperation.cpp.i
-
-test/CMakeFiles/get_lane_info.dir/__/src/jinx/DataOperation.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/get_lane_info.dir/__/src/jinx/DataOperation.cpp.s"
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\MCworkspace\odrParser\src\jinx\DataOperation.cpp -o CMakeFiles\get_lane_info.dir\__\src\jinx\DataOperation.cpp.s
-
-test/CMakeFiles/get_lane_info.dir/ISimuTest.cpp.obj: test/CMakeFiles/get_lane_info.dir/flags.make
-test/CMakeFiles/get_lane_info.dir/ISimuTest.cpp.obj: test/CMakeFiles/get_lane_info.dir/includes_CXX.rsp
-test/CMakeFiles/get_lane_info.dir/ISimuTest.cpp.obj: ../test/ISimuTest.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\MCworkspace\odrParser\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object test/CMakeFiles/get_lane_info.dir/ISimuTest.cpp.obj"
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\get_lane_info.dir\ISimuTest.cpp.obj -c D:\MCworkspace\odrParser\test\ISimuTest.cpp
-
-test/CMakeFiles/get_lane_info.dir/ISimuTest.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/get_lane_info.dir/ISimuTest.cpp.i"
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\MCworkspace\odrParser\test\ISimuTest.cpp > CMakeFiles\get_lane_info.dir\ISimuTest.cpp.i
-
-test/CMakeFiles/get_lane_info.dir/ISimuTest.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/get_lane_info.dir/ISimuTest.cpp.s"
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\MCworkspace\odrParser\test\ISimuTest.cpp -o CMakeFiles\get_lane_info.dir\ISimuTest.cpp.s
-
 # Object files for target get_lane_info
 get_lane_info_OBJECTS = \
 "CMakeFiles/get_lane_info.dir/getLaneinfo.cpp.obj" \
 "CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.obj" \
 "CMakeFiles/get_lane_info.dir/__/src/dynamicMessage.cpp.obj" \
-"CMakeFiles/get_lane_info.dir/__/src/staticMessage.cpp.obj" \
-"CMakeFiles/get_lane_info.dir/__/src/jinx/DataOperation.cpp.obj" \
-"CMakeFiles/get_lane_info.dir/ISimuTest.cpp.obj"
+"CMakeFiles/get_lane_info.dir/__/src/staticMessage.cpp.obj"
 
 # External object files for target get_lane_info
 get_lane_info_EXTERNAL_OBJECTS =
@@ -175,15 +145,13 @@ get_lane_info_EXTERNAL_OBJECTS =
 ../bin/get_lane_info.exe: test/CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.obj
 ../bin/get_lane_info.exe: test/CMakeFiles/get_lane_info.dir/__/src/dynamicMessage.cpp.obj
 ../bin/get_lane_info.exe: test/CMakeFiles/get_lane_info.dir/__/src/staticMessage.cpp.obj
-../bin/get_lane_info.exe: test/CMakeFiles/get_lane_info.dir/__/src/jinx/DataOperation.cpp.obj
-../bin/get_lane_info.exe: test/CMakeFiles/get_lane_info.dir/ISimuTest.cpp.obj
 ../bin/get_lane_info.exe: test/CMakeFiles/get_lane_info.dir/build.make
-../bin/get_lane_info.exe: ../lib/libProj/libproj_9_1.dll
+../bin/get_lane_info.exe: ../lib/libProj/libproj.dll.a
 ../bin/get_lane_info.exe: ../lib/libProj/libODrive.1.5.5.a
 ../bin/get_lane_info.exe: test/CMakeFiles/get_lane_info.dir/linklibs.rsp
 ../bin/get_lane_info.exe: test/CMakeFiles/get_lane_info.dir/objects1.rsp
 ../bin/get_lane_info.exe: test/CMakeFiles/get_lane_info.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\MCworkspace\odrParser\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable ..\..\bin\get_lane_info.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\MCworkspace\odrParser\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable ..\..\bin\get_lane_info.exe"
 	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\get_lane_info.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

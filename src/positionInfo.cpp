@@ -8,29 +8,24 @@
 #include "OdrManager.hh"
 #include "OdrManagerLite.hh"
 #include "OdrProjection.hh"
-#include "BaseNodes/OdrNode.hh"
-#include "BaseNodes/OdrRoadHeader.hh"
-#include "BaseNodes/OdrLane.hh"
-#include "BaseNodes/OdrLaneSection.hh"
-#include "BaseNodes/OdrGeoHeader.hh"
 #include "BaseNodes/OdrTunnel.hh"
 #include "BaseNodes/OdrLaneWidth.hh"
 #include "BaseNodes/OdrHeader.hh"
 #include "AdditionNodes/OdrReaderXML.hh"
-#include "BaseNodes/OdrGeoReference.hh"
 #include "BaseNodes/OdrRoadData.hh"
 #include "OdrCoord.hh"
 #include "tinyxml2.h"
 #include <iostream>
 #include <vector>
-#include <numeric>
-#include "AdditionNodes/OdrRoadQuery.hh"
 
 
 
 using namespace std;
 using namespace OpenDrive;
 using namespace tinyxml2;
+
+const double EPS = 1e-8;
+const char *OdrGeoReference = "+proj=utm +zone=32 +datum=WGS84";
 
 GetPositionInfo::GetPositionInfo() {}
 
@@ -88,7 +83,7 @@ bool GetPositionInfo::InitialPosition(Point point, OdrManager& manager){
     manager.activatePosition(pos);
     manager.setInertialPos(point.x, point.y, point.z);
     bool result = manager.inertial2lane();
-    //cout << "resultInertial2lane: " << result << endl;
+    cout << "resultInertial2lane: " << result << endl;
     if (result){
         if (!manager.getRoadHeader()) return false;
         if (!manager.getLane()) return false;
@@ -341,8 +336,6 @@ pair<int,int> GetPositionInfo::TraversalLane(Lane *tempLane)
     {
         tempLane = (Lane *)(tempLane->getRight());
         currentLane = tempLane;
-        cout<<"currentLaneid"<<currentLane->mId<<endl;
-        cout<<"currentLanetype"<<currentLane->getType()<<endl;
         if(ODR_LANE_TYPE_ENTRY == currentLane->getType() || ODR_LANE_TYPE_EXIT == currentLane->getType()
            || ODR_LANE_TYPE_ON_RAMP == currentLane->getType()|| ODR_LANE_TYPE_OFF_RAMP == currentLane->getType()
            || ODR_LANE_TYPE_CONNECTING_RAMP== currentLane->getType())
@@ -1098,11 +1091,10 @@ vector<pair<int, RoadHeader* >> GetPositionInfo::GetLastPaths(const Point &start
         //roads.push_back(tempRoad);;
         iter ++;
     }
-
     return lastPaths;
 }
 
-CASpecialArea &GetPositionInfo::TraversalSpecialAreaInCurrentRoad(const string keyWord, CASpecialArea &specialArea){
+CASpecialArea GetPositionInfo::TraversalSpecialAreaInCurrentRoad(const string keyWord, CASpecialArea &specialArea){
     Object* tempObject = myPosInfo.road->getFirstObject();
     int status = 0;
     double objectS = 0;
@@ -1150,10 +1142,11 @@ CASpecialArea &GetPositionInfo::TraversalSpecialAreaInCurrentRoad(const string k
         }
         return specialArea;
     }
+    return specialArea;
 }
 
 //在下一个road开始遍历，若有则都为入口
-CASpecialArea &GetPositionInfo::TraversalSpecialAreaInRoad(RoadHeader *tempRoad, Object* tempObject, const string keyWord,
+CASpecialArea GetPositionInfo::TraversalSpecialAreaInRoad(RoadHeader *tempRoad, Object* tempObject, const string keyWord,
                                                          const int dir, CASpecialArea &specialArea) {
     tempObject = tempRoad->getFirstObject();
     while(tempObject != NULL){
@@ -1720,8 +1713,7 @@ bool GetPositionInfo::GetGeographicCoordinate(PJ_COORD &coord) {
     C = proj_context_create();
 
     //"+proj=longlat +ellps=GRS80 +no_defs" = "EPSG:4326"
-    P = proj_create_crs_to_crs (C, targetProj,"+proj=utm +zone=32 +datum=WGS84", NULL);
-
+    P = proj_create_crs_to_crs (C, targetProj,OdrGeoReference, NULL);
     if (0 == P) {
         cout << "Failed to create transformation object." << stderr << endl;
         return false;
@@ -1763,7 +1755,7 @@ bool GetPositionInfo::GetGeographicCoordinate(PJ_COORD &coord, char *targetProj)
     C = proj_context_create();
 
     //"+proj=longlat +ellps=GRS80 +no_defs" = "EPSG:4326"
-    P = proj_create_crs_to_crs (C, targetProj,"+proj=utm +zone=32 +datum=WGS84", NULL);
+    P = proj_create_crs_to_crs (C, targetProj,OdrGeoReference, NULL);
 
     if (0 == P) {
         cout << "Failed to create transformation object." << stderr << endl;
