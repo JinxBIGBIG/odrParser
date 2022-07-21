@@ -37,8 +37,8 @@
 					<DistClean command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="get_IEval">
-				<Option output="D:/MCworkspace/odrParser/bin/get_IEval.exe" prefix_auto="0" extension_auto="0"/>
+			<Target title="get_ISim">
+				<Option output="D:/MCworkspace/odrParser/bin/get_ISim.exe" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="D:/MCworkspace/odrParser/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -54,14 +54,14 @@
 					<Add directory="D:/Program Files/mingw6481/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 get_IEval"/>
+					<Build command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 get_ISim"/>
 					<CompileFile command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="get_IEval/fast">
-				<Option output="D:/MCworkspace/odrParser/bin/get_IEval.exe" prefix_auto="0" extension_auto="0"/>
+			<Target title="get_ISim/fast">
+				<Option output="D:/MCworkspace/odrParser/bin/get_ISim.exe" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="D:/MCworkspace/odrParser/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -77,7 +77,7 @@
 					<Add directory="D:/Program Files/mingw6481/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 get_IEval/fast"/>
+					<Build command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 get_ISim/fast"/>
 					<CompileFile command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="D:/Program Files/mingw6481/bin/mingw32-make.exe -f &quot;D:/MCworkspace/odrParser/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
@@ -85,13 +85,16 @@
 			</Target>
 		</Build>
 		<Unit filename="D:/MCworkspace/odrParser/src/customParse/ShareMessage.cpp">
-			<Option target="get_IEval"/>
+			<Option target="get_ISim"/>
+		</Unit>
+		<Unit filename="D:/MCworkspace/odrParser/src/jinx/DataOperation.cpp">
+			<Option target="get_ISim"/>
 		</Unit>
 		<Unit filename="D:/MCworkspace/odrParser/src/positionInfo.cpp">
-			<Option target="get_IEval"/>
+			<Option target="get_ISim"/>
 		</Unit>
-		<Unit filename="D:/MCworkspace/odrParser/test/IEvalTest.cpp">
-			<Option target="get_IEval"/>
+		<Unit filename="D:/MCworkspace/odrParser/test/ISimTest.cpp">
+			<Option target="get_ISim"/>
 		</Unit>
 		<Unit filename="D:/MCworkspace/odrParser/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>

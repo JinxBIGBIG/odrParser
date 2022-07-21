@@ -2,9 +2,9 @@ file(REMOVE_RECURSE
   "../../bin/get_lane_info.exe"
   "../../bin/get_lane_info.exe.manifest"
   "../../bin/get_lane_info.pdb"
-  "CMakeFiles/get_lane_info.dir/__/src/dynamicMessage.cpp.obj"
+  "CMakeFiles/get_lane_info.dir/__/src/CA/dynamicMessage.cpp.obj"
+  "CMakeFiles/get_lane_info.dir/__/src/CA/staticMessage.cpp.obj"
   "CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.obj"
-  "CMakeFiles/get_lane_info.dir/__/src/staticMessage.cpp.obj"
   "CMakeFiles/get_lane_info.dir/getLaneinfo.cpp.obj"
   "libget_lane_info.dll.a"
 )

@@ -19,7 +19,6 @@
 #include <vector>
 
 
-
 using namespace std;
 using namespace OpenDrive;
 using namespace tinyxml2;
@@ -66,7 +65,19 @@ GetPositionInfo::GetPositionInfo(OpenDrive::OdrManager &manager, std::string &xo
     }
 }
 
+GetPositionInfo::GetPositionInfo(OdrManager &manager, string &xodrPath, Point &startPoint, PositionInfo &posInfo) {
+    myManager = manager;
+    myXodrPath = xodrPath;
+    myPoint = startPoint;
+    myKeyWords = {"tunnel","toll" ,"construction"};
 
+    bool result = InitialPosition(startPoint, myManager);
+    if(result){
+        myPosInfo = GetInertialPosInfo(myManager, posInfo);
+    } else{
+        myPosInfo = posInfo;
+    }
+}
 
 bool GetPositionInfo::InitXodr()
 {
@@ -826,10 +837,10 @@ vector<int> GetPositionInfo::GetNextRoadLaneIDs(int formerLaneID, RoadHeader* ne
 
 vector<pair<int, int >> GetPositionInfo::AddJuncLane2GuidePaths(vector<pair<int, int>> &inputPaths, vector<pair<int, int>> &guidePaths)
 {
-    //RoadHeader *tempRoad = myPosInfo.road;
-    myManager.setLanePos(inputPaths.at(0).second, inputPaths.at(0).first, 0, 0);
+    RoadHeader *tempRoad = myPosInfo.road;
+    /*myManager.setLanePos(inputPaths.at(0).second, inputPaths.at(0).first, 0, 0);
     myManager.track2inertial();
-    RoadHeader *tempRoad = myManager.getRoadHeader();
+    RoadHeader *tempRoad = myManager.getRoadHeader();*/
     RoadHeader *juncRoadNext;
     JuncHeader *juncHeader;
     JuncLink *juncLink;
@@ -902,12 +913,112 @@ vector<pair<int, int >> GetPositionInfo::AddJuncLane2GuidePaths(vector<pair<int,
     return guidePaths;
 }
 
+vector<PointLaneInfo> GetPositionInfo::AddJuncLane2GuidePaths(vector<PointLaneInfo> &inputPointLaneST, vector<PointLaneInfo> &guidePathsAdded)
+{
+    RoadHeader *tempRoad = myPosInfo.road;
+    /*myManager.setLanePos(inputPaths.at(0).second, inputPaths.at(0).first, 0, 0);
+    myManager.track2inertial();
+    RoadHeader *tempRoad = myManager.getRoadHeader();*/
+    RoadHeader *juncRoadNext;
+    JuncHeader *juncHeader;
+    JuncLink *juncLink;
+    int nextDir;
+    guidePathsAdded.push_back(inputPointLaneST.at(0));
+    if (1 == inputPointLaneST.size())
+        return guidePathsAdded;
+    //只需要找到倒数第二个判断后继是否为junction
+    vector<int> nextRoadLaneId;
+    vector<int>::iterator iter;
+    PointLaneInfo pointLaneInfo;
+    int iterRoad = 0;
+    int i = 0;
+    while(i < inputPointLaneST.size() - 1)
+    {
+
+        //更新i,此处若roadID相同，直接存入；不同，则进入下一次循环
+        for(int j = iterRoad; j < inputPointLaneST.size(); j++){
+            if(inputPointLaneST.at(i).roadID != inputPointLaneST.at(j).roadID)
+            {
+                myManager.setLanePos(inputPointLaneST.at(j).laneID, inputPointLaneST.at(j).roadID, 0, 0);
+                myManager.track2inertial();
+                tempRoad = myManager.getRoadHeader();
+                i = j;
+                iterRoad = j+1;
+                break;
+            }
+            else{
+                guidePathsAdded.push_back(inputPointLaneST.at(j));
+                i = j;
+            }
+        }
+
+        if (i == inputPointLaneST.size()-1) return guidePathsAdded;
+        //均同向,后续若需要考虑反向则改为前驱
+        nextDir = inputPointLaneST.at(i).laneID;
+        if(nextDir <= 0)
+        {
+            if((!tempRoad->getSuccessor()) && tempRoad->getSuccessor(1))
+            {
+                tempRoad = tempRoad->getSuccessor(1);
+                juncHeader = dynamic_cast<JuncHeader *>(tempRoad->getJunction());
+                juncLink = juncHeader->getFirstLink();
+                while(juncLink != NULL)
+                {
+                    juncRoadNext = juncLink->mConnectingRoad->getSuccessor();
+                    nextDir = juncLink->mConnectingRoad->getSuccessorDir();
+                    if(juncLink->mIncomingRoad->getId() == inputPointLaneST.at(i).roadID && inputPointLaneST.at( i+1 ).roadID == juncRoadNext->getId())
+                    {
+                        nextRoadLaneId = GetNextRoadLaneIDs(inputPointLaneST.at(i).laneID, juncLink->mConnectingRoad, nextRoadLaneId);
+                        pointLaneInfo.roadID = juncLink->mConnectingRoad->mId;
+                        pointLaneInfo.juncID = juncLink->mConnectingRoad->getJunctionNo();
+                        //myManager.setLanePos(juncLink->mConnectingRoad->mId, nextRoadLaneId.at(0), 0, 0);
+                        for(iter = nextRoadLaneId.begin(); iter != nextRoadLaneId.end(); iter++){
+                            pointLaneInfo.laneID = *iter;
+                            guidePathsAdded.push_back(pointLaneInfo);
+                        }
+
+                        break;
+                    }
+                    juncLink = dynamic_cast<JuncLink *>(juncLink->getRight());
+                }
+            } else{
+                nextDir = tempRoad->getSuccessorDir();
+            }
+        }
+        else{
+            if((!tempRoad->getPredecessor()) && tempRoad->getPredecessor(1))
+            {
+                tempRoad = tempRoad->getPredecessor(1);
+                juncHeader = dynamic_cast<JuncHeader *>(tempRoad->getJunction());
+                juncLink = juncHeader->getFirstLink();
+                while(juncLink != NULL)
+                {
+                    juncRoadNext = juncLink->mConnectingRoad->getSuccessor();
+                    nextDir = juncLink->mConnectingRoad->getSuccessorDir();
+                    if(juncLink->mIncomingRoad->getId() == inputPointLaneST.at(i).roadID && inputPointLaneST.at( i+1 ).roadID == juncRoadNext->getId())
+                    {
+                        nextRoadLaneId = GetNextRoadLaneIDs(inputPointLaneST.at(i).laneID, juncLink->mConnectingRoad, nextRoadLaneId);
+                        pointLaneInfo.roadID = juncLink->mConnectingRoad->mId;
+                        pointLaneInfo.juncID = juncLink->mConnectingRoad->getJunctionNo();
+                        for(iter = nextRoadLaneId.begin(); iter != nextRoadLaneId.end(); iter++){
+                            pointLaneInfo.laneID = *iter;
+                            guidePathsAdded.push_back(pointLaneInfo);
+                        }
+                        break;
+                    }
+                    juncLink = dynamic_cast<JuncLink *>(juncLink->getRight());
+                }
+            } else{
+                nextDir = tempRoad->getPredecessorDir();
+            }
+        }
+    }
+    return guidePathsAdded;
+}
+
 vector<pair<int, RoadHeader* >> GetPositionInfo::AddJuncRoad2GuidePaths(vector<pair<int, int>> &inputPaths, GuidePaths &guidePaths)
 {
-    //RoadHeader *tempRoad = myPosInfo.road;
-    myManager.setLanePos(inputPaths.at(0).second, inputPaths.at(0).first, 0, 0);
-    myManager.track2inertial();
-    RoadHeader *tempRoad = myManager.getRoadHeader();
+    RoadHeader *tempRoad = myPosInfo.road;
     RoadHeader *juncRoadNext;
     JuncHeader *juncHeader;
     JuncLink *juncLink;
@@ -2166,8 +2277,6 @@ tuple<int,int,double,LaneSection*> GetPositionInfo::TraversalRoad(RoadHeader *te
 }
 
 
-
-
 static int RangeStatus(const string currentRamp){
     const string stringOnRamp = "on_ramp";
     const string stringOffRamp = "off_ramp";
@@ -2191,10 +2300,88 @@ static int RangeStatus(const string currentRamp){
 
 
 
+vector<PointLaneInfo> GetPositionInfo::GetPointLaneInfo(vector<Point> &inputPoints, vector<PointLaneInfo> &inputPointLaneInfo){
+    PointLaneInfo pointInfo;
+    int laneID = myPosInfo.laneId;
+    int roadID = myPosInfo.roadId;
+    int juncID = myPosInfo.junctionId;
+    double sectionS = myPosInfo.sectionS;
+    double sectionE = myPosInfo.section->mSEnd;
+    myManager.setTrackPos(myPosInfo.trackS, myPosInfo.trackT);
+    myManager.track2curvature();
+    double curve = myManager.getLaneCurvature();
+    if(0 != curve) curve = 1;
+    inputPointLaneInfo.push_back({inputPoints.at(0), laneID, roadID, juncID, curve, sectionS, sectionE, myPosInfo.trackT});
+    for(int i = 1; i < inputPoints.size(); i++){
+        myManager.setInertialPos(inputPoints.at(i).x, inputPoints.at(i).y, inputPoints.at(i).z);
+        myManager.inertial2lane();
+        pointInfo.point = inputPoints.at(i);
+        pointInfo.laneID = myManager.getLane()->mId;
+        pointInfo.roadID = myManager.getRoadHeader()->mId;
+        pointInfo.juncID = myManager.getJunctionId();
+        pointInfo.sectionStart = myManager.getLaneSection()->mS;
+        myManager.track2curvature();
+        //待验证上方getCurvature();
+        pointInfo.curve = myManager.getLaneCurvature();
+        if(0 != pointInfo.curve) pointInfo.curve = 1;
+        pointInfo.sectionEnd = myManager.getLaneSection()->mSEnd;
+        pointInfo.t = myManager.getTrackPos().getT();
 
+        inputPointLaneInfo.push_back(pointInfo);
+        //update
+        laneID = pointInfo.laneID;
+        roadID = pointInfo.roadID;
+        sectionS = pointInfo.sectionStart;
+        /*if(laneID == pointInfo.laneID && roadID == pointInfo.roadID && sectionS == myManager.getLaneSection()->mS)
+            continue;
+        else{}*/
+    }
+    return inputPointLaneInfo;
+}
 
+Point GetPositionInfo::GetMiddlePointCoord(Point &pointStart, Point &pointEnd, Point &pointMid){
+    return pointMid = {(pointStart.x + pointEnd.x)/2, (pointStart.y + pointEnd.y)/2, 0 };
+}
 
+void GetPositionInfo::GetDetailedTrailPoints(vector<Point> &inputPoints, vector<Point> &detailedPoints){
+    int laneID = myPosInfo.laneId;
+    int roadID = myPosInfo.roadId;
+    double sectionS = myPosInfo.sectionS;
+    double sectionE = myPosInfo.section->mSEnd;
+    myManager.track2curvature();
+    int curve = 0;
+    if(0 != myManager.getCurvature()) curve = 1;
+    Point point = inputPoints.at(0);
+    detailedPoints.push_back(point);
+    for(int i = 1; i < inputPoints.size(); i++){
+        myManager.setInertialPos(inputPoints.at(i).x, inputPoints.at(i).y, inputPoints.at(i).z);
+        myManager.inertial2lane();
+        int nextLaneID = myManager.getLane()->mId;
+        int nextRoadID = myManager.getRoadHeader()->mId;
+        int nextSectionS = myManager.getLaneSection()->mS;
+        int nextCurve = 0;
+        myManager.track2curvature();
+        if(0 != myManager.getCurvature()) nextCurve = 1;
 
+        //同laneSection同lane，不需要处理
+        if(laneID == nextLaneID && roadID == nextRoadID && sectionS == nextSectionS)
+        {
+            //两个点的曲率都为0
+            if(1 == (curve&nextCurve)) continue;
+            else{
 
+            }
+        }
+        //同laneSection中的变道情况
+        else if(laneID != nextLaneID && roadID == nextRoadID && sectionS == nextSectionS){
+            //两个点曲率都为0的情况变道，直接取中点
+            if(1 == (curve&nextCurve)){
+                point = GetMiddlePointCoord(inputPoints.at(i-1), inputPoints.at(i), point);
+                inputPoints.push_back(point);
+                inputPoints.push_back(inputPoints.at(i));
+            }
 
+        }
 
+    }
+}

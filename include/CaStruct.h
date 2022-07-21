@@ -110,7 +110,7 @@ struct CALaneConnectivityInfo
 struct CALaneAttribute{
     int index = -1;   //车道索引
     int type= 0;  // 车道类型 ，，不确定
-    struct CASpeedLimit speedLimit ;  //车道限速
+    CASpeedLimit speedLimit ;  //车道限速
     int leftIndex = 0;  //左车道线索引
     int centerIndex = 0;  //中心线索引
     int rightIndex = 0;   //右车道线索引

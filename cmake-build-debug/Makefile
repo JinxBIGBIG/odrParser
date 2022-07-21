@@ -129,17 +129,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named get_IEval
+# Target rules for targets named get_ISim
 
 # Build rule for target.
-get_IEval: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 get_IEval
-.PHONY : get_IEval
+get_ISim: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 get_ISim
+.PHONY : get_ISim
 
 # fast build rule for target.
-get_IEval/fast:
-	$(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_IEval.dir\build.make test/CMakeFiles/get_IEval.dir/build
-.PHONY : get_IEval/fast
+get_ISim/fast:
+	$(MAKE) $(MAKESILENT) -f test\CMakeFiles\get_ISim.dir\build.make test/CMakeFiles/get_ISim.dir/build
+.PHONY : get_ISim/fast
 
 # Help Target
 help:
@@ -149,7 +149,7 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... get_IEval
+	@echo ... get_ISim
 .PHONY : help
 
 

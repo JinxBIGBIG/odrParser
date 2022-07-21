@@ -32,11 +32,11 @@ int main(int argc, char** argv) {
 ////    Point startPoint(1120.4, 591.41, 0);
 //    Point endPoint(1238.77, 584.29, 0);
 
-    double range = 2000;
+    double step = 5;
 
     PositionInfo posInfo;
 
-    GetPositionInfo posInfoManager(manager, xodrPath, startPoint, range, posInfo);
+    GetPositionInfo posInfoManager(manager, xodrPath, startPoint,posInfo);
 
     vector<Point> inputPoints = {{5915.00, -2937.76, 0}, {6031.85, -3539.57, 0}};
 
@@ -48,6 +48,14 @@ int main(int argc, char** argv) {
         cout << "laneId: " << guidePathsAdded.at(i).first;
         cout << " ;roadId: " << guidePathsAdded.at(i).second << endl;
     }
+
+
+    vector<PointLaneInfo> guidePathPoint;
+    guidePathPoint = posInfoManager.GetPointLaneInfo(inputPoints, guidePathPoint);
+    vector<PointLaneInfo> guidePathPointAdded;
+    guidePathPointAdded = posInfoManager.AddJuncLane2GuidePaths(guidePathPoint, guidePathPointAdded);
+    vector<Point> detailedPoint;
+    shareMessage.GetLineAndCurLinePoint(posInfoManager, step, guidePathPointAdded, detailedPoint);
 
 
     return 0;

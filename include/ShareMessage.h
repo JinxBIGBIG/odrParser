@@ -6,15 +6,8 @@
 #define ODRPARSER_SHAREMESSAGE_H
 
 #include "positionInfo.h"
+#include "IStruct.h"
 #include <iostream>
-struct IEvalSignal{
-    int id;
-    double s;
-    double t;
-    int type;
-    int roadID;
-    std::vector<int> laneIDs;
-};
 
 class ShareMessage {
 
@@ -32,11 +25,19 @@ public:
     void GetSignals(GetPositionInfo &getPosInfo);
 
 
+    std::vector<Point>
+    GetPointInSection(GetPositionInfo &getPosInfo, double curve, int indexEnd, int iterInSectionInner, double step,
+                      std::vector<PointLaneInfo> &inputPointLaneST, Point &point, std::vector<Point> &detailedPoints);
 
+    std::vector<Point>
+    GetPointInSectionJunc(GetPositionInfo &getPosInfo, OpenDrive::GeoHeader *geo, int iterInRoad, double tempT,
+                          double step,
+                          std::vector<PointLaneInfo> &inputPointLaneST, Point &point,
+                          std::vector<Point> &detailedPoints);
 
-
-
-
+    void
+    GetLineAndCurLinePoint(GetPositionInfo &getPosInfo, double step, std::vector<PointLaneInfo> &inputPointLaneInfo,
+                           std::vector<Point> &detailedPoints);
 };
 
 

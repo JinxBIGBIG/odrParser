@@ -103,48 +103,48 @@ test/CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.s"
 	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\MCworkspace\odrParser\src\positionInfo.cpp -o CMakeFiles\get_lane_info.dir\__\src\positionInfo.cpp.s
 
-test/CMakeFiles/get_lane_info.dir/__/src/dynamicMessage.cpp.obj: test/CMakeFiles/get_lane_info.dir/flags.make
-test/CMakeFiles/get_lane_info.dir/__/src/dynamicMessage.cpp.obj: test/CMakeFiles/get_lane_info.dir/includes_CXX.rsp
-test/CMakeFiles/get_lane_info.dir/__/src/dynamicMessage.cpp.obj: ../src/dynamicMessage.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\MCworkspace\odrParser\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object test/CMakeFiles/get_lane_info.dir/__/src/dynamicMessage.cpp.obj"
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\get_lane_info.dir\__\src\dynamicMessage.cpp.obj -c D:\MCworkspace\odrParser\src\dynamicMessage.cpp
+test/CMakeFiles/get_lane_info.dir/__/src/CA/dynamicMessage.cpp.obj: test/CMakeFiles/get_lane_info.dir/flags.make
+test/CMakeFiles/get_lane_info.dir/__/src/CA/dynamicMessage.cpp.obj: test/CMakeFiles/get_lane_info.dir/includes_CXX.rsp
+test/CMakeFiles/get_lane_info.dir/__/src/CA/dynamicMessage.cpp.obj: ../src/CA/dynamicMessage.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\MCworkspace\odrParser\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object test/CMakeFiles/get_lane_info.dir/__/src/CA/dynamicMessage.cpp.obj"
+	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\get_lane_info.dir\__\src\CA\dynamicMessage.cpp.obj -c D:\MCworkspace\odrParser\src\CA\dynamicMessage.cpp
 
-test/CMakeFiles/get_lane_info.dir/__/src/dynamicMessage.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/get_lane_info.dir/__/src/dynamicMessage.cpp.i"
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\MCworkspace\odrParser\src\dynamicMessage.cpp > CMakeFiles\get_lane_info.dir\__\src\dynamicMessage.cpp.i
+test/CMakeFiles/get_lane_info.dir/__/src/CA/dynamicMessage.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/get_lane_info.dir/__/src/CA/dynamicMessage.cpp.i"
+	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\MCworkspace\odrParser\src\CA\dynamicMessage.cpp > CMakeFiles\get_lane_info.dir\__\src\CA\dynamicMessage.cpp.i
 
-test/CMakeFiles/get_lane_info.dir/__/src/dynamicMessage.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/get_lane_info.dir/__/src/dynamicMessage.cpp.s"
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\MCworkspace\odrParser\src\dynamicMessage.cpp -o CMakeFiles\get_lane_info.dir\__\src\dynamicMessage.cpp.s
+test/CMakeFiles/get_lane_info.dir/__/src/CA/dynamicMessage.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/get_lane_info.dir/__/src/CA/dynamicMessage.cpp.s"
+	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\MCworkspace\odrParser\src\CA\dynamicMessage.cpp -o CMakeFiles\get_lane_info.dir\__\src\CA\dynamicMessage.cpp.s
 
-test/CMakeFiles/get_lane_info.dir/__/src/staticMessage.cpp.obj: test/CMakeFiles/get_lane_info.dir/flags.make
-test/CMakeFiles/get_lane_info.dir/__/src/staticMessage.cpp.obj: test/CMakeFiles/get_lane_info.dir/includes_CXX.rsp
-test/CMakeFiles/get_lane_info.dir/__/src/staticMessage.cpp.obj: ../src/staticMessage.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\MCworkspace\odrParser\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object test/CMakeFiles/get_lane_info.dir/__/src/staticMessage.cpp.obj"
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\get_lane_info.dir\__\src\staticMessage.cpp.obj -c D:\MCworkspace\odrParser\src\staticMessage.cpp
+test/CMakeFiles/get_lane_info.dir/__/src/CA/staticMessage.cpp.obj: test/CMakeFiles/get_lane_info.dir/flags.make
+test/CMakeFiles/get_lane_info.dir/__/src/CA/staticMessage.cpp.obj: test/CMakeFiles/get_lane_info.dir/includes_CXX.rsp
+test/CMakeFiles/get_lane_info.dir/__/src/CA/staticMessage.cpp.obj: ../src/CA/staticMessage.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\MCworkspace\odrParser\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object test/CMakeFiles/get_lane_info.dir/__/src/CA/staticMessage.cpp.obj"
+	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\get_lane_info.dir\__\src\CA\staticMessage.cpp.obj -c D:\MCworkspace\odrParser\src\CA\staticMessage.cpp
 
-test/CMakeFiles/get_lane_info.dir/__/src/staticMessage.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/get_lane_info.dir/__/src/staticMessage.cpp.i"
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\MCworkspace\odrParser\src\staticMessage.cpp > CMakeFiles\get_lane_info.dir\__\src\staticMessage.cpp.i
+test/CMakeFiles/get_lane_info.dir/__/src/CA/staticMessage.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/get_lane_info.dir/__/src/CA/staticMessage.cpp.i"
+	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\MCworkspace\odrParser\src\CA\staticMessage.cpp > CMakeFiles\get_lane_info.dir\__\src\CA\staticMessage.cpp.i
 
-test/CMakeFiles/get_lane_info.dir/__/src/staticMessage.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/get_lane_info.dir/__/src/staticMessage.cpp.s"
-	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\MCworkspace\odrParser\src\staticMessage.cpp -o CMakeFiles\get_lane_info.dir\__\src\staticMessage.cpp.s
+test/CMakeFiles/get_lane_info.dir/__/src/CA/staticMessage.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/get_lane_info.dir/__/src/CA/staticMessage.cpp.s"
+	cd /d D:\MCworkspace\odrParser\cmake-build-debug\test && "D:\Program Files\mingw6481\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\MCworkspace\odrParser\src\CA\staticMessage.cpp -o CMakeFiles\get_lane_info.dir\__\src\CA\staticMessage.cpp.s
 
 # Object files for target get_lane_info
 get_lane_info_OBJECTS = \
 "CMakeFiles/get_lane_info.dir/getLaneinfo.cpp.obj" \
 "CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.obj" \
-"CMakeFiles/get_lane_info.dir/__/src/dynamicMessage.cpp.obj" \
-"CMakeFiles/get_lane_info.dir/__/src/staticMessage.cpp.obj"
+"CMakeFiles/get_lane_info.dir/__/src/CA/dynamicMessage.cpp.obj" \
+"CMakeFiles/get_lane_info.dir/__/src/CA/staticMessage.cpp.obj"
 
 # External object files for target get_lane_info
 get_lane_info_EXTERNAL_OBJECTS =
 
 ../bin/get_lane_info.exe: test/CMakeFiles/get_lane_info.dir/getLaneinfo.cpp.obj
 ../bin/get_lane_info.exe: test/CMakeFiles/get_lane_info.dir/__/src/positionInfo.cpp.obj
-../bin/get_lane_info.exe: test/CMakeFiles/get_lane_info.dir/__/src/dynamicMessage.cpp.obj
-../bin/get_lane_info.exe: test/CMakeFiles/get_lane_info.dir/__/src/staticMessage.cpp.obj
+../bin/get_lane_info.exe: test/CMakeFiles/get_lane_info.dir/__/src/CA/dynamicMessage.cpp.obj
+../bin/get_lane_info.exe: test/CMakeFiles/get_lane_info.dir/__/src/CA/staticMessage.cpp.obj
 ../bin/get_lane_info.exe: test/CMakeFiles/get_lane_info.dir/build.make
 ../bin/get_lane_info.exe: ../lib/libProj/libproj.dll.a
 ../bin/get_lane_info.exe: ../lib/libProj/libODrive.1.5.5.a

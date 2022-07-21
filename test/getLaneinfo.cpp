@@ -3,8 +3,8 @@
 //
 #include "OdrManager.hh"
 #include "positionInfo.h"
-#include "staticMessage.h"
-#include "dynamiciMessage.h"
+#include "CA/staticMessage.h"
+#include "CA/dynamiciMessage.h"
 #include <iostream>
 
 using namespace std;

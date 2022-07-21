@@ -32,6 +32,7 @@
 #include "proj.h"
 #include "CaEnum.h"
 #include "CaStruct.h"
+#include "IStruct.h"
 #include <vector>
 #include <math.h>
 #include <algorithm>
@@ -84,6 +85,7 @@ struct Point{
             , y(_y)
             , z(_z)
     {}
+    Point(double a=0, double b=0, double c=0) { x=a; y=b;z=c}
 };
 
 typedef std::vector<std::pair<int, OpenDrive::RoadHeader* >> GuidePaths;
@@ -109,6 +111,8 @@ public:
                     double myRange, PositionInfo &posInfo);
 
     GetPositionInfo(OpenDrive::OdrManager &manager, std::string &xodrPath, Point &myStartPoint, double myRange, PositionInfo &posInfo);
+
+    GetPositionInfo(OpenDrive::OdrManager &manager, std::string &xodrPath, Point &startPoint, PositionInfo &posInfo);
 
     bool InitXodr();
 
@@ -166,6 +170,7 @@ public:
     std::vector<std::pair<int, OpenDrive::RoadHeader* >> AddJuncRoad2GuidePathsWithTwoRoads(GuidePaths guidePaths);
     std::vector<std::pair<int, OpenDrive::RoadHeader* >> AddJuncRoad2GuidePaths(std::vector<std::pair<int, int>> &inputPaths, GuidePaths &guidePaths);
     std::vector<std::pair<int, int >> AddJuncLane2GuidePaths(std::vector<std::pair<int, int>> &inputPaths, std::vector<std::pair<int, int>> &guidePaths);
+    std::vector<PointLaneInfo> AddJuncLane2GuidePaths(std::vector<PointLaneInfo> &inputPaths, std::vector<PointLaneInfo> &guidePaths);
 
     //用此替代验证
     std::vector<std::pair<int, OpenDrive::RoadHeader* >> GetGuidePaths(const int range);
@@ -250,6 +255,14 @@ public:
     Point GetLanePointList(OpenDrive::RoadHeader *road, double s, double t, Point &point, bool InertialGeo);
 
     std::vector<int> GetNextRoadLaneIDs(int laneID, OpenDrive::RoadHeader *nextRoad, std::vector<int> &nextRoadLaneId);
+
+    std::vector<PointLaneInfo> GetPointLaneInfo(std::vector<Point> &inputPoints, std::vector<PointLaneInfo> &inputPointLaneST);
+
+    Point GetMiddlePointCoord(Point &pointStart, Point &pointEnd, Point &pointMid);
+
+
+    void GetDetailedTrailPoints(std::vector<Point> &inputPoints, std::vector<Point> &detailedPoints);
+
 };
 
 #endif //ODRPARSER_POSITIONINFO_H
