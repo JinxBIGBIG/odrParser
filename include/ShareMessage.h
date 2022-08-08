@@ -9,6 +9,7 @@
 #include "IStruct.h"
 #include <iostream>
 
+
 class ShareMessage {
 
 public:
@@ -20,7 +21,10 @@ public:
 
     friend void Print(IEvalSignal &signal);
 
-    friend void operator<<(std::ostream &os, const ShareMessage &shareMessage);
+    friend std::ostream &operator<<(std::ostream &os, const ShareMessage &shareMessage);
+
+    Point &
+    GetInertialPointBySTPos(GetPositionInfo &getPosInfo, double tempS, double tempT, int roadID,  Point &point);
 
     void GetSignals(GetPositionInfo &getPosInfo);
 
@@ -35,9 +39,29 @@ public:
                           std::vector<PointLaneInfo> &inputPointLaneST, Point &point,
                           std::vector<Point> &detailedPoints);
 
+    std::vector<Point>
+    GetPointInRoadWithoutChangeLane(GetPositionInfo &getPosInfo, OpenDrive::GeoHeader *geo, double tempT, double step,
+                                    int roadID, Point &point, std::vector<Point> &detailedPoints);
+
     void
     GetLineAndCurLinePoint(GetPositionInfo &getPosInfo, double step, std::vector<PointLaneInfo> &inputPointLaneInfo,
                            std::vector<Point> &detailedPoints);
+
+    void
+    GetPointPathInRampRoad(GetPositionInfo &getPosInfo, double step, int roadID, int laneID, std::vector<Point> &detailedPoints);
+    void
+    GetPointPathInRampRoadAll(GetPositionInfo &getPosInfo, double step, int roadID, int laneID, std::vector<Point> &detailedPoints);
+    void
+    GetPointPathInRoadLineSpecial(GetPositionInfo &getPosInfo, double step, int roadID, int laneID, std::vector<Point> &detailedPoints);
+
+    void GetPointPathInJunc(GetPositionInfo &getPosInfo, double step, std::vector<Point> &inputPoint,
+                            std::vector<Point> &detailedPoints);
+
+    void GetPointInCommonRoad(GetPositionInfo &getPosInfo, double step, std::vector<Point> &inputPoint,
+                              std::vector<Point> &detailedPoints);
+
+
+
 };
 
 

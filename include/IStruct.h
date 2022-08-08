@@ -15,7 +15,7 @@ struct IEvalSignal{
     int roadID;
     std::vector<int> laneIDs;
 };
-struct Point{
+/*struct Point{
     double x{0.};
     double y{0.};
     double z{0.};
@@ -27,7 +27,8 @@ struct Point{
             , y(_y)
             , z(_z)
     {}
-};
+};*/
+/*
 struct PointLaneInfo{
     Point point;
     int laneID;
@@ -38,5 +39,6 @@ struct PointLaneInfo{
     double sectionEnd;
     double t;
 };
+*/
 
 #endif //ODRPARSER_ISTRUCT_H

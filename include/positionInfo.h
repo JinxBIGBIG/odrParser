@@ -46,8 +46,8 @@ struct PositionInfo {
     double sectionS;
     unsigned int laneType;
     double laneSpeed;
-    double trackS;
-    double trackT;
+    double trackS = 0;
+    double trackT = 0;
     double roadheading;
 
     // evaluationProfile
@@ -85,7 +85,17 @@ struct Point{
             , y(_y)
             , z(_z)
     {}
-    Point(double a=0, double b=0, double c=0) { x=a; y=b;z=c}
+};
+
+struct PointLaneInfo{
+    Point point;
+    int laneID;
+    int roadID;
+    int juncID;
+    double curve;
+    double sectionStart;
+    double sectionEnd;
+    double t;
 };
 
 typedef std::vector<std::pair<int, OpenDrive::RoadHeader* >> GuidePaths;
@@ -107,10 +117,16 @@ public:
 
     GetPositionInfo();
 
-    GetPositionInfo(OpenDrive::OdrManager &manager, std::string &xodrPath, Point &myStartPoint, Point &myEndPoint,
-                    double myRange, PositionInfo &posInfo);
+    GetPositionInfo(OpenDrive::OdrManager &manager, Point &starPoint, PositionInfo &posInfo);
 
-    GetPositionInfo(OpenDrive::OdrManager &manager, std::string &xodrPath, Point &myStartPoint, double myRange, PositionInfo &posInfo);
+    GetPositionInfo(OpenDrive::OdrManager &manager, std::string &xodrPath, Point &startPoint, Point &endPoint,
+                    double range, PositionInfo &posInfo);
+
+    GetPositionInfo(OpenDrive::OdrManager &manager, std::string &xodrPath, Point &startPoint, Point &endPoint,
+                    PositionInfo &posInfo);
+
+
+    GetPositionInfo(OpenDrive::OdrManager &manager, std::string &xodrPath, Point &startPoint, double range, PositionInfo &posInfo);
 
     GetPositionInfo(OpenDrive::OdrManager &manager, std::string &xodrPath, Point &startPoint, PositionInfo &posInfo);
 
@@ -118,13 +134,19 @@ public:
 
     bool InitialPosition(Point point, OpenDrive::OdrManager& manager);
 
+    bool InitialPosition(Point point, OpenDrive::OdrManager& manager, std::string xodrPath);
 
     bool GetInertialPosInfo(Point &point, OpenDrive::OdrManager &manager);
 
+    void Print(const Point &point);
+
+    void Print(const std::vector<Point> &pointS);
 
     //bool GetInertialPosInfo();
 
     PositionInfo GetInertialPosInfo(OpenDrive::OdrManager& manager, PositionInfo &posInfo);
+
+    PositionInfo UpdatePosInfoByRoadLane(int roadID, int laneID);
 
     //获取终点的相关信息并将manager恢复到起点，
     void GetEndPosInfo(Point &point, Point &endPoint, OpenDrive::OdrManager& manager);

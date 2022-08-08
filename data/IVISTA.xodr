@@ -1,6 +1,9 @@
 <?xml version="1.0" standalone="yes"?>
 <OpenDRIVE>
     <header revMajor="1" revMinor="4" name="" version="1.00" date="Sat Jun 25 18:21:00 2022" north="0.0000000000000000e+00" south="0.0000000000000000e+00" east="0.0000000000000000e+00" west="0.0000000000000000e+00">
+        <geoReference>
+            <![CDATA[+proj=longlat +ellps=GRS80 +no_defs]]>
+        </geoReference>
     </header>
     <road name="" length="1.5200000000000009e+03" id="816" junction="-1">
         <link>

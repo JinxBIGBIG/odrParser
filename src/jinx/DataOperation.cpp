@@ -207,7 +207,7 @@ bool DataOperation::CircleInsidePolygon(int vcount,POINT center,double radius,PO
 double DataOperation::cosine(LINESEG l1,LINESEG l2)
 {
     return (((l1.e.x-l1.s.x)*(l2.e.x-l2.s.x) +
-             (l1.e.y-l1.s.y)*(l2.e.y-l2.s.y))/(dist(l1.e,l1.s)*dist(l2.e,l2.s))) );
+             (l1.e.y-l1.s.y)*(l2.e.y-l2.s.y))/(dist(l1.e,l1.s)*dist(l2.e,l2.s)));
 }
 // 返回线段l1与l2之间的夹角 单位：弧度 范围(-pi，pi)
 double DataOperation::lsangle(LINESEG l1,LINESEG l2)

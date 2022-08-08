@@ -28,14 +28,26 @@ const char *OdrGeoReference = "+proj=utm +zone=32 +datum=WGS84";
 
 GetPositionInfo::GetPositionInfo() {}
 
-GetPositionInfo::GetPositionInfo(OpenDrive::OdrManager &manager, std::string &xodrPath, Point &point, double range, PositionInfo &posInfo) {
+GetPositionInfo::GetPositionInfo(OpenDrive::OdrManager &manager, Point &starPoint, PositionInfo &posInfo) {
+    myManager = manager;
+    myPoint = starPoint;
+    bool result = InitialPosition(starPoint, myManager);
+    //cout << "result: " << result << endl;
+   /* if(result){
+        myPosInfo = GetInertialPosInfo(myManager, posInfo);
+    } else{
+        myPosInfo = posInfo;
+    }*/
+}
+
+GetPositionInfo::GetPositionInfo(OpenDrive::OdrManager &manager, std::string &xodrPath, Point &starPoint, double range, PositionInfo &posInfo) {
     myManager = manager;
     myXodrPath = xodrPath;
-    myPoint = point;
+    myPoint = starPoint;
     myRange = range;
     myKeyWords = {"tunnel","toll" ,"construction"};
 
-    bool result = InitialPosition(point, myManager);
+    bool result = InitialPosition(starPoint, myManager, myXodrPath);
     if(result){
         myPosInfo = GetInertialPosInfo(myManager, posInfo);
     } else{
@@ -43,21 +55,42 @@ GetPositionInfo::GetPositionInfo(OpenDrive::OdrManager &manager, std::string &xo
     }
 }
 
-GetPositionInfo::GetPositionInfo(OpenDrive::OdrManager &manager, std::string &xodrPath, Point &point, Point &endPoint,
+GetPositionInfo::GetPositionInfo(OpenDrive::OdrManager &manager, std::string &xodrPath, Point &starPoint, Point &endPoint,
                                  double range, PositionInfo &posInfo) {
     myManager = manager;
     myXodrPath = xodrPath;
-    myPoint = point;
+    myPoint = starPoint;
     myEndPoint = endPoint;
     myRange = range;
     myKeyWords = {"tunnel","toll" ,"construction"};
 
-    bool result = InitialPosition(point, myManager);
+    bool result = InitialPosition(starPoint, myManager, xodrPath);
     if(result){
         myPosInfo = GetInertialPosInfo(myManager, posInfo);
         GetEndPosInfo(myPoint, endPoint,myManager);
         //以下两行非必要，
-        myManager.setInertialPos(point.x, point.y, point.z);
+        myManager.setInertialPos(starPoint.x, starPoint.y, starPoint.z);
+        myManager.inertial2lane();
+    } else{
+        myPosInfo = posInfo;
+        myEndPosInfo = posInfo;
+    }
+}
+
+GetPositionInfo::GetPositionInfo(OpenDrive::OdrManager &manager, std::string &xodrPath, Point &starPoint, Point &endPoint,
+                                 PositionInfo &posInfo) {
+    myManager = manager;
+    myXodrPath = xodrPath;
+    myPoint = starPoint;
+    myEndPoint = endPoint;
+    myKeyWords = {"tunnel", "toll", "construction"};
+
+    bool result = InitialPosition(starPoint, myManager, xodrPath);
+    if(result){
+        myPosInfo = GetInertialPosInfo(myManager, posInfo);
+        GetEndPosInfo(myPoint, endPoint,myManager);
+        //以下两行非必要，
+        myManager.setInertialPos(starPoint.x, starPoint.y, starPoint.z);
         myManager.inertial2lane();
     } else{
         myPosInfo = posInfo;
@@ -71,7 +104,7 @@ GetPositionInfo::GetPositionInfo(OdrManager &manager, string &xodrPath, Point &s
     myPoint = startPoint;
     myKeyWords = {"tunnel","toll" ,"construction"};
 
-    bool result = InitialPosition(startPoint, myManager);
+    bool result = InitialPosition(startPoint, myManager, xodrPath);
     if(result){
         myPosInfo = GetInertialPosInfo(myManager, posInfo);
     } else{
@@ -86,15 +119,12 @@ bool GetPositionInfo::InitXodr()
     return xodrLoad;
 }
 
-
-
 bool GetPositionInfo::InitialPosition(Point point, OdrManager& manager){
-    bool xodrLoad = InitXodr();
     OpenDrive::Position* pos = manager.createPosition();
     manager.activatePosition(pos);
     manager.setInertialPos(point.x, point.y, point.z);
     bool result = manager.inertial2lane();
-    cout << "resultInertial2lane: " << result << endl;
+    //cout << "resultInertial2lane: " << result << endl;
     if (result){
         if (!manager.getRoadHeader()) return false;
         if (!manager.getLane()) return false;
@@ -104,7 +134,44 @@ bool GetPositionInfo::InitialPosition(Point point, OdrManager& manager){
         cout << "Given point is not an road!." << endl;
     }
     return result;
-};
+}
+
+bool GetPositionInfo::InitialPosition(Point point, OdrManager& manager, string xodrPath){
+    bool xodrLoad = manager.loadFile(xodrPath);
+    if(!xodrLoad) return false;
+    OpenDrive::Position* pos = manager.createPosition();
+    manager.activatePosition(pos);
+    manager.setInertialPos(point.x, point.y, point.z);
+    bool result = manager.inertial2lane();
+    //cout << "resultInertial2lane: " << result << endl;
+    if (result){
+        if (!manager.getRoadHeader()) return false;
+        if (!manager.getLane()) return false;
+        if (!manager.getLaneSection()) return false;
+    }
+    else {
+        cout << "Given point is not an road!." << endl;
+    }
+    return result;
+}
+
+/*bool GetPositionInfo::InitialPosition(Point point, OdrManager& manager){
+    bool xodrLoad = InitXodr();
+    OpenDrive::Position* pos = manager.createPosition();
+    manager.activatePosition(pos);
+    manager.setInertialPos(point.x, point.y, point.z);
+    bool result = manager.inertial2lane();
+    //cout << "resultInertial2lane: " << result << endl;
+    if (result){
+        if (!manager.getRoadHeader()) return false;
+        if (!manager.getLane()) return false;
+        if (!manager.getLaneSection()) return false;
+    }
+    else {
+        cout << "Given point is not an road!." << endl;
+    }
+    return result;
+};*/
 
 
 /*bool GetPositionInfo::GetInertialPosInfo() {
@@ -156,6 +223,10 @@ bool GetPositionInfo::InitialPosition(Point point, OdrManager& manager){
 PositionInfo GetPositionInfo::GetInertialPosInfo(OdrManager& manager, PositionInfo &posInfo)
 {
     OpenDrive::RoadHeader* header = manager.getRoadHeader();
+    if(!header) {
+        cout << "The point has no roadHeader!Please reenter an effective point!" << endl;
+        return posInfo;
+    }
     posInfo.roadId = header->getId();
     posInfo.road = header;
     posInfo.roadlength = header->mLength;
@@ -189,8 +260,21 @@ PositionInfo GetPositionInfo::GetInertialPosInfo(OdrManager& manager, PositionIn
     posInfo.ElvmC = posElevation->mC;
     posInfo.ElvmD = posElevation->mD;
 
-    posInfo.geoReference = manager.getGeoReference();
+    if(!manager.getGeoReference().empty())
+        posInfo.geoReference = manager.getGeoReference();
     return posInfo;
+}
+
+PositionInfo GetPositionInfo::UpdatePosInfoByRoadLane(int roadID, int laneID){
+    myManager.setLanePos(1335, -1, 0, 0);
+
+    myManager.lane2track();
+    myManager.track2inertial();
+    myManager.setInertialPos(myManager.getInertialPos().getX(), myManager.getInertialPos().getY(), myManager.getInertialPos().getZ());
+    bool result = myManager.inertial2lane();
+    cout << "result: " << result << endl;
+    myPosInfo = GetInertialPosInfo(myManager, myPosInfo);
+    return myPosInfo;
 }
 void GetPositionInfo::GetEndPosInfo(Point &point, Point &endPoint, OdrManager& manager)
 {
@@ -586,7 +670,7 @@ vector<int>* GetPositionInfo::GetRoadDirs(const Point &endPoint)
 //    endPosInfo = GetInertialPosInfo(endPoint, endManager, endPosInfo);
 //    int endRoadId = endPosInfo.roadId;
     OdrManager endManager;
-    bool endActivate = InitialPosition(endPoint, endManager);
+    bool endActivate = InitialPosition(endPoint, endManager, myXodrPath);
     int endRoadId = endManager.getRoadHeader()->getId();
     RoadHeader* firstRoad = myPosInfo.road;
     RoadHeader* tempRoad = firstRoad->getSuccessor();
@@ -2038,7 +2122,6 @@ bool GetPositionInfo::ProjTest() {
         cout << "Failed to create transformation object." << stderr << endl;
         return 0;
     }//如果P中两个投影的字符串不符合proj定义，提示转换失败
-
     norm = proj_normalize_for_visualization(C, P);//在线程C内使投影目标P和norm拥有相同的坐标格式，此处为经纬度
     if (0 == norm) {
         cout << " Failed to normalize transformation object." << stderr << endl;
@@ -2384,4 +2467,16 @@ void GetPositionInfo::GetDetailedTrailPoints(vector<Point> &inputPoints, vector<
         }
 
     }
+}
+
+void GetPositionInfo::Print(const Point &point){
+    cout << "(" << point.x << ", " << point.y << ", "<< point.z << ")," << endl;
+}
+
+void GetPositionInfo::Print(const vector<Point> &pointS){
+    for(int i = 0; i < pointS.size(); i++){
+        Print(pointS.at(i));
+        //cout << ",";
+    }
+    cout << "Points print over..." << endl;
 }

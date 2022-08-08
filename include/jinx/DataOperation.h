@@ -192,7 +192,7 @@ public:
 
     void AddPosPart(double x, double y, double w, double &xtr, double &ytr, double &wtr);
 
-    void AddNegPart(double x, ouble y, double w, double &xtl, double &ytl, double &wtl);
+    void AddNegPart(double x, double y, double w, double &xtl, double &ytl, double &wtl);
 
     void
     AddRegion(double x1, double y1, double x2, double y2, double &xtr, double &ytr, double &wtr, double &xtl,
